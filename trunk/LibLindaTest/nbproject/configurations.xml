@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="62">
+  <logicalFolder name="root" displayName="root" projectFiles="true">
+    <logicalFolder name="f1" displayName="Commands" projectFiles="true">
+      <itemPath>CommandCreate.cpp</itemPath>
+      <itemPath>CommandCreate.h</itemPath>
+      <itemPath>CommandKill.cpp</itemPath>
+      <itemPath>CommandKill.h</itemPath>
+      <itemPath>CommandStat.cpp</itemPath>
+      <itemPath>CommandStat.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <itemPath>Command.cpp</itemPath>
+    <itemPath>Command.h</itemPath>
+    <itemPath>CommandPipe.cpp</itemPath>
+    <itemPath>CommandPipe.h</itemPath>
+    <itemPath>CommandVisitor.h</itemPath>
+    <itemPath>Pipes.h</itemPath>
+    <itemPath>RegisteredCommand.h</itemPath>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../Linda</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <compilerSet>GNU|GNU</compilerSet>
+        <platform>2</platform>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
