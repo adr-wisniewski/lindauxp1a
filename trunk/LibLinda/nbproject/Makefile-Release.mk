@@ -52,13 +52,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/liblinda.a
+	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libliblinda.a
 
-dist/Release/GNU-Linux-x86/liblinda.a: ${OBJECTFILES}
+dist/Release/GNU-Linux-x86/libliblinda.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${RM} dist/Release/GNU-Linux-x86/liblinda.a
-	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblinda.a ${OBJECTFILES} 
-	$(RANLIB) dist/Release/GNU-Linux-x86/liblinda.a
+	${RM} dist/Release/GNU-Linux-x86/libliblinda.a
+	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblinda.a ${OBJECTFILES} 
+	$(RANLIB) dist/Release/GNU-Linux-x86/libliblinda.a
 
 ${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -76,7 +76,7 @@ ${OBJECTDIR}/Pipe.o: nbproject/Makefile-${CND_CONF}.mk Pipe.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Linux-x86/liblinda.a
+	${RM} dist/Release/GNU-Linux-x86/libliblinda.a
 
 # Subprojects
 .clean-subprojects:
