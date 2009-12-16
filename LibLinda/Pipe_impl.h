@@ -29,14 +29,14 @@ namespace Linda
     }
 
     template<TProduct>
-    void Pipe<TProduct>::Write(TProduct *p)
+    void Pipe<TProduct>::Write(const TProduct &p)
     {
         int size;
 
         // create buffer and serialize object
         std::stringstream stream(std::stringstream::binary | std::stringstream::in);
         stream << size;                        // allocate space for size header
-        p->Serialize(stream);
+        p.Serialize(stream);
 
         // stamp with size
         size = stream.tellg() - sizeof(int);

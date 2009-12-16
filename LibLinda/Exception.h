@@ -18,6 +18,7 @@ namespace Linda
     {
     public:
         Exception(int errno, std::string &prefix);
+        Exception(const char* str);
     };
 }
 

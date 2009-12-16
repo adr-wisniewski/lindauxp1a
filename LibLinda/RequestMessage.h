@@ -12,10 +12,14 @@
 
 namespace Linda
 {
-    class RequestMessage : public Message
+    struct Request_tag
     {
-        
+        // empty tag structure
     };
+
+    typedef Message<Request_tag> RequestMessage;
+
+    typedef Pipe<RequestMessage> RequestPipe;
 }
 
 #endif	/* _REQUESTMESSAGE_H */

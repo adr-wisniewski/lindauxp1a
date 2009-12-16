@@ -5,8 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Exception.h</itemPath>
-      <itemPath>Messages.h</itemPath>
       <itemPath>Pipe.h</itemPath>
+      <itemPath>PipeBase.h</itemPath>
+      <itemPath>Pipe_impl.h</itemPath>
       <itemPath>Query.h</itemPath>
       <itemPath>Tuple.h</itemPath>
     </logicalFolder>
