@@ -18,7 +18,7 @@ namespace Linda
         Pipe();
         Pipe(int readDescriptor, int writeDescriptor);
 
-        void Write(TProduct *p);
+        void Write(const TProduct &p);
         TProduct* Read();
     };
 }

@@ -9,11 +9,16 @@
 #define	_OUTPUTREQUEST_H
 
 #include "RequestMessage.h"
+#include "UnserializableMessage.h"
 #include "Tuple.h"
 
 namespace Linda
 {
-    class OutputRequest : public RequestMessage
+    static const int OutputRequestCode = 2;
+
+    class OutputRequest : 
+        public RequestMessage,
+        private UnserializableMessage<OutputRequest, RequestMessage, OutputRequestCode>
     {
 
     protected:
