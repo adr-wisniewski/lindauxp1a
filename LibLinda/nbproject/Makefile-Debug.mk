@@ -52,13 +52,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/liblinda.a
+	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libliblinda.a
 
-dist/Debug/GNU-Linux-x86/liblinda.a: ${OBJECTFILES}
+dist/Debug/GNU-Linux-x86/libliblinda.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${RM} dist/Debug/GNU-Linux-x86/liblinda.a
-	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblinda.a ${OBJECTFILES} 
-	$(RANLIB) dist/Debug/GNU-Linux-x86/liblinda.a
+	${RM} dist/Debug/GNU-Linux-x86/libliblinda.a
+	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblinda.a ${OBJECTFILES} 
+	$(RANLIB) dist/Debug/GNU-Linux-x86/libliblinda.a
 
 ${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -76,7 +76,7 @@ ${OBJECTDIR}/Pipe.o: nbproject/Makefile-${CND_CONF}.mk Pipe.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/liblinda.a
+	${RM} dist/Debug/GNU-Linux-x86/libliblinda.a
 
 # Subprojects
 .clean-subprojects:
