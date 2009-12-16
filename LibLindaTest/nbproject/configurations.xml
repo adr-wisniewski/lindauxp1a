@@ -33,7 +33,7 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../Linda</pElem>
+            <pElem>../LibLinda</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
