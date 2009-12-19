@@ -1,17 +1,18 @@
 #include "CommandInput.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {
 namespace Test
 {
 
-    /*virtual*/ void CommandInput::DoSerialize(std::ostream &stream)
+    /*virtual*/ void CommandInput::DoSerialize(std::ostream &stream) const
     {
         MessageCommand::DoSerialize(stream);
         mGivenQuery.Serialize(stream);
     }
 
-    /*virtual*/ Message* CommandInput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void CommandInput::DoUnserialize(std::istream &stream)
     {
         MessageCommand::DoUnserialize(stream);
         mGivenQuery.Unserialize(stream);

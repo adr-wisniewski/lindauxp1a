@@ -24,6 +24,8 @@
     <itemPath>MessageResult.h</itemPath>
     <itemPath>ProcessorCommand.h</itemPath>
     <itemPath>ProcessorResult.h</itemPath>
+    <itemPath>ResultBasic.cpp</itemPath>
+    <itemPath>ResultBasic.h</itemPath>
     <itemPath>ResultStat.cpp</itemPath>
     <itemPath>ResultStat.h</itemPath>
   </logicalFolder>

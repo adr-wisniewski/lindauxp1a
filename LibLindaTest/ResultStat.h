@@ -1,5 +1,5 @@
 /* 
- * File:   StatResult.h
+ * File:   ResultStat.h
  * Author: adrian
  *
  * Created on 16 grudzień 2009, 20:28
@@ -9,28 +9,50 @@
 #define	_RESULTSTAT_H
 
 #include "MessageResult.h"
+
+#include <list>
+
 #include <MessageUnserializable.h>
+#include <Tuple.h>
+#include <Query.h>
 
 namespace Linda
 {
     namespace Test
     {
 
-        class StatResult;
+        class ResultStat;
 
-        typedef MessageUnserializable<StatResult, Message<Result_tag>, 2>
-            UnserializableStatResult;
+        typedef MessageUnserializable<ResultStat, MessageResult, 2>
+            UnserializableResultStat;
 
-        class StatResult :
+        class ResultStat :
             public MessageResult,
-            private UnserializableStatResult
+            private UnserializableResultStat
         {
         public:
-            virtual void DoSerialize(std::ostream &stream);
-            virtual Message* DoUnserialize(std::istream &stream);
+            typedef std::pair<std::string, Query> AwaitingRead;
+
+            ResultStat();
+            ResultStat(
+                int ordinal,
+                bool status,
+                std::list<Tuple> storage,
+                std::list<AwaitingRead> awaitingReads
+            );
+
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
 
             virtual int GetCode() const;
-            virtual void Process(ProcessorCommand *processor);
+            virtual void Process(ProcessorResult *processor);
+            
+            const std::list<Tuple> Storage() const;
+            const std::list<AwaitingRead> AwaitingReads();
+
+        protected:
+            std::list<Tuple>        mStorage;
+            std::list<AwaitingRead> mAwaitingReads;
         };
     }
 }

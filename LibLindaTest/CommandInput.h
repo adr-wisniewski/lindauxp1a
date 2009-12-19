@@ -27,8 +27,8 @@ namespace Linda
             private UnserializableCommandInput
         {
         public:
-            virtual void DoSerialize(std::ostream &stream);
-            virtual Message* DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
 
             virtual int GetCode() const;
             virtual void Process(ProcessorCommand *processor);

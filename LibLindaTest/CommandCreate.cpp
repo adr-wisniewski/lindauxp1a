@@ -8,18 +8,19 @@
 #include <string.h>
 
 #include "CommandCreate.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {
 namespace Test
 {
-    /*virtual*/ void CommandCreate::DoSerialize(std::ostream &stream)
+    /*virtual*/ void CommandCreate::DoSerialize(std::ostream &stream) const
     {
         MessageCommand::DoSerialize(stream);
         stream << mId;
     }
 
-    /*virtual*/ Message* CommandCreate::DoUnserialize(std::istream &stream)
+    /*virtual*/ void CommandCreate::DoUnserialize(std::istream &stream)
     {
         MessageCommand::DoUnserialize(stream);
         stream >> mId;

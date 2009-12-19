@@ -9,17 +9,18 @@
 #include <list>
 
 #include "CommandStat.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {
 namespace Test
 {
-    /*virtual*/ void CommandStat::DoSerialize(std::ostream &stream)
+    /*virtual*/ void CommandStat::DoSerialize(std::ostream &stream) const
     {
         MessageCommand::DoSerialize(stream);
     }
 
-    /*virtual*/ Message* CommandStat::DoUnserialize(std::istream &stream)
+    /*virtual*/ void CommandStat::DoUnserialize(std::istream &stream)
     {
         MessageCommand::DoUnserialize(stream);
     }

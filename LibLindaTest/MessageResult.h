@@ -9,37 +9,28 @@
 #define	_MESSAGERESULT_H
 
 #include <Message.h>
+#include <Pipe.h>
 
 namespace Linda
 {
     namespace Test
     {
-        class MessageResult;
         class ProcessorResult;
-        
-        typedef MessageUnserializable<MessageResult, Message<MessageResult>, 1>
-            MessageUnserializableResult;
 
-        class MessageResult : 
-            public Message<MessageResult>,
-            private MessageUnserializableResult
+        class MessageResult : public Message<MessageResult>
         {
         public:
             MessageResult();
             MessageResult(int ordinal, bool status);
 
-            virtual void DoSerialize(std::ostream &stream);
-            virtual Message* DoUnserialize(std::istream &stream);
-
-            virtual int GetCode() const;
-            virtual void Process(ProcessorResult *processor);
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
 
             int Ordinal() const;
             void Ordinal(int value);
 
             bool Status() const;
             void Status(bool value);
-
 
         protected:
             int mOrdinal;

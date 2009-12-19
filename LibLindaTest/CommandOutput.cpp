@@ -1,17 +1,18 @@
 #include "CommandOutput.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {
 namespace Test
 {
 
-    /*virtual*/ void CommandOutput::DoSerialize(std::ostream &stream)
+    /*virtual*/ void CommandOutput::DoSerialize(std::ostream &stream) const
     {
         MessageCommand::DoSerialize(stream);
         mGivenTuple.Serialize(stream);
     }
 
-    /*virtual*/ Message* CommandOutput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void CommandOutput::DoUnserialize(std::istream &stream)
     {
         MessageCommand::DoUnserialize(stream);
         mGivenTuple.Unserialize(stream);
@@ -27,7 +28,7 @@ namespace Test
         processor->Process(*this);
     }
 
-    const Tuple CommandOutput::GivenTuple() const
+    const Tuple& CommandOutput::GivenTuple() const
     {
         return mGivenTuple;
     }

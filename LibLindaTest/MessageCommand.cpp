@@ -5,12 +5,12 @@ namespace Linda
 {
     namespace Test
     {
-        /*virtual*/ void MessageCommand::DoSerialize(std::ostream &stream)
+        /*virtual*/ void MessageCommand::DoSerialize(std::ostream &stream) const
         {
             stream << mOrdinal;
         }
 
-        /*virtual*/ Message* MessageCommand::DoUnserialize(std::istream &stream)
+        /*virtual*/ void MessageCommand::DoUnserialize(std::istream &stream)
         {
             stream >> mOrdinal;
         }
