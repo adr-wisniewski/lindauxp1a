@@ -11,6 +11,8 @@
 #include <sstream>
 
 #include "PipeBase.h"
+#include "Exception.h"
+#include <boost/format.hpp>
 
 namespace Linda
 {
@@ -37,6 +39,10 @@ namespace Linda
         std::stringstream stream(std::stringstream::binary | std::stringstream::in);
         stream << size;                        // allocate space for size header
         p.Serialize(static_cast<std::ostream&>(stream));
+
+        // check size
+        if(static_cast<int>(stream.tellg()) > PIPE_BUF)
+            throw Exception(boost::str(boost::format("Message too big: %1%B") % size));
 
         // stamp with size
         size = static_cast<int>(stream.tellg()) - sizeof(int);

@@ -16,8 +16,8 @@ namespace Linda
     class Exception : public std::runtime_error
     {
     public:
-        Exception(int errno, const char *prefix);
         Exception(const char* str);
+        Exception(int errno, const char *prefix);
     };
 }
 
