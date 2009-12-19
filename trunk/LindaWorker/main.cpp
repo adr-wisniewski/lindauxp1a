@@ -6,8 +6,13 @@
  */
 
 #include <exception>
-#include <stdlib.h>
+#include <cstdlib>
+#include <cstdio>
+#include <boost/format.hpp>
+#include <string>
 
+#include <Exception.h>
+#include "NodeWorker.h"
 
 /*
  * 
@@ -17,7 +22,7 @@ int main(int argc, char** argv) {
     try
     {
         if(argc != 5 || atoi(argv[1]) == 0 || atoi(argv[2]) == 0 || atoi(argv[3]) == 0 || atoi(argv[4]) == 0)
-            throw SomeException("Invalid program arguments");
+            throw Linda::Exception("Invalid program arguments");
 
         NodeWorker worker(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
         worker.Run();
@@ -26,7 +31,13 @@ int main(int argc, char** argv) {
     }
     catch(std::exception &e)
     {
-        printerror("Fatal exception in worker " + getpid() + ": " + e.what());
+        std::string message = boost::str(
+                boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
+        );
+
+        write(stderr, message.c_str(), message.length());
+        fflush(stderr);
+
         return EXIT_FAILURE;
     }
 }
