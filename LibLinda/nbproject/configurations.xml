@@ -20,6 +20,7 @@
     <itemPath>Pipe.impl.h</itemPath>
     <itemPath>PipeBase.cpp</itemPath>
     <itemPath>PipeBase.h</itemPath>
+    <itemPath>ProcessorRequest.h</itemPath>
     <itemPath>Query.cpp</itemPath>
     <itemPath>Query.h</itemPath>
     <itemPath>RequestInput.cpp</itemPath>
