@@ -14,7 +14,8 @@
 #include <Tuple.h>
 #include <Exception.h>
 
-#include "MessageResult.h"
+#include "PipeBase.h"
+#include "ResultBasic.h"
 
 NodeWorker::NodeWorker(int commandRead, int resultWrite, int requestWrite, int responseRead)
     :
@@ -63,7 +64,7 @@ void NodeWorker::Process(Linda::Test::CommandStat &c)
 void NodeWorker::Process(Linda::Test::CommandOutput &c)
 {
     bool status = mLinda.Output(c.GivenTuple());
-    mPipeResult.Write(Linda::Test::MessageResult(c.Ordinal(), status));
+    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
 }
 
 void NodeWorker::Process(Linda::Test::CommandInput &c)
@@ -71,7 +72,7 @@ void NodeWorker::Process(Linda::Test::CommandInput &c)
     Linda::Tuple tuple;
 
     bool status = mLinda.Input(c.GivenQuery(), tuple);
-    mPipeResult.Write(Linda::Test::MessageResult(c.Ordinal(), status));
+    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
 }
 
 void NodeWorker::Process(Linda::Test::CommandRead &c)
@@ -79,7 +80,7 @@ void NodeWorker::Process(Linda::Test::CommandRead &c)
     Linda::Tuple tuple;
 
     bool status = mLinda.Read(c.GivenQuery(), tuple);
-    mPipeResult.Write(Linda::Test::MessageResult(c.Ordinal(), status));
+    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
 }
 
 

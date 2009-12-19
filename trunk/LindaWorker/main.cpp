@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
                 boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
         );
 
-        write(stderr, message.c_str(), message.length());
+        write(STDERR_FILENO, message.c_str(), message.length());
         fflush(stderr);
 
         return EXIT_FAILURE;
