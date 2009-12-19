@@ -10,6 +10,7 @@
 
 #include <string>
 #include <stdexcept>
+#include <boost/lexical_cast.hpp>
 
 #include "Message.h"
 
@@ -17,7 +18,7 @@ namespace Linda
 {
     template<class TTag>
     Message<TTag>::InvalidCodeException::InvalidCodeException(int code)
-    : std::runtime_error(std::string("Invalid message code: ") + code)
+    : std::runtime_error(std::string("Invalid message code: ") + boost::lexical_cast<std::string>(code))
     {
        // empty
     }
@@ -30,7 +31,7 @@ namespace Linda
     }
 
     template<class TTag>
-    Message<TTag>* Message<TTag>::Unserialize(std::ostream &stream)
+    Message<TTag>* Message<TTag>::Unserialize(std::istream &stream)
     {
         int code;
         FactoryRegister &factoryRegister = Message<TTag>::GetFactoryRegister();
@@ -40,7 +41,7 @@ namespace Linda
         // TODO: error handling
 
         // find type in factory
-        FactoryRegister::iterator iter = factoryRegister.find(code);
+        typename FactoryRegister::iterator iter = factoryRegister.find(code);
 
         // unknown type
         if(iter == factoryRegister.end())
@@ -70,7 +71,7 @@ namespace Linda
     }
 
     template<class TTag>
-    Message<TTag>::FactoryRegister& Message<TTag>::GetFactoryRegister()
+    typename Message<TTag>::FactoryRegister& Message<TTag>::GetFactoryRegister()
     {
         static FactoryRegister factoryRegister;
         return factoryRegister;

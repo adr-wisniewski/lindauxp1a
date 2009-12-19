@@ -10,6 +10,8 @@
 
 #include <ostream>
 #include <istream>
+#include <stdexcept>
+#include <map>
 
 namespace Linda
 {
@@ -19,8 +21,7 @@ namespace Linda
     public:
 
         // type declarations
-        typedef int code_t;
-        typedef Message* (*Instantinator)();
+        typedef Message*    (*Instantinator)();
 
         // construction and destruction
         Message();
@@ -28,7 +29,7 @@ namespace Linda
 
         // methods
         void Serialize(std::ostream &stream);
-        virtual code_t GetCode() const = 0;
+        virtual int GetCode() const = 0;
 
         class InvalidCodeException : public std::runtime_error
         {
@@ -37,7 +38,7 @@ namespace Linda
         };
 
         // statics
-        static Message* Unserialize(std::ostream &stream);
+        static Message* Unserialize(std::istream &stream);
         static bool RegisterFactoryMethod(int type, Instantinator method);
 
     protected:
@@ -49,7 +50,7 @@ namespace Linda
     private:
 
         // unserialization related factory
-        typedef std::map<code_t, Instantinator> FactoryRegister;
+        typedef std::map<int, Instantinator> FactoryRegister;
         FactoryRegister& GetFactoryRegister();
     };
 }

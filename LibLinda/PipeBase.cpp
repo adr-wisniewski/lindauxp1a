@@ -1,36 +1,36 @@
-#include "Pipe.h"
+#include "PipeBase.h"
 #include "Exception.h"
 #include <cerrno>
 #include <unistd.h>
 
 namespace Linda
 {
-    int Pipe::EndClosed = -1;
+    int PipeBase::EndClosed = -1;
 
-    Pipe::Pipe()
+    PipeBase::PipeBase()
     {
         if(pipe(mDescriptors) == -1)
-            throw Linda::Exception(errno, "pipe call in Linda::Pipe");
+            throw Linda::Exception(errno, "pipe call in Linda::PipeBase");
     }
 
-    Pipe::Pipe(int readDescriptor, int writeDescriptor)
+    PipeBase::PipeBase(int readDescriptor, int writeDescriptor)
     {
         mDescriptors[EndRead]    = readDescriptor;
         mDescriptors[EndWrite]   = writeDescriptor;
     }
 
-    Pipe::~Pipe()
+    PipeBase::~PipeBase()
     {
         CloseEnd(EndRead);
         CloseEnd(EndWrite);
     }
 
-    int Pipe::GetEnd(EndType which)
+    int PipeBase::GetEnd(EndType which)
     {
         return mDescriptors[which];
     }
 
-    int Pipe::CloseEnd(EndType which)
+    int PipeBase::CloseEnd(EndType which)
     {
         if(mDescriptors[which] != EndClosed)
         {
@@ -39,14 +39,14 @@ namespace Linda
         }
     }
 
-    void Pipe::Write(void *buf, unsigned int length)
+    void PipeBase::Write(void *buf, unsigned int length)
     {
         // co z błędami w szczegolnosci EINTR?
         if( write(mDescriptors[EndWrite], buf, length) == -1)
-            throw Linda::Exception(errno, "write in Pipe::Write");
+            throw Linda::Exception(errno, "write in Linda::PipeBase::Write");
     }
 
-    void Pipe::Read(void *buf, unsigned int length)
+    void PipeBase::Read(void *buf, unsigned int length)
     {
         int result;
         int remaining = length;
@@ -60,7 +60,7 @@ namespace Linda
             // handle errors
             if(result == -1)
             {
-                throw Linda::Exception(errno, "read in Pipe::Read");
+                throw Linda::Exception(errno, "read in Linda::PipeBase::Read");
             }
             // handle end of file
             else if(result == 0)
@@ -74,7 +74,7 @@ namespace Linda
                 // but this is incomplete read
                 else
                 {
-                    throw Pipe::IncompleteRead();
+                    throw PipeBase::IncompleteRead();
                 }
             }
 
@@ -85,7 +85,7 @@ namespace Linda
         return true;
     }
 
-    Pipe::IncompleteRead::IncompleteRead()
+    PipeBase::IncompleteRead::IncompleteRead()
         : std::runtime_error("Incomplete read")
     {
 

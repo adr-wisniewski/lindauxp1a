@@ -12,9 +12,11 @@
 
 namespace Linda
 {
-    template<TProduct>
+
+    template<class TProduct>
     class Pipe : public PipeBase
     {
+    public:
         Pipe();
         Pipe(int readDescriptor, int writeDescriptor);
 

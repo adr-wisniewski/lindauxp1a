@@ -9,15 +9,18 @@
 #define	_TUPLE_H
 
 #include <string>
+#include <list>
 
 namespace Linda
 {
     class Tuple
     {
-
+    public:
+        // this should be abstract + visitor
         class Value
         {
         public:
+
             enum Type
             {
                 TypeFloat,
@@ -25,15 +28,33 @@ namespace Linda
                 TypeString
             };
 
+            // construction and destruction
+            Value(float value);
+            Value(int value);
+            Value(const std::string &value);
+
+            ~Value();
+
+            // accessors
+            Type                GetType() const;
+            float               ValueFloat() const;
+            int                 ValueInt() const;
+            const std::string&  ValueString() const;
+
+        protected:
+
             Type mType;
 
             union
             {
                 float       mFloatValue;
                 int         mIntValue;
-                std::string mStringValue;
+                std::string* mStringValue;
             };
         };
+
+    protected:
+        std::list<Value> mValues;
     };
 }
 
