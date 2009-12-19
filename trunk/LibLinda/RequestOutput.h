@@ -14,15 +14,29 @@
 
 namespace Linda
 {
-    static const int RequestOutputCode = 2;
+    class RequestOutput;
+
+    typedef MessageUnserializable<RequestOutput, MessageRequest, 2>
+            UnserializableRequestOutput;
 
     class RequestOutput : 
         public MessageRequest,
-        private MessageUnserializable<RequestOutput, MessageRequest, RequestOutputCode>
+        private UnserializableRequestOutput
     {
+        public:
+        RequestOutput();
+        RequestOutput(const Tuple &tuple);
+
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
+        virtual int GetCode() const;
+
+        const Tuple& GivenTuple() const;
+        void GivenTuple(const Tuple& value);
 
     protected:
-        Tuple mTuple;
+        Tuple mGivenTuple;
     };
 }
 

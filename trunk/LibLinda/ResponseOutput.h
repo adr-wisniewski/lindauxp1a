@@ -13,13 +13,19 @@
 
 namespace Linda
 {
-    static const int ResponseOutputCode = 2;
+    class ResponseOutput;
+
+    typedef MessageUnserializable<ResponseOutput, MessageResponse, 2>
+            UnserializableResponseOutput;
 
     class ResponseOutput : 
         public MessageResponse,
-        private MessageUnserializable<ResponseOutput, MessageResponse, ResponseOutputCode>
+        private UnserializableResponseOutput
     {
-        
+        ResponseOutput();
+        ResponseOutput(bool status);
+
+        virtual int GetCode() const;
     };
 }
 

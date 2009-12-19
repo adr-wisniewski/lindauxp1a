@@ -31,10 +31,17 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/RequestOutput.o \
+	${OBJECTDIR}/MessageResponse.o \
+	${OBJECTDIR}/ResponseOutput.o \
+	${OBJECTDIR}/RequestRead.o \
+	${OBJECTDIR}/PipeBase.o \
+	${OBJECTDIR}/Query.o \
 	${OBJECTDIR}/Exception.o \
 	${OBJECTDIR}/Linda.o \
 	${OBJECTDIR}/Tuple.o \
-	${OBJECTDIR}/PipeBase.o
+	${OBJECTDIR}/RequestInput.o \
+	${OBJECTDIR}/ResponseInput.o
 
 # C Compiler Flags
 CFLAGS=
@@ -62,25 +69,60 @@ dist/Debug/GNU-Linux-x86/libliblinda.a: ${OBJECTFILES}
 	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblinda.a ${OBJECTFILES} 
 	$(RANLIB) dist/Debug/GNU-Linux-x86/libliblinda.a
 
-${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
+${OBJECTDIR}/RequestOutput.o: nbproject/Makefile-${CND_CONF}.mk RequestOutput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exception.o Exception.cpp
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestOutput.o RequestOutput.cpp
 
-${OBJECTDIR}/Linda.o: nbproject/Makefile-${CND_CONF}.mk Linda.cpp 
+${OBJECTDIR}/MessageResponse.o: nbproject/Makefile-${CND_CONF}.mk MessageResponse.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Linda.o Linda.cpp
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageResponse.o MessageResponse.cpp
 
-${OBJECTDIR}/Tuple.o: nbproject/Makefile-${CND_CONF}.mk Tuple.cpp 
+${OBJECTDIR}/ResponseOutput.o: nbproject/Makefile-${CND_CONF}.mk ResponseOutput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tuple.o Tuple.cpp
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResponseOutput.o ResponseOutput.cpp
+
+${OBJECTDIR}/RequestRead.o: nbproject/Makefile-${CND_CONF}.mk RequestRead.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestRead.o RequestRead.cpp
 
 ${OBJECTDIR}/PipeBase.o: nbproject/Makefile-${CND_CONF}.mk PipeBase.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/PipeBase.o PipeBase.cpp
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/PipeBase.o PipeBase.cpp
+
+${OBJECTDIR}/Query.o: nbproject/Makefile-${CND_CONF}.mk Query.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Query.o Query.cpp
+
+${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exception.o Exception.cpp
+
+${OBJECTDIR}/Linda.o: nbproject/Makefile-${CND_CONF}.mk Linda.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Linda.o Linda.cpp
+
+${OBJECTDIR}/Tuple.o: nbproject/Makefile-${CND_CONF}.mk Tuple.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tuple.o Tuple.cpp
+
+${OBJECTDIR}/RequestInput.o: nbproject/Makefile-${CND_CONF}.mk RequestInput.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestInput.o RequestInput.cpp
+
+${OBJECTDIR}/ResponseInput.o: nbproject/Makefile-${CND_CONF}.mk ResponseInput.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResponseInput.o ResponseInput.cpp
 
 # Subprojects
 .build-subprojects:

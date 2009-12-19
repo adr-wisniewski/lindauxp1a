@@ -13,13 +13,20 @@
 
 namespace Linda
 {
-    static const int RequestReadCode = 3;
+    class RequestRead;
+
+    typedef MessageUnserializable<RequestRead, MessageRequest, 3>
+            UnserializableRequestRead;
 
     class RequestRead : 
         public RequestInput,
-        private MessageUnserializable<RequestRead, MessageRequest, RequestReadCode>
+        private UnserializableRequestRead
     {
+    public:
+        RequestRead();
+        RequestRead(const Query &query);
 
+        virtual int GetCode() const;
     };
 }
 

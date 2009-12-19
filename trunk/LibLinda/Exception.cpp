@@ -6,13 +6,15 @@
  */
 
 #include "Exception.h"
+#include <cstring>
 #include <string>
+#include <boost/format.hpp>
 
 namespace Linda
 {
 
-Exception::Exception(int errno, std::string &prefix)
-: runtime_error(prefix + std::string(": ") + std::string(strerror(errno)))
+Exception::Exception(int errno, const char *prefix)
+: runtime_error(boost::str(boost::format("%1%: %2%") % prefix % strerror(errno)))
 {
     
 }

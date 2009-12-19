@@ -11,19 +11,26 @@
     <itemPath>Linda.cpp</itemPath>
     <itemPath>Linda.h</itemPath>
     <itemPath>Message.h</itemPath>
+    <itemPath>Message.impl.h</itemPath>
     <itemPath>MessageRequest.h</itemPath>
+    <itemPath>MessageResponse.cpp</itemPath>
     <itemPath>MessageResponse.h</itemPath>
     <itemPath>MessageUnserializable.h</itemPath>
-    <itemPath>Message_impl.h</itemPath>
     <itemPath>Pipe.h</itemPath>
+    <itemPath>Pipe.impl.h</itemPath>
     <itemPath>PipeBase.cpp</itemPath>
     <itemPath>PipeBase.h</itemPath>
-    <itemPath>Pipe_impl.h</itemPath>
+    <itemPath>Query.cpp</itemPath>
     <itemPath>Query.h</itemPath>
+    <itemPath>RequestInput.cpp</itemPath>
     <itemPath>RequestInput.h</itemPath>
+    <itemPath>RequestOutput.cpp</itemPath>
     <itemPath>RequestOutput.h</itemPath>
+    <itemPath>RequestRead.cpp</itemPath>
     <itemPath>RequestRead.h</itemPath>
+    <itemPath>ResponseInput.cpp</itemPath>
     <itemPath>ResponseInput.h</itemPath>
+    <itemPath>ResponseOutput.cpp</itemPath>
     <itemPath>ResponseOutput.h</itemPath>
     <itemPath>Tuple.cpp</itemPath>
     <itemPath>Tuple.h</itemPath>
@@ -42,7 +49,7 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../boost</pElem>
+            <pElem>../BoostFiles</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
