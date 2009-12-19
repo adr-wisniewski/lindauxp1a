@@ -8,8 +8,8 @@
 #ifndef _PROCESSORRESULT_H
 #define	_PROCESSORRESULT_H
 
-#include "MessageResult.h"
-#include "StatResult.h"
+#include "ResultBasic.h"
+#include "ResultStat.h"
 
 namespace Linda
 {
@@ -18,8 +18,8 @@ namespace Linda
         class ProcessorResult
         {
         public:
-            virtual void Process(MessageResult &c)      = 0;
-            virtual void Process(StatResult &c)         = 0;
+            virtual void Process(ResultBasic &c)    = 0;
+            virtual void Process(ResultStat &c)     = 0;
 
         };
     }

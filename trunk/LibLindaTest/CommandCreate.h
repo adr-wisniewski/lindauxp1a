@@ -28,14 +28,14 @@ namespace Linda
             private UnserializableCommandCreate
         {
         public:
-            virtual void CommandCreate::DoSerialize(std::ostream &stream);
-            virtual Message* CommandCreate::DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
 
-            virtual int CommandCreate::GetCode() const;
-            virtual void CommandCreate::Process(ProcessorCommand *processor);
+            virtual int GetCode() const;
+            virtual void Process(ProcessorCommand *processor);
 
-            const std::string& CommandCreate::Id() const;
-            void CommandCreate::Id(std::string& value);
+            const std::string& Id() const;
+            void Id(std::string& value);
 
         private:
             std::string mId;

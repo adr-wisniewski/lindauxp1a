@@ -1,4 +1,5 @@
 #include "CommandRead.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {

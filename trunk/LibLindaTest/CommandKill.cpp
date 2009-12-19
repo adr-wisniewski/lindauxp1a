@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "CommandKill.h"
+#include "ProcessorCommand.h"
 
 namespace Linda
 {

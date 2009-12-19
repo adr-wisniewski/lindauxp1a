@@ -1,4 +1,3 @@
-#include "CommandOutput.h"
 #include "MessageResult.h"
 #include "ProcessorResult.h"
 
@@ -17,24 +16,14 @@ namespace Test
         Status(status);
     }
 
-    /*virtual*/ void MessageResult::DoSerialize(std::ostream &stream)
+    /*virtual*/ void MessageResult::DoSerialize(std::ostream &stream) const
     {
         stream << mOrdinal << mStatus;
     }
 
-    /*virtual*/ Message* MessageResult::DoUnserialize(std::istream &stream)
+    /*virtual*/ void MessageResult::DoUnserialize(std::istream &stream)
     {
         stream >> mOrdinal >> mStatus;
-    }
-
-    /*virtual*/ int MessageResult::GetCode() const
-    {
-        return MessageUnserializableResult::GetCode();
-    }
-
-    /*virtual*/ void MessageResult::Process(ProcessorResult *processor)
-    {
-        processor->Process(*this);
     }
 
     int MessageResult::Ordinal() const
