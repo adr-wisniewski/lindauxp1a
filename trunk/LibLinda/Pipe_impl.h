@@ -14,21 +14,21 @@
 
 namespace Linda
 {
-    template<TProduct>
-    Pipe<TProduct>::Pipe<TProduct>()
+    template<class TProduct>
+    Pipe<TProduct>::Pipe()
         : PipeBase()
     {
         // empty
     }
 
-    template<TProduct>
-    Pipe<TProduct>::Pipe<TProduct>(int readDescriptor, int writeDescriptor)
+    template<class TProduct>
+    Pipe<TProduct>::Pipe(int readDescriptor, int writeDescriptor)
         : PipeBase(readDescriptor, writeDescriptor)
     {
         // empty
     }
 
-    template<TProduct>
+    template<class TProduct>
     void Pipe<TProduct>::Write(const TProduct &p)
     {
         int size;
@@ -48,7 +48,7 @@ namespace Linda
         Pipe::Write(data.c_str(), data.length());
     }
 
-    template<TProduct>
+    template<class TProduct>
     TProduct* Pipe<TProduct>::Read()
     {
         int size;

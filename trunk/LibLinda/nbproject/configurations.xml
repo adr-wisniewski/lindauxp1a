@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="62">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-      <itemPath>Exception.h</itemPath>
-      <itemPath>Pipe.h</itemPath>
-      <itemPath>PipeBase.h</itemPath>
-      <itemPath>Pipe_impl.h</itemPath>
-      <itemPath>Query.h</itemPath>
-      <itemPath>Tuple.h</itemPath>
-    </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Resource Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
-      <itemPath>Exception.cpp</itemPath>
-      <itemPath>Pipe.cpp</itemPath>
-    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>Exception.cpp</itemPath>
+    <itemPath>Exception.h</itemPath>
+    <itemPath>Linda.cpp</itemPath>
+    <itemPath>Linda.h</itemPath>
+    <itemPath>Message.h</itemPath>
+    <itemPath>MessageResponse.h</itemPath>
+    <itemPath>MessageUnserializable.h</itemPath>
+    <itemPath>Message_impl.h</itemPath>
+    <itemPath>Pipe.h</itemPath>
+    <itemPath>PipeBase.cpp</itemPath>
+    <itemPath>PipeBase.h</itemPath>
+    <itemPath>Pipe_impl.h</itemPath>
+    <itemPath>Query.h</itemPath>
+    <itemPath>RequestInput.h</itemPath>
+    <itemPath>RequestMessage.h</itemPath>
+    <itemPath>RequestOutput.h</itemPath>
+    <itemPath>RequestRead.h</itemPath>
+    <itemPath>ResponseInput.h</itemPath>
+    <itemPath>ResponseOutput.h</itemPath>
+    <itemPath>Tuple.cpp</itemPath>
+    <itemPath>Tuple.h</itemPath>
+    <itemPath>Util.h</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -36,6 +41,11 @@
         <platform>2</platform>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../boost</pElem>
+          </incDir>
+        </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>

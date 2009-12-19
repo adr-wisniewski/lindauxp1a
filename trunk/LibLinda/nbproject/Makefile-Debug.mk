@@ -32,7 +32,9 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/Exception.o \
-	${OBJECTDIR}/Pipe.o
+	${OBJECTDIR}/Linda.o \
+	${OBJECTDIR}/Tuple.o \
+	${OBJECTDIR}/PipeBase.o
 
 # C Compiler Flags
 CFLAGS=
@@ -63,12 +65,22 @@ dist/Debug/GNU-Linux-x86/libliblinda.a: ${OBJECTFILES}
 ${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exception.o Exception.cpp
+	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exception.o Exception.cpp
 
-${OBJECTDIR}/Pipe.o: nbproject/Makefile-${CND_CONF}.mk Pipe.cpp 
+${OBJECTDIR}/Linda.o: nbproject/Makefile-${CND_CONF}.mk Linda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/Pipe.o Pipe.cpp
+	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Linda.o Linda.cpp
+
+${OBJECTDIR}/Tuple.o: nbproject/Makefile-${CND_CONF}.mk Tuple.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/Tuple.o Tuple.cpp
+
+${OBJECTDIR}/PipeBase.o: nbproject/Makefile-${CND_CONF}.mk PipeBase.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../boost -MMD -MP -MF $@.d -o ${OBJECTDIR}/PipeBase.o PipeBase.cpp
 
 # Subprojects
 .build-subprojects:
