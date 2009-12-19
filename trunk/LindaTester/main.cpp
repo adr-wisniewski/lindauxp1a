@@ -25,8 +25,8 @@ using namespace Linda::Ex;
 int main(int argc, char** argv) {
 
     // create pipes
-    CommandPipe commandPipe;
-    ResultPipe  resultPipe;
+    PipeCommand commandPipe;
+    PipeResult  resultPipe;
 
     // initialize storage
     switch(fork())
