@@ -16,14 +16,12 @@ namespace Linda
     {
         class MessageResult;
         class ProcessorResult;
-
-        struct Result_tag {};
-
-        typedef MessageUnserializable<MessageResult, Message<Result_tag>, 1>
+        
+        typedef MessageUnserializable<MessageResult, Message<MessageResult>, 1>
             MessageUnserializableResult;
 
         class MessageResult : 
-            public Message<Result_tag>,
+            public Message<MessageResult>,
             private MessageUnserializableResult
         {
         public:
