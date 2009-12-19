@@ -26,6 +26,7 @@ namespace Linda
         ResponseOutput(bool status);
 
         virtual int GetCode() const;
+        virtual void Process(ProcessorResponse *processor);
     };
 }
 

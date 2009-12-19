@@ -27,6 +27,7 @@ namespace Linda
         RequestRead(const Query &query);
 
         virtual int GetCode() const;
+        virtual void Process(ProcessorRequest *processor);
     };
 }
 

@@ -14,16 +14,13 @@
 
 namespace Linda
 {
-    namespace Test
+    class ProcessorRequest
     {
-        class ProcessorRequest
-        {
-        public:
-            virtual void Process(RequestRead &r)    = 0;
-            virtual void Process(RequestInput &r)   = 0;
-            virtual void Process(RequestOutput &r)  = 0;
-        };
-    }
+    public:
+        virtual void Process(RequestRead &r)    = 0;
+        virtual void Process(RequestInput &r)   = 0;
+        virtual void Process(RequestOutput &r)  = 0;
+    };
 }
 
 #endif	/* _PROCESSORREQUEST_H */

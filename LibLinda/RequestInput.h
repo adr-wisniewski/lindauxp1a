@@ -31,6 +31,7 @@ namespace Linda
         virtual void DoUnserialize(std::istream &stream);
 
         virtual int GetCode() const;
+        virtual void Process(ProcessorRequest *processor);
 
         const Query& GivenQuery() const;
         void GivenQuery(const Query& value);

@@ -15,7 +15,7 @@
 
 namespace Linda
 {
-    template<class TTarget>
+    template<class TTarget, class TProcessor>
     class Message
     {
     public:
@@ -30,6 +30,7 @@ namespace Linda
         // methods
         void Serialize(std::ostream &stream) const;
         virtual int GetCode() const = 0;
+        virtual void Process(TProcessor* processor) = 0;
 
         class InvalidCodeException : public std::runtime_error
         {

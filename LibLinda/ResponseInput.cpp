@@ -1,4 +1,5 @@
 #include "ResponseInput.h"
+#include "ProcessorResponse.h"
 
 namespace Linda
 {
@@ -27,6 +28,11 @@ namespace Linda
     /*virtual*/ int ResponseInput::GetCode() const
     {
         return UnserializableResponseInput::GetCode();
+    }
+
+    /*virtual*/ void ResponseInput::Process(ProcessorResponse *processor)
+    {
+        processor->Process(*this);
     }
 
     const Tuple& ResponseInput::GivenTuple() const

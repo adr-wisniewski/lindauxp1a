@@ -9,6 +9,7 @@
 #define	_EXCEPTION_H
 
 #include <stdexcept>
+#include <boost/format.hpp>
 
 namespace Linda
 {
@@ -17,6 +18,7 @@ namespace Linda
     {
     public:
         Exception(const char* str);
+        Exception(const boost::format &format);
         Exception(int errno, const char *prefix);
     };
 }

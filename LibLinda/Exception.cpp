@@ -8,13 +8,18 @@
 #include "Exception.h"
 #include <cstring>
 #include <string>
-#include <boost/format.hpp>
 
 namespace Linda
 {
 
     Exception::Exception(const char* str)
     : std::runtime_error(std::string(str))
+    {
+
+    }
+    
+    Exception::Exception(const boost::format &format)
+    : std::runtime_error(boost::str(format))
     {
 
     }

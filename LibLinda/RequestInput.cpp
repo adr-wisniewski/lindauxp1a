@@ -1,4 +1,5 @@
 #include "RequestInput.h"
+#include "ProcessorRequest.h"
 
 namespace Linda
 {
@@ -26,6 +27,11 @@ namespace Linda
     /*virtual*/ int RequestInput::GetCode() const
     {
         return UnserializableRequestInput::GetCode();
+    }
+
+    /*virtual*/ void RequestInput::Process(ProcessorRequest *processor)
+    {
+        processor->Process(*this);
     }
 
     const Query& RequestInput::GivenQuery() const

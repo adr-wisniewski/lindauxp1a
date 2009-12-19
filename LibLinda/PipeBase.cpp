@@ -5,6 +5,8 @@
 
 namespace Linda
 {
+    /*static*/ const int PipeBase::EndClosed = 1;
+
     PipeBase::PipeBase()
     {
         if(pipe(mDescriptors) == -1)

@@ -16,25 +16,26 @@
 
 namespace Linda
 {
-    template<class TTarget>
-    Message<TTarget>::InvalidCodeException::InvalidCodeException(int code)
+    template<class TTarget, class TProcessor>
+    Message<TTarget,TProcessor>::InvalidCodeException::InvalidCodeException(int code)
     : std::runtime_error(std::string("Invalid message code: ") + boost::lexical_cast<std::string>(code))
     {
        // empty
     }
 
-    template<class TTarget>
-    void Message<TTarget>::Serialize(std::ostream &stream) const
+    template<class TTarget, class TProcessor>
+    void Message<TTarget,TProcessor>::Serialize(std::ostream &stream) const
     {
         stream << GetCode();
         DoSerialize(stream);
     }
 
-    template<class TTarget>
-    TTarget* Message<TTarget>::Unserialize(std::istream &stream)
+    template<class TTarget, class TProcessor>
+    TTarget* Message<TTarget,TProcessor>::Unserialize(std::istream &stream)
     {
         int code;
-        FactoryRegister &factoryRegister = Message<TTarget>::GetFactoryRegister();
+        FactoryRegister &factoryRegister = 
+                Message<TTarget,TProcessor>::GetFactoryRegister();
         
         stream >> code;
 
@@ -63,15 +64,17 @@ namespace Linda
         return result;
     }
 
-    template<class TTarget>
-    bool Message<TTarget>::RegisterFactoryMethod(int code, Message<TTarget>::Instantinator method)
+    template<class TTarget, class TProcessor>
+    bool Message<TTarget,TProcessor>::RegisterFactoryMethod(
+        int code, Message<TTarget,TProcessor>::Instantinator method)
     {
-        Message<TTarget>::GetFactoryRegister()[code] = method;
+        Message<TTarget,TProcessor>::GetFactoryRegister()[code] = method;
         return true;
     }
 
-    template<class TTarget>
-    typename Message<TTarget>::FactoryRegister& Message<TTarget>::GetFactoryRegister()
+    template<class TTarget, class TProcessor>
+    typename Message<TTarget,TProcessor>::FactoryRegister&
+        Message<TTarget,TProcessor>::GetFactoryRegister()
     {
         static FactoryRegister factoryRegister;
         return factoryRegister;

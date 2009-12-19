@@ -1,4 +1,5 @@
 #include "RequestOutput.h"
+#include "ProcessorRequest.h"
 
 namespace Linda
 {
@@ -26,6 +27,11 @@ namespace Linda
     /*virtual*/ int RequestOutput::GetCode() const
     {
         return UnserializableRequestOutput::GetCode();
+    }
+
+    /*virtual*/ void RequestOutput::Process(ProcessorRequest *processor)
+    {
+        processor->Process(*this);
     }
 
     const Tuple& RequestOutput::GivenTuple() const

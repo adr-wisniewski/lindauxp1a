@@ -42,7 +42,7 @@ namespace Linda
 
         // check size
         if(static_cast<int>(stream.tellg()) > PIPE_BUF)
-            throw Exception(boost::str(boost::format("Message too big: %1%B") % size));
+            throw Exception(boost::format("Message too big: %1%B") % size);
 
         // stamp with size
         size = static_cast<int>(stream.tellg()) - sizeof(int);
@@ -73,7 +73,7 @@ namespace Linda
         delete buffer;
 
         // unserialize object
-        return Message<TProduct>::Unserialize(static_cast<std::istream&>(stream));
+        return TProduct::Base::Unserialize(static_cast<std::istream&>(stream));
     }
 
 }

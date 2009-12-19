@@ -1,4 +1,5 @@
 #include "ResponseOutput.h"
+#include "ProcessorResponse.h"
 
 namespace Linda
 {
@@ -15,6 +16,11 @@ namespace Linda
     /*virtual*/ int ResponseOutput::GetCode() const
     {
         return UnserializableResponseOutput::GetCode();
+    }
+
+    /*virtual*/ void ResponseOutput::Process(ProcessorResponse *processor)
+    {
+        processor->Process(*this);
     }
 }
 

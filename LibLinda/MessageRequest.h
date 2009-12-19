@@ -13,10 +13,12 @@
 
 namespace Linda
 {
+    class ProcessorRequest;
 
-    class MessageRequest : public Message<MessageRequest>
+    class MessageRequest : public Message<MessageRequest, ProcessorRequest>
     {
-
+    public:
+        typedef Message<MessageRequest, ProcessorRequest> Base;
     };
 
     typedef Pipe<MessageRequest> PipeRequest;
