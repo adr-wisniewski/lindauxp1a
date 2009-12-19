@@ -17,9 +17,11 @@ namespace Linda
     {
         class ProcessorCommand;
 
-        class MessageCommand : public Message<MessageCommand>
+        class MessageCommand : public Message<MessageCommand, ProcessorCommand>
         {
         public:
+            typedef Message<MessageCommand, ProcessorCommand> Base;
+
             virtual void DoSerialize(std::ostream &stream) const;
             virtual void DoUnserialize(std::istream &stream);
 

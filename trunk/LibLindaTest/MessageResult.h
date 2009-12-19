@@ -17,9 +17,11 @@ namespace Linda
     {
         class ProcessorResult;
 
-        class MessageResult : public Message<MessageResult>
+        class MessageResult : public Message<MessageResult, ProcessorResult>
         {
         public:
+            typedef Message<MessageResult, ProcessorResult> Base;
+
             MessageResult();
             MessageResult(int ordinal, bool status);
 
