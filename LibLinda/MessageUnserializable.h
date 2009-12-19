@@ -16,17 +16,19 @@ namespace Linda
     template<class TMessage, class TBase, int TCode>
     class MessageUnserializable
     {
+    public:
+
         static TMessage* Create()
         {
             return new TMessage();
         }
-
 
         static int GetCode()
         {
             return TCode;
         }
 
+    private:
         static bool IsRegistered;
     };
 

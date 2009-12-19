@@ -7,6 +7,11 @@
 
 #include "Linda.h"
 #include "Exception.h"
+#include "RequestRead.h"
+#include "RequestInput.h"
+#include "RequestOutput.h"
+#include "ResponseInput.h"
+#include "ResponseOutput.h"
 
 namespace Linda
 {
@@ -43,10 +48,10 @@ namespace Linda
 
         if(response != 0 )
         {
-            bool status = response->GetStatus();
+            bool status = response->Status();
 
             if(status)
-                tuple = response->GetTuple();
+                tuple = response->GivenTuple();
 
             delete response;
             return status;
@@ -54,7 +59,7 @@ namespace Linda
         else
         {
             delete message;
-            throw Linda::Exception("Linda::Linda::Read unexcepted message");
+            throw Exception("Linda::Linda::Read unexcepted message");
         }
     }
 
@@ -66,7 +71,7 @@ namespace Linda
 
         if(response != 0 )
         {
-            bool status = response->GetStatus();
+            bool status = response->Status();
 
             delete response;
             return status;
@@ -74,7 +79,7 @@ namespace Linda
         else
         {
             delete message;
-            throw Linda::Exception("Linda::Linda::Read unexcepted message");
+            throw Exception("Linda::Linda::Read unexcepted message");
         }
     }
 

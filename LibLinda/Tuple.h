@@ -10,6 +10,8 @@
 
 #include <string>
 #include <list>
+#include <ostream>
+#include <istream>
 
 namespace Linda
 {
@@ -52,6 +54,9 @@ namespace Linda
                 std::string* mStringValue;
             };
         };
+
+        void Serialize(std::ostream &stream) const;
+        void Unserialize(std::istream &stream);
 
     protected:
         std::list<Value> mValues;

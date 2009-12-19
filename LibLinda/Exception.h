@@ -9,7 +9,6 @@
 #define	_EXCEPTION_H
 
 #include <stdexcept>
-#include <string>
 
 namespace Linda
 {
@@ -17,7 +16,7 @@ namespace Linda
     class Exception : public std::runtime_error
     {
     public:
-        Exception(int errno, std::string &prefix);
+        Exception(int errno, const char *prefix);
         Exception(const char* str);
     };
 }

@@ -9,6 +9,7 @@
 #define	_MESSAGEREQUEST_H
 
 #include "Message.h"
+#include "Pipe.h"
 
 namespace Linda
 {

@@ -10,16 +10,33 @@
 
 #include "MessageResponse.h"
 #include "MessageUnserializable.h"
+#include "Tuple.h"
 
 namespace Linda
 {
-    static const int ResponseInputCode = 1;
+    class ResponseInput;
+
+    typedef MessageUnserializable<ResponseInput, MessageResponse, 1>
+            UnserializableResponseInput;
 
     class ResponseInput : 
         public MessageResponse,
-        private MessageUnserializable<ResponseInput, MessageResponse, ResponseInputCode>
+        private UnserializableResponseInput
     {
+    public:
+        ResponseInput();
+        ResponseInput(bool status, const Tuple& tuple);
 
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
+        virtual int GetCode() const;
+
+        const Tuple& GivenTuple() const;
+        void GivenTuple(const Tuple& value);
+
+    protected:
+        Tuple mGivenTuple;
     };
 }
 

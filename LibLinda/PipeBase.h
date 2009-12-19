@@ -8,6 +8,8 @@
 #ifndef _PIPEBASE_H
 #define	_PIPEBASE_H
 
+
+
 namespace Linda
 {
     class PipeBase
@@ -26,16 +28,10 @@ namespace Linda
         int GetEnd(EndType which);
         int CloseEnd(EndType which);
 
-        void Write(void *buf, unsigned int length);
+        void Write(const void *buf, unsigned int length);
         bool Read(void *buf, unsigned int length);
 
         static const int EndClosed;
-
-        class IncompleteRead : public std::runtime_error
-        {
-        public:
-            IncompleteRead();
-        };
 
     protected:
         int mDescriptors[2];

@@ -36,29 +36,29 @@ namespace Linda
         // create buffer and serialize object
         std::stringstream stream(std::stringstream::binary | std::stringstream::in);
         stream << size;                        // allocate space for size header
-        p.Serialize(stream);
+        p.Serialize(static_cast<std::ostream&>(stream));
 
         // stamp with size
-        size = stream.tellg() - sizeof(int);
+        size = static_cast<int>(stream.tellg()) - sizeof(int);
         stream.seekg(0, std::ios::beg);
         stream << size;
 
         // get data and send it through pipe
         std::string data = stream.str();
-        Pipe::Write(data.c_str(), data.length());
+        PipeBase::Write(data.c_str(), data.length());
     }
 
     template<class TProduct>
     TProduct* Pipe<TProduct>::Read()
     {
         int size;
-        char buffer;
+        char* buffer;
 
         // create buffer and read message contents
-        Pipe::Read(static_cast<char*>(&size), sizeof(int));
+        PipeBase::Read(reinterpret_cast<char*>(&size), sizeof(int));
 
         buffer = new char[size];
-        Pipe::Read(buffer, size);
+        PipeBase::Read(buffer, size);
 
         // move data into stream
         std::stringstream stream(std::string(buffer, size), 
@@ -67,7 +67,7 @@ namespace Linda
         delete buffer;
 
         // unserialize object
-        return TProduct::Unserialize(stream);
+        return Message<TProduct>::Unserialize(static_cast<std::istream&>(stream));
     }
 
 }

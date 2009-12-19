@@ -5,12 +5,10 @@
 
 namespace Linda
 {
-    int PipeBase::EndClosed = -1;
-
     PipeBase::PipeBase()
     {
         if(pipe(mDescriptors) == -1)
-            throw Linda::Exception(errno, "pipe call in Linda::PipeBase");
+            throw Exception(errno, "Linda::PipeBase - pipe call:");
     }
 
     PipeBase::PipeBase(int readDescriptor, int writeDescriptor)
@@ -39,14 +37,14 @@ namespace Linda
         }
     }
 
-    void PipeBase::Write(void *buf, unsigned int length)
+    void PipeBase::Write(const void *buf, unsigned int length)
     {
         // co z błędami w szczegolnosci EINTR?
         if( write(mDescriptors[EndWrite], buf, length) == -1)
-            throw Linda::Exception(errno, "write in Linda::PipeBase::Write");
+            throw Exception(errno, "Linda::PipeBase::Write - write call:");
     }
 
-    void PipeBase::Read(void *buf, unsigned int length)
+    bool PipeBase::Read(void *buf, unsigned int length)
     {
         int result;
         int remaining = length;
@@ -60,7 +58,7 @@ namespace Linda
             // handle errors
             if(result == -1)
             {
-                throw Linda::Exception(errno, "read in Linda::PipeBase::Read");
+                throw Exception(errno, "Linda::PipeBase::Read - read call:");
             }
             // handle end of file
             else if(result == 0)
@@ -74,7 +72,7 @@ namespace Linda
                 // but this is incomplete read
                 else
                 {
-                    throw PipeBase::IncompleteRead();
+                    throw Exception("Linda::PipeBase::Read: Incomplete read");
                 }
             }
 
@@ -83,11 +81,5 @@ namespace Linda
         while( remaining > 0);
 
         return true;
-    }
-
-    PipeBase::IncompleteRead::IncompleteRead()
-        : std::runtime_error("Incomplete read")
-    {
-
     }
 }

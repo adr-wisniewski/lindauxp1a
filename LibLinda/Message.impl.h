@@ -24,7 +24,7 @@ namespace Linda
     }
 
     template<class TTarget>
-    void Message<TTarget>::Serialize(std::ostream &stream)
+    void Message<TTarget>::Serialize(std::ostream &stream) const
     {
         stream << GetCode();
         DoSerialize(stream);
@@ -48,7 +48,7 @@ namespace Linda
            throw InvalidCodeException(code);
 
         // create command
-        Message *result = (*(iter->second))(); // should be smart pointer
+        TTarget *result = (*(iter->second))(); // should be smart pointer
 
         try
         {

@@ -8,12 +8,16 @@
 #ifndef _QUERY_H
 #define	_QUERY_H
 
+#include <ostream>
+#include <istream>
+
 #include "Tuple.h"
 
 namespace Linda
 {
     class Query
     {
+    public:
         class Value : public Tuple::Value
         {
         public:
@@ -26,14 +30,15 @@ namespace Linda
                 OperationGreater,
                 OperationEqualGreater
             };
-
-
         protected:
             Operation mOperation;
 
         };
 
-        bool Satisfies(const Tuple &tuple);
+        bool IsSatisfied(const Tuple &tuple);
+
+        void Serialize(std::ostream &stream) const;
+        void Unserialize(std::istream &stream);
 
     protected:
         std::list<Value> mValues;

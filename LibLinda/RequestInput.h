@@ -14,14 +14,29 @@
 
 namespace Linda
 {
-    static const int RequestInputCode = 1;
+    class RequestInput;
+
+    typedef MessageUnserializable<RequestInput, MessageRequest, 1>
+            UnserializableRequestInput;
 
     class RequestInput : 
         public MessageRequest,
-        private MessageUnserializable<RequestInput, MessageRequest, RequestInputCode>
+        private UnserializableRequestInput
     {
+    public:
+        RequestInput();
+        RequestInput(const Query &query);
+
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
+        virtual int GetCode() const;
+
+        const Query& GivenQuery() const;
+        void GivenQuery(const Query& value);
+
     protected:
-        Query mQuery;
+        Query mGivenQuery;
     };
 }
 

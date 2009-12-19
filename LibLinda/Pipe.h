@@ -25,7 +25,7 @@ namespace Linda
     };
 }
 
-#include "Pipe_impl.h"
+#include "Pipe.impl.h"
 
 #endif	/* _PIPE_H */
 
