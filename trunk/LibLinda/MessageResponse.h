@@ -12,9 +12,10 @@
 
 namespace Linda
 {
-    struct Response_tag {);
+    class MessageResponse : public Message<MessageResponse>
+    {
 
-    typedef Message<Response_tag> MessageResponse;
+    };
 
     typedef Pipe<MessageResponse> PipeResponse;
 }

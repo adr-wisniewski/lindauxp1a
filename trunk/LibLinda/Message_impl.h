@@ -16,25 +16,25 @@
 
 namespace Linda
 {
-    template<class TTag>
-    Message<TTag>::InvalidCodeException::InvalidCodeException(int code)
+    template<class TTarget>
+    Message<TTarget>::InvalidCodeException::InvalidCodeException(int code)
     : std::runtime_error(std::string("Invalid message code: ") + boost::lexical_cast<std::string>(code))
     {
        // empty
     }
 
-    template<class TTag>
-    void Message<TTag>::Serialize(std::ostream &stream)
+    template<class TTarget>
+    void Message<TTarget>::Serialize(std::ostream &stream)
     {
         stream << GetCode();
         DoSerialize(stream);
     }
 
-    template<class TTag>
-    Message<TTag>* Message<TTag>::Unserialize(std::istream &stream)
+    template<class TTarget>
+    TTarget* Message<TTarget>::Unserialize(std::istream &stream)
     {
         int code;
-        FactoryRegister &factoryRegister = Message<TTag>::GetFactoryRegister();
+        FactoryRegister &factoryRegister = Message<TTarget>::GetFactoryRegister();
         
         stream >> code;
 
@@ -63,15 +63,15 @@ namespace Linda
         return result;
     }
 
-    template<class TTag>
-    bool Message<TTag>::RegisterFactoryMethod(int code, Message<TTag>::Instantinator method)
+    template<class TTarget>
+    bool Message<TTarget>::RegisterFactoryMethod(int code, Message<TTarget>::Instantinator method)
     {
-        Message<TTag>::GetFactoryRegister()[code] = method;
+        Message<TTarget>::GetFactoryRegister()[code] = method;
         return true;
     }
 
-    template<class TTag>
-    typename Message<TTag>::FactoryRegister& Message<TTag>::GetFactoryRegister()
+    template<class TTarget>
+    typename Message<TTarget>::FactoryRegister& Message<TTarget>::GetFactoryRegister()
     {
         static FactoryRegister factoryRegister;
         return factoryRegister;

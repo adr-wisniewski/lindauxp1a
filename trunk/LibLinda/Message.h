@@ -15,13 +15,13 @@
 
 namespace Linda
 {
-    template<class TTag>
+    template<class TTarget>
     class Message
     {
     public:
 
         // type declarations
-        typedef Message*    (*Instantinator)();
+        typedef TTarget*    (*Instantinator)();
 
         // construction and destruction
         Message();
@@ -38,14 +38,14 @@ namespace Linda
         };
 
         // statics
-        static Message* Unserialize(std::istream &stream);
+        static TTarget* Unserialize(std::istream &stream);
         static bool RegisterFactoryMethod(int type, Instantinator method);
 
     protected:
 
         // seriallization
         virtual void DoSerialize(std::ostream &stream) = 0;
-        virtual Message* DoUnserialize(std::istream &stream) = 0;
+        virtual TTarget* DoUnserialize(std::istream &stream) = 0;
 
     private:
 
