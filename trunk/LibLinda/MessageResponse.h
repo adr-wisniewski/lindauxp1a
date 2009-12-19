@@ -13,10 +13,13 @@
 
 namespace Linda
 {
+    class ProcessorResponse;
 
-    class MessageResponse : public Message<MessageResponse>
+    class MessageResponse : public Message<MessageResponse,ProcessorResponse>
     {
     public:
+        typedef Message<MessageResponse, ProcessorResponse> Base;
+
         MessageResponse();
         MessageResponse(bool status);
 

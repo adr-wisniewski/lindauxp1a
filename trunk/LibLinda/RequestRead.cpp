@@ -1,4 +1,5 @@
 #include "RequestRead.h"
+#include "ProcessorRequest.h"
 
 namespace Linda
 {
@@ -15,6 +16,11 @@ namespace Linda
     /*virtual*/ int RequestRead::GetCode() const
     {
         return UnserializableRequestRead::GetCode();
+    }
+
+    /*virtual*/ void RequestRead::Process(ProcessorRequest *processor)
+    {
+        processor->Process(*this);
     }
 }
 

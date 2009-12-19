@@ -21,6 +21,7 @@
     <itemPath>PipeBase.cpp</itemPath>
     <itemPath>PipeBase.h</itemPath>
     <itemPath>ProcessorRequest.h</itemPath>
+    <itemPath>ProcessorResponse.h</itemPath>
     <itemPath>Query.cpp</itemPath>
     <itemPath>Query.h</itemPath>
     <itemPath>RequestInput.cpp</itemPath>
@@ -54,6 +55,7 @@
           </incDir>
         </ccTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblinda.a</output>
         </archiverTool>
       </compileType>
     </conf>
@@ -74,6 +76,7 @@
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
         <archiverTool>
+          <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblinda.a</output>
         </archiverTool>
       </compileType>
     </conf>
