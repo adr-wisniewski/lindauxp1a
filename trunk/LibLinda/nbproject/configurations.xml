@@ -27,7 +27,6 @@
     <itemPath>ResponseOutput.h</itemPath>
     <itemPath>Tuple.cpp</itemPath>
     <itemPath>Tuple.h</itemPath>
-    <itemPath>Util.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
