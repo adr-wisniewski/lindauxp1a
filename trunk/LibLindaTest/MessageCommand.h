@@ -17,13 +17,11 @@ namespace Linda
     {
         class ProcessorCommand;
 
-        struct Command_tag {};
-
-        class MessageCommand : Message<Command_tag>
+        class MessageCommand : Message<MessageCommand>
         {
         public:
             virtual void DoSerialize(std::ostream &stream);
-            virtual Message* DoUnserialize(std::istream &stream);
+            virtual MessageCommand* DoUnserialize(std::istream &stream);
 
             int Ordinal() const;
             void Ordinal(int value);
