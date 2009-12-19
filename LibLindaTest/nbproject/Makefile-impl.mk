@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=LindaTest
+PROJECTNAME=LibLindaTest
 
 # Active Configuration
 DEFAULTCONF=Debug

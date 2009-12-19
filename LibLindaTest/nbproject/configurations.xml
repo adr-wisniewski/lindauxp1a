@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="62">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="f1" displayName="Commands" projectFiles="true">
-      <itemPath>CommandCreate.cpp</itemPath>
-      <itemPath>CommandCreate.h</itemPath>
-      <itemPath>CommandKill.cpp</itemPath>
-      <itemPath>CommandKill.h</itemPath>
-      <itemPath>CommandStat.cpp</itemPath>
-      <itemPath>CommandStat.h</itemPath>
-    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>Command.cpp</itemPath>
-    <itemPath>Command.h</itemPath>
-    <itemPath>CommandPipe.cpp</itemPath>
-    <itemPath>CommandPipe.h</itemPath>
-    <itemPath>CommandVisitor.h</itemPath>
-    <itemPath>Pipes.h</itemPath>
-    <itemPath>RegisteredCommand.h</itemPath>
+    <itemPath>CommandCreate.cpp</itemPath>
+    <itemPath>CommandCreate.h</itemPath>
+    <itemPath>CommandInput.cpp</itemPath>
+    <itemPath>CommandInput.h</itemPath>
+    <itemPath>CommandKill.cpp</itemPath>
+    <itemPath>CommandKill.h</itemPath>
+    <itemPath>CommandOutput.cpp</itemPath>
+    <itemPath>CommandOutput.h</itemPath>
+    <itemPath>CommandRead.cpp</itemPath>
+    <itemPath>CommandRead.h</itemPath>
+    <itemPath>CommandStat.cpp</itemPath>
+    <itemPath>CommandStat.h</itemPath>
+    <itemPath>MessageCommand.cpp</itemPath>
+    <itemPath>MessageCommand.h</itemPath>
+    <itemPath>MessageResult.cpp</itemPath>
+    <itemPath>MessageResult.h</itemPath>
+    <itemPath>ProcessorCommand.h</itemPath>
+    <itemPath>ProcessorResult.h</itemPath>
+    <itemPath>ResultStat.cpp</itemPath>
+    <itemPath>ResultStat.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
