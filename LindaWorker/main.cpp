@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
         if(argc != 5 || atoi(argv[1]) == 0 || atoi(argv[2]) == 0 || atoi(argv[3]) == 0 || atoi(argv[4]) == 0)
             throw SomeException("Invalid program arguments");
 
-        WorkerNode worker(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
+        NodeWorker worker(atoi(argv[1]), atoi(argv[2]), atoi(argv[3]), atoi(argv[4]));
         worker.Run();
 
         return EXIT_SUCCESS;
