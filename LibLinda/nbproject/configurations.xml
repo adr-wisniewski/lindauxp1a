@@ -11,6 +11,7 @@
     <itemPath>Linda.cpp</itemPath>
     <itemPath>Linda.h</itemPath>
     <itemPath>Message.h</itemPath>
+    <itemPath>MessageRequest.h</itemPath>
     <itemPath>MessageResponse.h</itemPath>
     <itemPath>MessageUnserializable.h</itemPath>
     <itemPath>Message_impl.h</itemPath>
@@ -20,7 +21,6 @@
     <itemPath>Pipe_impl.h</itemPath>
     <itemPath>Query.h</itemPath>
     <itemPath>RequestInput.h</itemPath>
-    <itemPath>RequestMessage.h</itemPath>
     <itemPath>RequestOutput.h</itemPath>
     <itemPath>RequestRead.h</itemPath>
     <itemPath>ResponseInput.h</itemPath>
