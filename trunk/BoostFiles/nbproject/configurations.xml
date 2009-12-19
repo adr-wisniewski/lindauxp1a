@@ -429,6 +429,8 @@
             <itemPath>boost/smart_ptr/detail/yield_k.hpp</itemPath>
           </logicalFolder>
           <itemPath>boost/smart_ptr/bad_weak_ptr.hpp</itemPath>
+          <itemPath>boost/smart_ptr/scoped_array.hpp</itemPath>
+          <itemPath>boost/smart_ptr/scoped_ptr.hpp</itemPath>
           <itemPath>boost/smart_ptr/shared_ptr.hpp</itemPath>
         </logicalFolder>
         <logicalFolder name="type_traits" displayName="type_traits" projectFiles="true">
@@ -509,6 +511,8 @@
         <itemPath>boost/none.hpp</itemPath>
         <itemPath>boost/none_t.hpp</itemPath>
         <itemPath>boost/optional.hpp</itemPath>
+        <itemPath>boost/scoped_array.hpp</itemPath>
+        <itemPath>boost/scoped_ptr.hpp</itemPath>
         <itemPath>boost/shared_ptr.hpp</itemPath>
         <itemPath>boost/static_assert.hpp</itemPath>
         <itemPath>boost/throw_exception.hpp</itemPath>
