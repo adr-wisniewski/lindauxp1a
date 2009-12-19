@@ -1,24 +1,564 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configurationDescriptor version="62">
   <logicalFolder name="root" displayName="root" projectFiles="true">
-    <logicalFolder name="HeaderFiles"
-                   displayName="Header Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="ResourceFiles"
-                   displayName="Resource Files"
-                   projectFiles="true">
-    </logicalFolder>
-    <logicalFolder name="SourceFiles"
-                   displayName="Source Files"
-                   projectFiles="true">
+    <logicalFolder name="BoostFiles" displayName="BoostFiles" projectFiles="true">
+      <logicalFolder name="asm" displayName="asm" projectFiles="true">
+        <itemPath>asm/errno.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="asm-generic" displayName="asm-generic" projectFiles="true">
+        <itemPath>asm-generic/errno-base.h</itemPath>
+        <itemPath>asm-generic/errno.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="bits" displayName="bits" projectFiles="true">
+        <itemPath>bits/byteswap.h</itemPath>
+        <itemPath>bits/confname.h</itemPath>
+        <itemPath>bits/endian.h</itemPath>
+        <itemPath>bits/environments.h</itemPath>
+        <itemPath>bits/errno.h</itemPath>
+        <itemPath>bits/local_lim.h</itemPath>
+        <itemPath>bits/posix1_lim.h</itemPath>
+        <itemPath>bits/posix2_lim.h</itemPath>
+        <itemPath>bits/posix_opt.h</itemPath>
+        <itemPath>bits/predefs.h</itemPath>
+        <itemPath>bits/pthreadtypes.h</itemPath>
+        <itemPath>bits/sched.h</itemPath>
+        <itemPath>bits/select.h</itemPath>
+        <itemPath>bits/setjmp.h</itemPath>
+        <itemPath>bits/sigaction.h</itemPath>
+        <itemPath>bits/sigcontext.h</itemPath>
+        <itemPath>bits/siginfo.h</itemPath>
+        <itemPath>bits/signum.h</itemPath>
+        <itemPath>bits/sigset.h</itemPath>
+        <itemPath>bits/sigstack.h</itemPath>
+        <itemPath>bits/sigthread.h</itemPath>
+        <itemPath>bits/stdio_lim.h</itemPath>
+        <itemPath>bits/stdlib-ldbl.h</itemPath>
+        <itemPath>bits/stdlib.h</itemPath>
+        <itemPath>bits/string.h</itemPath>
+        <itemPath>bits/string2.h</itemPath>
+        <itemPath>bits/string3.h</itemPath>
+        <itemPath>bits/time.h</itemPath>
+        <itemPath>bits/types.h</itemPath>
+        <itemPath>bits/typesizes.h</itemPath>
+        <itemPath>bits/unistd.h</itemPath>
+        <itemPath>bits/waitflags.h</itemPath>
+        <itemPath>bits/waitstatus.h</itemPath>
+        <itemPath>bits/wchar.h</itemPath>
+        <itemPath>bits/wordsize.h</itemPath>
+        <itemPath>bits/xopen_lim.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="boost" displayName="boost" projectFiles="true">
+        <logicalFolder name="config" displayName="config" projectFiles="true">
+          <logicalFolder name="abi" displayName="abi" projectFiles="true">
+            <itemPath>boost/config/abi/borland_prefix.hpp</itemPath>
+            <itemPath>boost/config/abi/borland_suffix.hpp</itemPath>
+            <itemPath>boost/config/abi/msvc_prefix.hpp</itemPath>
+            <itemPath>boost/config/abi/msvc_suffix.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="compiler" displayName="compiler" projectFiles="true">
+            <itemPath>boost/config/compiler/borland.hpp</itemPath>
+            <itemPath>boost/config/compiler/codegear.hpp</itemPath>
+            <itemPath>boost/config/compiler/comeau.hpp</itemPath>
+            <itemPath>boost/config/compiler/common_edg.hpp</itemPath>
+            <itemPath>boost/config/compiler/compaq_cxx.hpp</itemPath>
+            <itemPath>boost/config/compiler/digitalmars.hpp</itemPath>
+            <itemPath>boost/config/compiler/gcc.hpp</itemPath>
+            <itemPath>boost/config/compiler/gcc_xml.hpp</itemPath>
+            <itemPath>boost/config/compiler/greenhills.hpp</itemPath>
+            <itemPath>boost/config/compiler/hp_acc.hpp</itemPath>
+            <itemPath>boost/config/compiler/intel.hpp</itemPath>
+            <itemPath>boost/config/compiler/kai.hpp</itemPath>
+            <itemPath>boost/config/compiler/metrowerks.hpp</itemPath>
+            <itemPath>boost/config/compiler/mpw.hpp</itemPath>
+            <itemPath>boost/config/compiler/pgi.hpp</itemPath>
+            <itemPath>boost/config/compiler/sgi_mipspro.hpp</itemPath>
+            <itemPath>boost/config/compiler/sunpro_cc.hpp</itemPath>
+            <itemPath>boost/config/compiler/vacpp.hpp</itemPath>
+            <itemPath>boost/config/compiler/visualc.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="no_tr1" displayName="no_tr1" projectFiles="true">
+            <itemPath>boost/config/no_tr1/cmath.hpp</itemPath>
+            <itemPath>boost/config/no_tr1/complex.hpp</itemPath>
+            <itemPath>boost/config/no_tr1/functional.hpp</itemPath>
+            <itemPath>boost/config/no_tr1/memory.hpp</itemPath>
+            <itemPath>boost/config/no_tr1/utility.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="platform" displayName="platform" projectFiles="true">
+            <itemPath>boost/config/platform/aix.hpp</itemPath>
+            <itemPath>boost/config/platform/amigaos.hpp</itemPath>
+            <itemPath>boost/config/platform/beos.hpp</itemPath>
+            <itemPath>boost/config/platform/bsd.hpp</itemPath>
+            <itemPath>boost/config/platform/cygwin.hpp</itemPath>
+            <itemPath>boost/config/platform/hpux.hpp</itemPath>
+            <itemPath>boost/config/platform/irix.hpp</itemPath>
+            <itemPath>boost/config/platform/linux.hpp</itemPath>
+            <itemPath>boost/config/platform/macos.hpp</itemPath>
+            <itemPath>boost/config/platform/qnxnto.hpp</itemPath>
+            <itemPath>boost/config/platform/solaris.hpp</itemPath>
+            <itemPath>boost/config/platform/vxworks.hpp</itemPath>
+            <itemPath>boost/config/platform/win32.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="stdlib" displayName="stdlib" projectFiles="true">
+            <itemPath>boost/config/stdlib/dinkumware.hpp</itemPath>
+            <itemPath>boost/config/stdlib/libcomo.hpp</itemPath>
+            <itemPath>boost/config/stdlib/libstdcpp3.hpp</itemPath>
+            <itemPath>boost/config/stdlib/modena.hpp</itemPath>
+            <itemPath>boost/config/stdlib/msl.hpp</itemPath>
+            <itemPath>boost/config/stdlib/roguewave.hpp</itemPath>
+            <itemPath>boost/config/stdlib/sgi.hpp</itemPath>
+            <itemPath>boost/config/stdlib/stlport.hpp</itemPath>
+            <itemPath>boost/config/stdlib/vacpp.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/config/abi_prefix.hpp</itemPath>
+          <itemPath>boost/config/abi_suffix.hpp</itemPath>
+          <itemPath>boost/config/auto_link.hpp</itemPath>
+          <itemPath>boost/config/posix_features.hpp</itemPath>
+          <itemPath>boost/config/requires_threads.hpp</itemPath>
+          <itemPath>boost/config/select_compiler_config.hpp</itemPath>
+          <itemPath>boost/config/select_platform_config.hpp</itemPath>
+          <itemPath>boost/config/select_stdlib_config.hpp</itemPath>
+          <itemPath>boost/config/suffix.hpp</itemPath>
+          <itemPath>boost/config/user.hpp</itemPath>
+          <itemPath>boost/config/warning_disable.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="detail" displayName="detail" projectFiles="true">
+          <itemPath>boost/detail/endian.hpp</itemPath>
+          <itemPath>boost/detail/interlocked.hpp</itemPath>
+          <itemPath>boost/detail/limits.hpp</itemPath>
+          <itemPath>boost/detail/reference_content.hpp</itemPath>
+          <itemPath>boost/detail/sp_typeinfo.hpp</itemPath>
+          <itemPath>boost/detail/workaround.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="exception" displayName="exception" projectFiles="true">
+          <logicalFolder name="detail" displayName="detail" projectFiles="true">
+            <itemPath>boost/exception/detail/attribute_noreturn.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/exception/exception.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="format" displayName="format" projectFiles="true">
+          <logicalFolder name="detail" displayName="detail" projectFiles="true">
+            <itemPath>boost/format/detail/compat_workarounds.hpp</itemPath>
+            <itemPath>boost/format/detail/config_macros.hpp</itemPath>
+            <itemPath>boost/format/detail/msvc_disambiguater.hpp</itemPath>
+            <itemPath>boost/format/detail/unset_macros.hpp</itemPath>
+            <itemPath>boost/format/detail/workarounds_gcc-2_95.hpp</itemPath>
+            <itemPath>boost/format/detail/workarounds_stlport.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/format/alt_sstream.hpp</itemPath>
+          <itemPath>boost/format/alt_sstream_impl.hpp</itemPath>
+          <itemPath>boost/format/exceptions.hpp</itemPath>
+          <itemPath>boost/format/feed_args.hpp</itemPath>
+          <itemPath>boost/format/format_class.hpp</itemPath>
+          <itemPath>boost/format/format_fwd.hpp</itemPath>
+          <itemPath>boost/format/format_implementation.hpp</itemPath>
+          <itemPath>boost/format/free_funcs.hpp</itemPath>
+          <itemPath>boost/format/group.hpp</itemPath>
+          <itemPath>boost/format/internals.hpp</itemPath>
+          <itemPath>boost/format/internals_fwd.hpp</itemPath>
+          <itemPath>boost/format/parsing.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="mpl" displayName="mpl" projectFiles="true">
+          <logicalFolder name="aux_" displayName="aux_" projectFiles="true">
+            <logicalFolder name="config" displayName="config" projectFiles="true">
+              <itemPath>boost/mpl/aux_/config/adl.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/arrays.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/ctps.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/dtp.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/eti.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/gcc.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/integral.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/intel.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/lambda.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/msvc.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/nttp.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/overload_resolution.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/preprocessor.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/static_constant.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/ttp.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/config/workaround.hpp</itemPath>
+            </logicalFolder>
+            <logicalFolder name="preprocessor"
+                           displayName="preprocessor"
+                           projectFiles="true">
+              <itemPath>boost/mpl/aux_/preprocessor/def_params_tail.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/preprocessor/enum.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/preprocessor/filter_params.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/preprocessor/params.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/preprocessor/sub.hpp</itemPath>
+              <itemPath>boost/mpl/aux_/preprocessor/tuple.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/mpl/aux_/adl_barrier.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/arity.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/integral_wrapper.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/lambda_arity_param.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/lambda_support.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/na.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/na_fwd.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/na_spec.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/nested_type_wknd.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/nttp_decl.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/static_cast.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/template_arity_fwd.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/value_wknd.hpp</itemPath>
+            <itemPath>boost/mpl/aux_/yes_no.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="limits" displayName="limits" projectFiles="true">
+            <itemPath>boost/mpl/limits/arity.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/mpl/bool.hpp</itemPath>
+          <itemPath>boost/mpl/bool_fwd.hpp</itemPath>
+          <itemPath>boost/mpl/if.hpp</itemPath>
+          <itemPath>boost/mpl/int.hpp</itemPath>
+          <itemPath>boost/mpl/int_fwd.hpp</itemPath>
+          <itemPath>boost/mpl/integral_c.hpp</itemPath>
+          <itemPath>boost/mpl/integral_c_fwd.hpp</itemPath>
+          <itemPath>boost/mpl/integral_c_tag.hpp</itemPath>
+          <itemPath>boost/mpl/lambda_fwd.hpp</itemPath>
+          <itemPath>boost/mpl/not.hpp</itemPath>
+          <itemPath>boost/mpl/size_t.hpp</itemPath>
+          <itemPath>boost/mpl/size_t_fwd.hpp</itemPath>
+          <itemPath>boost/mpl/void.hpp</itemPath>
+          <itemPath>boost/mpl/void_fwd.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="optional" displayName="optional" projectFiles="true">
+          <itemPath>boost/optional/optional.hpp</itemPath>
+          <itemPath>boost/optional/optional_fwd.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="preprocessor"
+                       displayName="preprocessor"
+                       projectFiles="true">
+          <logicalFolder name="arithmetic" displayName="arithmetic" projectFiles="true">
+            <itemPath>boost/preprocessor/arithmetic/add.hpp</itemPath>
+            <itemPath>boost/preprocessor/arithmetic/dec.hpp</itemPath>
+            <itemPath>boost/preprocessor/arithmetic/inc.hpp</itemPath>
+            <itemPath>boost/preprocessor/arithmetic/sub.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="array" displayName="array" projectFiles="true">
+            <itemPath>boost/preprocessor/array/data.hpp</itemPath>
+            <itemPath>boost/preprocessor/array/elem.hpp</itemPath>
+            <itemPath>boost/preprocessor/array/size.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="config" displayName="config" projectFiles="true">
+            <itemPath>boost/preprocessor/config/config.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="control" displayName="control" projectFiles="true">
+            <logicalFolder name="detail" displayName="detail" projectFiles="true">
+              <logicalFolder name="dmc" displayName="dmc" projectFiles="true">
+                <itemPath>boost/preprocessor/control/detail/dmc/while.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="edg" displayName="edg" projectFiles="true">
+                <itemPath>boost/preprocessor/control/detail/edg/while.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="msvc" displayName="msvc" projectFiles="true">
+                <itemPath>boost/preprocessor/control/detail/msvc/while.hpp</itemPath>
+              </logicalFolder>
+              <itemPath>boost/preprocessor/control/detail/while.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/control/expr_iif.hpp</itemPath>
+            <itemPath>boost/preprocessor/control/if.hpp</itemPath>
+            <itemPath>boost/preprocessor/control/iif.hpp</itemPath>
+            <itemPath>boost/preprocessor/control/while.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="debug" displayName="debug" projectFiles="true">
+            <itemPath>boost/preprocessor/debug/error.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="detail" displayName="detail" projectFiles="true">
+            <logicalFolder name="dmc" displayName="dmc" projectFiles="true">
+              <itemPath>boost/preprocessor/detail/dmc/auto_rec.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/detail/auto_rec.hpp</itemPath>
+            <itemPath>boost/preprocessor/detail/check.hpp</itemPath>
+            <itemPath>boost/preprocessor/detail/is_binary.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="facilities" displayName="facilities" projectFiles="true">
+            <itemPath>boost/preprocessor/facilities/empty.hpp</itemPath>
+            <itemPath>boost/preprocessor/facilities/identity.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="iteration" displayName="iteration" projectFiles="true">
+            <logicalFolder name="detail" displayName="detail" projectFiles="true">
+              <logicalFolder name="bounds" displayName="bounds" projectFiles="true">
+                <itemPath>boost/preprocessor/iteration/detail/bounds/lower1.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/lower2.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/lower3.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/lower4.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/lower5.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/upper1.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/upper2.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/upper3.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/upper4.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/bounds/upper5.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="iter" displayName="iter" projectFiles="true">
+                <itemPath>boost/preprocessor/iteration/detail/iter/forward1.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/forward2.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/forward3.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/forward4.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/forward5.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/reverse1.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/reverse2.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/reverse3.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/reverse4.hpp</itemPath>
+                <itemPath>boost/preprocessor/iteration/detail/iter/reverse5.hpp</itemPath>
+              </logicalFolder>
+              <itemPath>boost/preprocessor/iteration/detail/finish.hpp</itemPath>
+              <itemPath>boost/preprocessor/iteration/detail/local.hpp</itemPath>
+              <itemPath>boost/preprocessor/iteration/detail/rlocal.hpp</itemPath>
+              <itemPath>boost/preprocessor/iteration/detail/self.hpp</itemPath>
+              <itemPath>boost/preprocessor/iteration/detail/start.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/iteration/iterate.hpp</itemPath>
+            <itemPath>boost/preprocessor/iteration/local.hpp</itemPath>
+            <itemPath>boost/preprocessor/iteration/self.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="list" displayName="list" projectFiles="true">
+            <logicalFolder name="detail" displayName="detail" projectFiles="true">
+              <logicalFolder name="dmc" displayName="dmc" projectFiles="true">
+                <itemPath>boost/preprocessor/list/detail/dmc/fold_left.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="edg" displayName="edg" projectFiles="true">
+                <itemPath>boost/preprocessor/list/detail/edg/fold_left.hpp</itemPath>
+                <itemPath>boost/preprocessor/list/detail/edg/fold_right.hpp</itemPath>
+              </logicalFolder>
+              <itemPath>boost/preprocessor/list/detail/fold_left.hpp</itemPath>
+              <itemPath>boost/preprocessor/list/detail/fold_right.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/list/adt.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/append.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/fold_left.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/fold_right.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/for_each_i.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/reverse.hpp</itemPath>
+            <itemPath>boost/preprocessor/list/transform.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="logical" displayName="logical" projectFiles="true">
+            <itemPath>boost/preprocessor/logical/and.hpp</itemPath>
+            <itemPath>boost/preprocessor/logical/bitand.hpp</itemPath>
+            <itemPath>boost/preprocessor/logical/bool.hpp</itemPath>
+            <itemPath>boost/preprocessor/logical/compl.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="punctuation" displayName="punctuation" projectFiles="true">
+            <itemPath>boost/preprocessor/punctuation/comma.hpp</itemPath>
+            <itemPath>boost/preprocessor/punctuation/comma_if.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="repetition" displayName="repetition" projectFiles="true">
+            <logicalFolder name="detail" displayName="detail" projectFiles="true">
+              <logicalFolder name="dmc" displayName="dmc" projectFiles="true">
+                <itemPath>boost/preprocessor/repetition/detail/dmc/for.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="edg" displayName="edg" projectFiles="true">
+                <itemPath>boost/preprocessor/repetition/detail/edg/for.hpp</itemPath>
+              </logicalFolder>
+              <logicalFolder name="msvc" displayName="msvc" projectFiles="true">
+                <itemPath>boost/preprocessor/repetition/detail/msvc/for.hpp</itemPath>
+              </logicalFolder>
+              <itemPath>boost/preprocessor/repetition/detail/for.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/repetition/enum_binary_params.hpp</itemPath>
+            <itemPath>boost/preprocessor/repetition/enum_params.hpp</itemPath>
+            <itemPath>boost/preprocessor/repetition/for.hpp</itemPath>
+            <itemPath>boost/preprocessor/repetition/repeat.hpp</itemPath>
+            <itemPath>boost/preprocessor/repetition/repeat_from_to.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="slot" displayName="slot" projectFiles="true">
+            <logicalFolder name="detail" displayName="detail" projectFiles="true">
+              <itemPath>boost/preprocessor/slot/detail/counter.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/def.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/shared.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/slot1.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/slot2.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/slot3.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/slot4.hpp</itemPath>
+              <itemPath>boost/preprocessor/slot/detail/slot5.hpp</itemPath>
+            </logicalFolder>
+            <itemPath>boost/preprocessor/slot/slot.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="tuple" displayName="tuple" projectFiles="true">
+            <itemPath>boost/preprocessor/tuple/eat.hpp</itemPath>
+            <itemPath>boost/preprocessor/tuple/elem.hpp</itemPath>
+            <itemPath>boost/preprocessor/tuple/rem.hpp</itemPath>
+            <itemPath>boost/preprocessor/tuple/to_list.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/preprocessor/cat.hpp</itemPath>
+          <itemPath>boost/preprocessor/comma_if.hpp</itemPath>
+          <itemPath>boost/preprocessor/empty.hpp</itemPath>
+          <itemPath>boost/preprocessor/enum_params.hpp</itemPath>
+          <itemPath>boost/preprocessor/identity.hpp</itemPath>
+          <itemPath>boost/preprocessor/inc.hpp</itemPath>
+          <itemPath>boost/preprocessor/iterate.hpp</itemPath>
+          <itemPath>boost/preprocessor/repeat.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="smart_ptr" displayName="smart_ptr" projectFiles="true">
+          <logicalFolder name="detail" displayName="detail" projectFiles="true">
+            <itemPath>boost/smart_ptr/detail/atomic_count.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/atomic_count_gcc.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/atomic_count_gcc_x86.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/atomic_count_pthreads.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/atomic_count_sync.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/atomic_count_win32.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/lightweight_mutex.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/lwm_nop.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/lwm_pthreads.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/lwm_win32_cs.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/operator_bool.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/quick_allocator.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/shared_count.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/shared_ptr_nmt.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_convertible.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_nt.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_pt.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_spin.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_sync.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_base_w32.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_counted_impl.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/sp_has_sync.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_gcc_arm.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_nt.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_pool.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_pt.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_sync.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/spinlock_w32.hpp</itemPath>
+            <itemPath>boost/smart_ptr/detail/yield_k.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/smart_ptr/bad_weak_ptr.hpp</itemPath>
+          <itemPath>boost/smart_ptr/shared_ptr.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="type_traits" displayName="type_traits" projectFiles="true">
+          <logicalFolder name="detail" displayName="detail" projectFiles="true">
+            <itemPath>boost/type_traits/detail/bool_trait_def.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/bool_trait_undef.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/cv_traits_impl.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/false_result.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/ice_and.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/ice_eq.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/ice_not.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/ice_or.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/is_function_ptr_helper.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/is_function_ptr_tester.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/is_mem_fun_pointer_impl.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/is_mem_fun_pointer_tester.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/size_t_trait_def.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/size_t_trait_undef.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/template_arity_spec.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/type_trait_def.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/type_trait_undef.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/wrap.hpp</itemPath>
+            <itemPath>boost/type_traits/detail/yes_no_type.hpp</itemPath>
+          </logicalFolder>
+          <logicalFolder name="msvc" displayName="msvc" projectFiles="true">
+            <itemPath>boost/type_traits/msvc/remove_bounds.hpp</itemPath>
+            <itemPath>boost/type_traits/msvc/remove_cv.hpp</itemPath>
+            <itemPath>boost/type_traits/msvc/remove_reference.hpp</itemPath>
+            <itemPath>boost/type_traits/msvc/typeof.hpp</itemPath>
+          </logicalFolder>
+          <itemPath>boost/type_traits/add_reference.hpp</itemPath>
+          <itemPath>boost/type_traits/alignment_of.hpp</itemPath>
+          <itemPath>boost/type_traits/broken_compiler_spec.hpp</itemPath>
+          <itemPath>boost/type_traits/config.hpp</itemPath>
+          <itemPath>boost/type_traits/has_nothrow_copy.hpp</itemPath>
+          <itemPath>boost/type_traits/has_trivial_copy.hpp</itemPath>
+          <itemPath>boost/type_traits/ice.hpp</itemPath>
+          <itemPath>boost/type_traits/integral_constant.hpp</itemPath>
+          <itemPath>boost/type_traits/intrinsics.hpp</itemPath>
+          <itemPath>boost/type_traits/is_abstract.hpp</itemPath>
+          <itemPath>boost/type_traits/is_arithmetic.hpp</itemPath>
+          <itemPath>boost/type_traits/is_array.hpp</itemPath>
+          <itemPath>boost/type_traits/is_class.hpp</itemPath>
+          <itemPath>boost/type_traits/is_const.hpp</itemPath>
+          <itemPath>boost/type_traits/is_convertible.hpp</itemPath>
+          <itemPath>boost/type_traits/is_enum.hpp</itemPath>
+          <itemPath>boost/type_traits/is_float.hpp</itemPath>
+          <itemPath>boost/type_traits/is_function.hpp</itemPath>
+          <itemPath>boost/type_traits/is_integral.hpp</itemPath>
+          <itemPath>boost/type_traits/is_member_function_pointer.hpp</itemPath>
+          <itemPath>boost/type_traits/is_member_pointer.hpp</itemPath>
+          <itemPath>boost/type_traits/is_pod.hpp</itemPath>
+          <itemPath>boost/type_traits/is_pointer.hpp</itemPath>
+          <itemPath>boost/type_traits/is_polymorphic.hpp</itemPath>
+          <itemPath>boost/type_traits/is_reference.hpp</itemPath>
+          <itemPath>boost/type_traits/is_same.hpp</itemPath>
+          <itemPath>boost/type_traits/is_scalar.hpp</itemPath>
+          <itemPath>boost/type_traits/is_union.hpp</itemPath>
+          <itemPath>boost/type_traits/is_void.hpp</itemPath>
+          <itemPath>boost/type_traits/is_volatile.hpp</itemPath>
+          <itemPath>boost/type_traits/remove_bounds.hpp</itemPath>
+          <itemPath>boost/type_traits/remove_cv.hpp</itemPath>
+          <itemPath>boost/type_traits/remove_reference.hpp</itemPath>
+          <itemPath>boost/type_traits/type_with_alignment.hpp</itemPath>
+        </logicalFolder>
+        <logicalFolder name="utility" displayName="utility" projectFiles="true">
+          <itemPath>boost/utility/base_from_member.hpp</itemPath>
+          <itemPath>boost/utility/compare_pointees.hpp</itemPath>
+        </logicalFolder>
+        <itemPath>boost/assert.hpp</itemPath>
+        <itemPath>boost/checked_delete.hpp</itemPath>
+        <itemPath>boost/config.hpp</itemPath>
+        <itemPath>boost/current_function.hpp</itemPath>
+        <itemPath>boost/format.hpp</itemPath>
+        <itemPath>boost/limits.hpp</itemPath>
+        <itemPath>boost/memory_order.hpp</itemPath>
+        <itemPath>boost/non_type.hpp</itemPath>
+        <itemPath>boost/none.hpp</itemPath>
+        <itemPath>boost/none_t.hpp</itemPath>
+        <itemPath>boost/optional.hpp</itemPath>
+        <itemPath>boost/shared_ptr.hpp</itemPath>
+        <itemPath>boost/static_assert.hpp</itemPath>
+        <itemPath>boost/throw_exception.hpp</itemPath>
+        <itemPath>boost/type.hpp</itemPath>
+        <itemPath>boost/version.hpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="gnu" displayName="gnu" projectFiles="true">
+        <itemPath>gnu/stubs-32.h</itemPath>
+        <itemPath>gnu/stubs.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="linux" displayName="linux" projectFiles="true">
+        <itemPath>linux/errno.h</itemPath>
+        <itemPath>linux/limits.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="sys" displayName="sys" projectFiles="true">
+        <itemPath>sys/cdefs.h</itemPath>
+        <itemPath>sys/select.h</itemPath>
+        <itemPath>sys/signal.h</itemPath>
+        <itemPath>sys/sysmacros.h</itemPath>
+        <itemPath>sys/time.h</itemPath>
+        <itemPath>sys/types.h</itemPath>
+        <itemPath>sys/ucontext.h</itemPath>
+      </logicalFolder>
+      <itemPath>alloca.h</itemPath>
+      <itemPath>assert.h</itemPath>
+      <itemPath>ctype.h</itemPath>
+      <itemPath>endian.h</itemPath>
+      <itemPath>errno.h</itemPath>
+      <itemPath>features.h</itemPath>
+      <itemPath>getopt.h</itemPath>
+      <itemPath>inttypes.h</itemPath>
+      <itemPath>limits.h</itemPath>
+      <itemPath>pthread.h</itemPath>
+      <itemPath>sched.h</itemPath>
+      <itemPath>signal.h</itemPath>
+      <itemPath>stdint.h</itemPath>
+      <itemPath>stdlib.h</itemPath>
+      <itemPath>string.h</itemPath>
+      <itemPath>time.h</itemPath>
+      <itemPath>unistd.h</itemPath>
+      <itemPath>xlocale.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
-      <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="6">
