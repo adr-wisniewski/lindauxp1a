@@ -9,34 +9,28 @@
 #define	_REQUESTINPUT_H
 
 #include "MessageRequest.h"
-#include "MessageUnserializable.h"
 #include "Query.h"
 
 namespace Linda
 {
-    class RequestInput;
-
-    typedef MessageUnserializable<RequestInput, MessageRequest, 1>
-            UnserializableRequestInput;
-
     class RequestInput : 
         public MessageRequest,
-        private UnserializableRequestInput
+        RegisterSerializable<RequestInput, MessageRequest>
     {
     public:
         RequestInput();
         RequestInput(const Query &query);
 
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
-
-        virtual int GetCode() const;
         virtual void Process(ProcessorRequest *processor);
 
         const Query& GivenQuery() const;
         void GivenQuery(const Query& value);
 
     protected:
+        virtual id_t Id() const;
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
         Query mGivenQuery;
     };
 }

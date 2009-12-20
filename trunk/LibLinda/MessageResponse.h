@@ -9,27 +9,28 @@
 #define	_MESSAGERESPONSE_H
 
 #include "Message.h"
+#include "Serializable.h"
 #include "Pipe.h"
 
 namespace Linda
 {
     class ProcessorResponse;
 
-    class MessageResponse : public Message<MessageResponse,ProcessorResponse>
+    class MessageResponse :
+        public Serializable<MessageResponse>,
+        public Message<ProcessorResponse>
     {
     public:
-        typedef Message<MessageResponse, ProcessorResponse> Base;
-
         MessageResponse();
         MessageResponse(bool status);
-
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
 
         bool Status() const;
         void Status(bool value);
 
     protected:
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
         bool mStatus;
     };
 

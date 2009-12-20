@@ -9,34 +9,29 @@
 #define	_REQUESTOUTPUT_H
 
 #include "MessageRequest.h"
-#include "MessageUnserializable.h"
 #include "Tuple.h"
+
 
 namespace Linda
 {
-    class RequestOutput;
-
-    typedef MessageUnserializable<RequestOutput, MessageRequest, 2>
-            UnserializableRequestOutput;
-
     class RequestOutput : 
         public MessageRequest,
-        private UnserializableRequestOutput
+        RegisterSerializable<RequestOutput, MessageRequest>
     {
-        public:
+    public:
         RequestOutput();
         RequestOutput(const Tuple &tuple);
 
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
-
-        virtual int GetCode() const;
         virtual void Process(ProcessorRequest *processor);
 
         const Tuple& GivenTuple() const;
         void GivenTuple(const Tuple& value);
 
     protected:
+        virtual id_t Id() const;
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
         Tuple mGivenTuple;
     };
 }

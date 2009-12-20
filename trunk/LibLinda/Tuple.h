@@ -8,59 +8,66 @@
 #ifndef _TUPLE_H
 #define	_TUPLE_H
 
-#include <string>
-#include <list>
-#include <ostream>
-#include <istream>
+#include "TupleBase.h"
+#include "Serializable.h"
+#include <boost/noncopyable.hpp>
 
 namespace Linda
 {
-    class Tuple
+    // interface
+    class TupleValue : public Serializable<TupleValue>, boost::noncopyable
     {
     public:
-        // this should be abstract + visitor
-        class Value
-        {
-        public:
+        virtual TupleValue* clone() const = 0;
+    };
 
-            enum Type
-            {
-                TypeFloat,
-                TypeInt,
-                TypeString
-            };
+    // interface implementation
+    template<class TType>
+    class ConcreteTupleValue : 
+        public TupleValue,
+        RegisterSerializable<ConcreteTupleValue<TType>, TupleValue>
+    {
+    public:
 
-            // construction and destruction
-            Value(float value);
-            Value(int value);
-            Value(const std::string &value);
+        ConcreteTupleValue(TType value);
 
-            ~Value();
+        TType Value() const;
+        void Value(TType value);
 
-            // accessors
-            Type                GetType() const;
-            float               ValueFloat() const;
-            int                 ValueInt() const;
-            const std::string&  ValueString() const;
-
-        protected:
-
-            Type mType;
-
-            union
-            {
-                float       mFloatValue;
-                int         mIntValue;
-                std::string* mStringValue;
-            };
-        };
-
-        void Serialize(std::ostream &stream) const;
-        void Unserialize(std::istream &stream);
+        virtual TupleValue* clone() const;
 
     protected:
-        std::list<Value> mValues;
+        virtual id_t Id() const;
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+        TType mValue;
     };
+
+    // interface implementation
+    // specialization for std::string
+    template<>
+    class ConcreteTupleValue<std::string> : 
+        public TupleValue,
+        RegisterSerializable<ConcreteTupleValue<std::string>,TupleValue>
+    {
+    public:
+        ConcreteTupleValue(std::string value);
+
+        const std::string& Value() const;
+        void Value(const std::string &value);
+
+        virtual TupleValue* clone() const;
+
+    protected:
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
+        std::string mValue;
+    };
+
+    TupleValue* new_clone( const TupleValue& t );
+
+    typedef TupleBase<TupleValue> Tuple;
 }
 
 #endif	/* _TUPLE_H */

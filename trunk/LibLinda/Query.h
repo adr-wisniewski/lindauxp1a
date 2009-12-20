@@ -13,35 +13,53 @@
 
 #include "Tuple.h"
 
+
 namespace Linda
 {
-    class Query
+    enum Operation
+    {
+        OperationEqual,
+        OperationNotEqual,
+        OperationLess,
+        OperationEqualLess,
+        OperationGreater,
+        OperationEqualGreater,
+        OperationAny
+    };
+
+
+    class QueryValue : public Serializable<QueryValue>
     {
     public:
-        class Value : public Tuple::Value
-        {
-        public:
-            enum Operation
-            {
-                OperationEqual,
-                OperationNotEqual,
-                OperationLess,
-                OperationEqualLess,
-                OperationGreater,
-                OperationEqualGreater
-            };
-        protected:
-            Operation mOperation;
+        virtual bool IsSatisfied(const TupleValue &value) const = 0;
+        virtual QueryValue* clone() const = 0;
+    };
+    
+    // interface implementation
+    template<class TType, Operation TOperation>
+    class ConcreteQueryValue : QueryValue
+    {
+    public:
+        ConcreteQueryValue(TType value);
 
-        };
-
-        bool IsSatisfied(const Tuple &tuple);
-
-        void Serialize(std::ostream &stream) const;
-        void Unserialize(std::istream &stream);
+        virtual bool IsSatisfied(const TupleValue &value) const;
+        virtual QueryValue* clone() const;
 
     protected:
-        std::list<Value> mValues;
+        virtual id_t Id() const;
+        virtual void DoSerialize(std::ostream &stream) const;
+        virtual void DoUnserialize(std::istream &stream);
+
+        ConcreteTupleValue<TType> mValue;
+    };
+
+    QueryValue* new_clone( const QueryValue& q );
+
+    // Query class
+    class Query : public TupleBase<QueryValue>
+    {
+    public:
+        bool IsSatisfied(const Tuple &tuple);
     };
 }
 
