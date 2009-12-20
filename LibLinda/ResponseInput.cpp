@@ -1,5 +1,6 @@
 #include "ResponseInput.h"
 #include "ProcessorResponse.h"
+#include "Id.h"
 
 namespace Linda
 {
@@ -25,9 +26,9 @@ namespace Linda
         mGivenTuple.Unserialize(stream);
     }
 
-    /*virtual*/ int ResponseInput::GetCode() const
+    /*virtual*/ id_t ResponseInput::Id() const
     {
-        return UnserializableResponseInput::GetCode();
+        return ClassToId<ResponseInput>::Id();
     }
 
     /*virtual*/ void ResponseInput::Process(ProcessorResponse *processor)

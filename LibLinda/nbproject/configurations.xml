@@ -8,14 +8,13 @@
     </logicalFolder>
     <itemPath>Exception.cpp</itemPath>
     <itemPath>Exception.h</itemPath>
+    <itemPath>Id.h</itemPath>
     <itemPath>Linda.cpp</itemPath>
     <itemPath>Linda.h</itemPath>
     <itemPath>Message.h</itemPath>
-    <itemPath>Message.impl.h</itemPath>
     <itemPath>MessageRequest.h</itemPath>
     <itemPath>MessageResponse.cpp</itemPath>
     <itemPath>MessageResponse.h</itemPath>
-    <itemPath>MessageUnserializable.h</itemPath>
     <itemPath>Pipe.h</itemPath>
     <itemPath>Pipe.impl.h</itemPath>
     <itemPath>PipeBase.cpp</itemPath>
@@ -24,6 +23,7 @@
     <itemPath>ProcessorResponse.h</itemPath>
     <itemPath>Query.cpp</itemPath>
     <itemPath>Query.h</itemPath>
+    <itemPath>Query.impl.h</itemPath>
     <itemPath>RequestInput.cpp</itemPath>
     <itemPath>RequestInput.h</itemPath>
     <itemPath>RequestOutput.cpp</itemPath>
@@ -34,8 +34,14 @@
     <itemPath>ResponseInput.h</itemPath>
     <itemPath>ResponseOutput.cpp</itemPath>
     <itemPath>ResponseOutput.h</itemPath>
+    <itemPath>Serializable.cpp</itemPath>
+    <itemPath>Serializable.h</itemPath>
+    <itemPath>Serializable.impl.h</itemPath>
     <itemPath>Tuple.cpp</itemPath>
     <itemPath>Tuple.h</itemPath>
+    <itemPath>Tuple.impl.h</itemPath>
+    <itemPath>TupleBase.h</itemPath>
+    <itemPath>TupleBase.impl.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
@@ -71,6 +77,9 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../BoostFiles</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

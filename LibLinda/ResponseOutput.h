@@ -9,24 +9,20 @@
 #define	_RESPONSEOUTPUT_H
 
 #include "MessageResponse.h"
-#include "MessageUnserializable.h"
 
 namespace Linda
 {
-    class ResponseOutput;
-
-    typedef MessageUnserializable<ResponseOutput, MessageResponse, 2>
-            UnserializableResponseOutput;
-
     class ResponseOutput : 
         public MessageResponse,
-        private UnserializableResponseOutput
+        RegisterSerializable<ResponseOutput, MessageResponse>
     {
         ResponseOutput();
         ResponseOutput(bool status);
 
-        virtual int GetCode() const;
         virtual void Process(ProcessorResponse *processor);
+
+    protected:
+        virtual id_t Id() const;
     };
 }
 

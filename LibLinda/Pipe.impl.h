@@ -8,11 +8,11 @@
 #ifndef _PIPE_IMPL_H
 #define	_PIPE_IMPL_H
 
+#include <limits.h>
 #include <sstream>
-
-#include "PipeBase.h"
-#include "Exception.h"
 #include <boost/format.hpp>
+
+#include "Exception.h"
 
 namespace Linda
 {
@@ -35,9 +35,14 @@ namespace Linda
     {
         int size;
 
-        // create buffer and serialize object
+        // create buffer 
         std::stringstream stream(std::stringstream::binary | std::stringstream::in);
-        stream << size;                        // allocate space for size header
+        stream.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
+
+        // allocate space for size header
+        stream << size;
+
+        // serialize
         p.Serialize(static_cast<std::ostream&>(stream));
 
         // check size
@@ -69,11 +74,13 @@ namespace Linda
         // move data into stream
         std::stringstream stream(std::string(buffer, size), 
                 std::stringstream::binary | std::stringstream::out);
+
+        stream.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
         
         delete buffer;
 
         // unserialize object
-        return TProduct::Base::Unserialize(static_cast<std::istream&>(stream));
+        return Serializable<TProduct>::Unserialize(static_cast<std::istream&>(stream));
     }
 
 }

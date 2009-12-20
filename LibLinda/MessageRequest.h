@@ -8,17 +8,20 @@
 #ifndef _MESSAGEREQUEST_H
 #define	_MESSAGEREQUEST_H
 
+
 #include "Message.h"
+#include "Serializable.h"
 #include "Pipe.h"
 
 namespace Linda
 {
     class ProcessorRequest;
 
-    class MessageRequest : public Message<MessageRequest, ProcessorRequest>
+    class MessageRequest : 
+        public Message<ProcessorRequest>,
+        public Serializable<MessageRequest>
     {
-    public:
-        typedef Message<MessageRequest, ProcessorRequest> Base;
+
     };
 
     typedef Pipe<MessageRequest> PipeRequest;

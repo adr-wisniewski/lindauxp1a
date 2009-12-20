@@ -1,5 +1,6 @@
 #include "RequestInput.h"
 #include "ProcessorRequest.h"
+#include "Id.h"
 
 namespace Linda
 {
@@ -24,9 +25,9 @@ namespace Linda
         mGivenQuery.Unserialize(stream);
     }
 
-    /*virtual*/ int RequestInput::GetCode() const
+    /*virtual*/ id_t RequestInput::Id() const
     {
-        return UnserializableRequestInput::GetCode();
+        return ClassToId<RequestInput>::Id();
     }
 
     /*virtual*/ void RequestInput::Process(ProcessorRequest *processor)

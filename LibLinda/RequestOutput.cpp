@@ -1,5 +1,6 @@
 #include "RequestOutput.h"
 #include "ProcessorRequest.h"
+#include "Id.h"
 
 namespace Linda
 {
@@ -24,9 +25,9 @@ namespace Linda
         mGivenTuple.Unserialize(stream);
     }
 
-    /*virtual*/ int RequestOutput::GetCode() const
+    /*virtual*/ id_t RequestOutput::Id() const
     {
-        return UnserializableRequestOutput::GetCode();
+        return ClassToId<RequestOutput>::Id();
     }
 
     /*virtual*/ void RequestOutput::Process(ProcessorRequest *processor)

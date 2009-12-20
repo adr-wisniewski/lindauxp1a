@@ -13,21 +13,18 @@
 
 namespace Linda
 {
-    class RequestRead;
-
-    typedef MessageUnserializable<RequestRead, MessageRequest, 3>
-            UnserializableRequestRead;
-
     class RequestRead : 
         public RequestInput,
-        private UnserializableRequestRead
+        RegisterSerializable<RequestRead, MessageRequest>
     {
     public:
         RequestRead();
         RequestRead(const Query &query);
 
-        virtual int GetCode() const;
         virtual void Process(ProcessorRequest *processor);
+
+    protected:
+        virtual id_t Id() const;
     };
 }
 
