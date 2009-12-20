@@ -1,10 +1,10 @@
 #include <Worker.h>
 
-Worker::Worker(Linda::RequestPipe requestPipe,
-        Linda::Test::ResultPipe resultPipe)
+Worker::Worker(Linda::PipeRequest requestPipe,
+        Linda::Test::PipeResult resultPipe)
 {
     // initialize storage
-    switch((id = fork())
+    switch(id = fork())
     {
         // error
         case -1:
@@ -40,7 +40,12 @@ int Worker::GetId()
     return id;
 }
 
-void Worker::Write(Linda::Test::CommandMessage cmd)
+const Linda::Test::PipeCommand& Worker::GetPipeCommand()
 {
-    commandPipe.Write(cmd);
+    return commandPipe;
+}
+
+const Linda::PipeResponse& Worker::GetPipeResponse()
+{
+    return responsePipe;
 }

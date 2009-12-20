@@ -12,13 +12,15 @@ class Worker
 {
 private:
     int id;
-    Linda::Test::CommandPipe commandPipe;
-    Linda::ResponsePipe responsePipe;
+    Linda::Test::PipeCommand commandPipe;
+    Linda::PipeResponse responsePipe;
 
 public:
-    Worker(Linda::RequestPipe requestPipe,
-        Linda::Test::ResultPipe resultPipe);
+    Worker(Linda::PipeRequest requestPipe,
+        Linda::Test::PipeResult resultPipe);
     ~Worker();
+    const Linda::Test::PipeCommand& GetPipeCommand();
+    const Linda::PipeResponse& GetPipeResponse();
     int GetId();
     
 };

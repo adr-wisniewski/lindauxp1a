@@ -53,15 +53,15 @@ void StorageNode::Process(Linda::Test::CommandCreate &c)
     {
         Worker* worker = new Worker();
         workerList.push_back(worker);
-        resultPipe.Write(c.Ordinal(), true, ResultCreate(worker->GetId()));
+        resultPipe.Write(c.Ordinal(), true, Linda::Test::ResultCreate(worker->GetId()));
     }
     catch(Linda::Exception &e)
     {
-        resultPipe.Write(c.Ordinal(), false, ResultCreate(worker->GetId()));
+        resultPipe.Write(c.Ordinal(), false, Linda::Test::ResultCreate(worker->GetId()));
     }
     catch(Exception &e)
     {
-        resultPipe.Write(c.Ordinal(), false, ResultCreate(worker->GetId()));
+        resultPipe.Write(c.Ordinal(), false, Linda::Test::ResultCreate(worker->GetId()));
         return EXIT_FAILURE;
     }
     
@@ -70,7 +70,7 @@ void StorageNode::Process(Linda::Test::CommandCreate &c)
 void StorageNode::Process(Linda::Test::CommandKill &c)
 {
     RemoveWorker(c.Id());
-    resultPipe.Write(ResultKill(c.Ordinal(), true));
+    resultPipe.Write(Linda::Test::ResultKill(c.Ordinal(), true));
 }
 
 void StorageNode::Process(Linda::Test::CommandStat &c)
@@ -81,20 +81,19 @@ void StorageNode::Process(Linda::Test::CommandStat &c)
 void StorageNode::Process(Linda::Test::CommandOutput &c)
 {
     Worker *w = FindWorker(c.Id());
-    w->Write(c);
-}
+    w->GetPipeCommand().Write(c);
 }
 
 void StorageNode::Process(Linda::Test::CommandInput &c)
 {
     Worker *w = FindWorker(c.Id());
-    w->Write(c);
+    w->GetPipeCommand().Write(c);
 }
 
 void StorageNode::Process(Linda::Test::CommandRead &c)
 {
     Worker *w = FindWorker(c.Id());
-    w->Write(c);
+    w->GetPipeCommand().Write(c);
 }
 
 void StorageNode::Process(Linda::RequestOutput &r)
@@ -106,7 +105,7 @@ void StorageNode::Process(Linda::RequestOutput &r)
         {
             status = true;
             Worker* w = FindWorker((*i).id);
-            w->Write(r.GivenTuple());
+            w->GetPipeResponse().Write(Linda::ResponseOutput(true));
             i = waitingRequest.erase(i);
             if((*i).input)
                 break;
@@ -127,7 +126,7 @@ void StorageNode::Process(Linda::RequestInput &r)
     Worker* w = FindWorker(r.Id());
     if(status)
     {
-        w->Write(*i);
+        w->GetPipeResponse().Write(Linda::ResponseInput(true, (*i)));
         tuplesList.erase(i);
     }
     else
@@ -143,7 +142,7 @@ void StorageNode::Process(Linda::RequestRead &r)
             status = true;
     Worker* w = FindWorker(r.Id());
     if(status)
-        w->Write(*i);
+        w->GetPipeResponse().Write(Linda::ResponseInput(true, (*i)));
     else
         waitingRequest.push_back(Waiting(w->GetId(), r.GivenQuery(), false));
 }
