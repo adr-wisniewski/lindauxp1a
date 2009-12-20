@@ -1,20 +1,32 @@
 #include "CommandRead.h"
 #include "ProcessorCommand.h"
+#include "Id.h"
 
 namespace Linda
 {
 namespace Test
 {
 
-/*virtual*/ int CommandRead::GetCode() const
-{
-    return UnserializableCommandRead::GetCode();
-}
+    CommandRead::CommandRead()
+    {
 
-/*virtual*/ void CommandRead::Process(ProcessorCommand *processor)
-{
-    processor->Process(*this);
-}
+    }
+
+    CommandRead::CommandRead(int ordinal, pid_t pid, const Query &query)
+    : CommandInput(ordinal, pid, query)
+    {
+
+    }
+
+    /*virtual*/ void CommandRead::Process(ProcessorCommand *processor)
+    {
+        processor->Process(*this);
+    }
+
+    /*virtual*/ id_t CommandRead::Id() const
+    {
+        return ClassToId<CommandRead>::Id();
+    }
 
 
 }

@@ -32,14 +32,17 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/MessageResult.o \
-	${OBJECTDIR}/CommandInput.o \
-	${OBJECTDIR}/ResultStat.o \
 	${OBJECTDIR}/CommandOutput.o \
+	${OBJECTDIR}/ResultStat.o \
 	${OBJECTDIR}/CommandCreate.o \
 	${OBJECTDIR}/MessageCommand.o \
 	${OBJECTDIR}/CommandRead.o \
+	${OBJECTDIR}/CommandStat.o \
+	${OBJECTDIR}/ResultCreate.o \
+	${OBJECTDIR}/CommandInput.o \
 	${OBJECTDIR}/CommandKill.o \
-	${OBJECTDIR}/CommandStat.o
+	${OBJECTDIR}/ResultBasic.o \
+	${OBJECTDIR}/MessageWorkerCommand.o
 
 # C Compiler Flags
 CFLAGS=
@@ -59,58 +62,73 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libliblindatest.a
+	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/liblindatest.a
 
-dist/Release/GNU-Linux-x86/libliblindatest.a: ${OBJECTFILES}
+dist/Release/GNU-Linux-x86/liblindatest.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${RM} dist/Release/GNU-Linux-x86/libliblindatest.a
-	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblindatest.a ${OBJECTFILES} 
-	$(RANLIB) dist/Release/GNU-Linux-x86/libliblindatest.a
+	${RM} dist/Release/GNU-Linux-x86/liblindatest.a
+	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblindatest.a ${OBJECTFILES} 
+	$(RANLIB) dist/Release/GNU-Linux-x86/liblindatest.a
 
 ${OBJECTDIR}/MessageResult.o: nbproject/Makefile-${CND_CONF}.mk MessageResult.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageResult.o MessageResult.cpp
-
-${OBJECTDIR}/CommandInput.o: nbproject/Makefile-${CND_CONF}.mk CommandInput.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandInput.o CommandInput.cpp
-
-${OBJECTDIR}/ResultStat.o: nbproject/Makefile-${CND_CONF}.mk ResultStat.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultStat.o ResultStat.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageResult.o MessageResult.cpp
 
 ${OBJECTDIR}/CommandOutput.o: nbproject/Makefile-${CND_CONF}.mk CommandOutput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandOutput.o CommandOutput.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandOutput.o CommandOutput.cpp
+
+${OBJECTDIR}/ResultStat.o: nbproject/Makefile-${CND_CONF}.mk ResultStat.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultStat.o ResultStat.cpp
 
 ${OBJECTDIR}/CommandCreate.o: nbproject/Makefile-${CND_CONF}.mk CommandCreate.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandCreate.o CommandCreate.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandCreate.o CommandCreate.cpp
 
 ${OBJECTDIR}/MessageCommand.o: nbproject/Makefile-${CND_CONF}.mk MessageCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageCommand.o MessageCommand.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageCommand.o MessageCommand.cpp
 
 ${OBJECTDIR}/CommandRead.o: nbproject/Makefile-${CND_CONF}.mk CommandRead.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandRead.o CommandRead.cpp
-
-${OBJECTDIR}/CommandKill.o: nbproject/Makefile-${CND_CONF}.mk CommandKill.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandKill.o CommandKill.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandRead.o CommandRead.cpp
 
 ${OBJECTDIR}/CommandStat.o: nbproject/Makefile-${CND_CONF}.mk CommandStat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandStat.o CommandStat.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandStat.o CommandStat.cpp
+
+${OBJECTDIR}/ResultCreate.o: nbproject/Makefile-${CND_CONF}.mk ResultCreate.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultCreate.o ResultCreate.cpp
+
+${OBJECTDIR}/CommandInput.o: nbproject/Makefile-${CND_CONF}.mk CommandInput.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandInput.o CommandInput.cpp
+
+${OBJECTDIR}/CommandKill.o: nbproject/Makefile-${CND_CONF}.mk CommandKill.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandKill.o CommandKill.cpp
+
+${OBJECTDIR}/ResultBasic.o: nbproject/Makefile-${CND_CONF}.mk ResultBasic.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultBasic.o ResultBasic.cpp
+
+${OBJECTDIR}/MessageWorkerCommand.o: nbproject/Makefile-${CND_CONF}.mk MessageWorkerCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageWorkerCommand.o MessageWorkerCommand.cpp
 
 # Subprojects
 .build-subprojects:
@@ -118,7 +136,7 @@ ${OBJECTDIR}/CommandStat.o: nbproject/Makefile-${CND_CONF}.mk CommandStat.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Linux-x86/libliblindatest.a
+	${RM} dist/Release/GNU-Linux-x86/liblindatest.a
 
 # Subprojects
 .clean-subprojects:

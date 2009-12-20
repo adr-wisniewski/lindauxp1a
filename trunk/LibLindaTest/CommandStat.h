@@ -9,28 +9,23 @@
 #define	_COMMANDSTAT_H
 
 #include "MessageCommand.h"
-#include "MessageUnserializable.h"
 
 namespace Linda
 {
     namespace Test
     {
-        class CommandStat;
-
-        typedef MessageUnserializable<CommandStat, MessageCommand, 3>
-            UnserializableCommandStat;
-
         class CommandStat :
             public MessageCommand,
-            private UnserializableCommandStat
+            private RegisterSerializable<CommandStat, MessageCommand>
         {
         public:
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            CommandStat();
+            CommandStat(int ordinal);
 
-            virtual int GetCode() const;
             virtual void Process(ProcessorCommand *processor);
 
+        protected:
+            virtual id_t Id() const;
         };
     }
 }

@@ -8,8 +8,7 @@
 #ifndef _COMMANDOUTPUT_H
 #define	_COMMANDOUTPUT_H
 
-#include "MessageCommand.h"
-#include "MessageUnserializable.h"
+#include "MessageWorkerCommand.h"
 
 #include <Tuple.h>
 
@@ -17,26 +16,24 @@ namespace Linda
 {
     namespace Test
     {
-        class CommandOutput;
-
-        typedef MessageUnserializable<CommandOutput, MessageCommand, 6>
-            UnserializableCommandOutput;
-
         class CommandOutput :
-            public MessageCommand,
-            private UnserializableCommandOutput
+            public MessageWorkerCommand,
+            RegisterSerializable<CommandOutput, MessageCommand>
         {
         public:
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            CommandOutput();
+            CommandOutput(int ordinal, pid_t pid, const Tuple &tuple);
 
-            virtual int GetCode() const;
             virtual void Process(ProcessorCommand *processor);
 
             const Tuple& GivenTuple() const;
             void GivenTuple(const Tuple& value);
 
         protected:
+            virtual id_t Id() const;
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
+
             Tuple mGivenTuple;
         };
     }

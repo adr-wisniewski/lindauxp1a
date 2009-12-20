@@ -8,25 +8,24 @@
 #ifndef _COMMANDKILL_H
 #define	_COMMANDKILL_H
 
-#include "CommandCreate.h"
-#include "MessageUnserializable.h"
+#include "MessageWorkerCommand.h"
 
 namespace Linda
 {
     namespace Test
     {
-        class CommandKill;
-
-        typedef MessageUnserializable<CommandKill, MessageCommand, 2>
-            UnserializableCommandKill;
-
         class CommandKill :
-            public CommandCreate,
-            private UnserializableCommandKill
+            public MessageWorkerCommand,
+            RegisterSerializable<CommandKill, MessageCommand>
         {
         public:
-            virtual int GetCode() const;
+            CommandKill();
+            CommandKill(int ordinal, pid_t pid);
+
             virtual void Process(ProcessorCommand *processor);
+
+        protected:
+            virtual id_t Id() const;
         };
     }
 }

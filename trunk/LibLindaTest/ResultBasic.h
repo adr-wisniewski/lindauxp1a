@@ -9,27 +9,23 @@
 #define	_RESULTBASIC_H
 
 #include "MessageResult.h"
-#include <MessageUnserializable.h>
 
 namespace Linda
 {
     namespace Test
     {
-        class ResultBasic;
-
-        typedef MessageUnserializable<ResultBasic, MessageResult, 1>
-            UnserializableResultBasic;
-
         class ResultBasic :
             public MessageResult,
-            private UnserializableResultBasic
+            RegisterSerializable<ResultBasic, MessageResult>
         {
         public:
             ResultBasic();
             ResultBasic(int ordinal, bool status);
             
-            virtual int GetCode() const;
             virtual void Process(ProcessorResult *processor);
+
+        protected:
+            virtual id_t Id() const;
         };
     }
 }

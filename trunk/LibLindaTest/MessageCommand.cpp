@@ -5,6 +5,18 @@ namespace Linda
 {
     namespace Test
     {
+        MessageCommand::MessageCommand()
+        : mOrdinal(-1)
+        {
+
+        }
+
+        MessageCommand::MessageCommand(int ordinal)
+        : mOrdinal(ordinal)
+        {
+
+        }
+
         /*virtual*/ void MessageCommand::DoSerialize(std::ostream &stream) const
         {
             stream << mOrdinal;

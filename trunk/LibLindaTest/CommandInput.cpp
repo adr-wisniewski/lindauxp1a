@@ -1,26 +1,37 @@
 #include "CommandInput.h"
 #include "ProcessorCommand.h"
+#include "Id.h"
 
 namespace Linda
 {
 namespace Test
 {
+    CommandInput::CommandInput()
+    {
+
+    }
+
+    CommandInput::CommandInput(int ordinal, pid_t pid, const Query &query)
+    : MessageWorkerCommand(ordinal, pid), mGivenQuery(query)
+    {
+
+    }
 
     /*virtual*/ void CommandInput::DoSerialize(std::ostream &stream) const
     {
-        MessageCommand::DoSerialize(stream);
+        MessageWorkerCommand::DoSerialize(stream);
         mGivenQuery.Serialize(stream);
     }
 
     /*virtual*/ void CommandInput::DoUnserialize(std::istream &stream)
     {
-        MessageCommand::DoUnserialize(stream);
+        MessageWorkerCommand::DoUnserialize(stream);
         mGivenQuery.Unserialize(stream);
     }
 
-    /*virtual*/ int CommandInput::GetCode() const
+    /*virtual*/ id_t CommandInput::Id() const
     {
-        return UnserializableCommandInput::GetCode();
+        return ClassToId<CommandInput>::Id();
     }
 
     /*virtual*/ void CommandInput::Process(ProcessorCommand *processor)

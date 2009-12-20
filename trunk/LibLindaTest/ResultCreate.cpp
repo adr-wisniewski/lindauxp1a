@@ -7,6 +7,7 @@
 
 #include "ResultCreate.h"
 #include "ProcessorResult.h"
+#include "Id.h"
 
 namespace Linda
 {
@@ -18,40 +19,40 @@ namespace Test
 
     }
 
-    ResultCreate::ResultCreate(int ordinal, bool status, int pid)
+    ResultCreate::ResultCreate(int ordinal, bool status, pid_t pid)
     : MessageResult(ordinal, status), mPid(pid)
     {
 
     }
 
-    virtual void ResultCreate::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ResultCreate::DoSerialize(std::ostream &stream) const
     {
         MessageResult::DoSerialize(stream);
         stream << mPid;
     }
 
-    virtual void ResultCreate::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ResultCreate::DoUnserialize(std::istream &stream)
     {
         MessageResult::DoUnserialize(stream);
         stream >> mPid;
     }
 
-    virtual int ResultCreate::GetCode() const
+    /*virtual*/ id_t ResultCreate::Id() const
     {
-        return UnserializableResultCreate::GetCode();
+        return ClassToId<ResultCreate>::Id();
     }
 
-    virtual void ResultCreate::Process(ProcessorResult *processor)
+    /*virtual*/ void ResultCreate::Process(ProcessorResult *processor)
     {
         processor->Process(*this);
     }
 
-    int ResultCreate::Pid() const
+    pid_t ResultCreate::Pid() const
     {
         return mPid;
     }
 
-    void ResultCreate::Pid(int value)
+    void ResultCreate::Pid(pid_t value)
     {
         mPid = value;
     }

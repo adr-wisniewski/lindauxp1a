@@ -9,36 +9,31 @@
 #define	_RESULTCREATE_H
 
 #include "MessageResult.h"
-#include <MessageUnserializable.h>
+#include <unistd.h>
 
 namespace Linda
 {
     namespace Test
     {
-        class ResultCreate;
-
-        typedef MessageUnserializable<ResultCreate, MessageResult, 3>
-            UnserializableResultCreate;
-
         class ResultCreate :
             public MessageResult,
-            private UnserializableResultCreate
+            RegisterSerializable<ResultCreate, MessageResult>
         {
         public:
             ResultCreate();
-            ResultCreate(int ordinal, bool status, int pid);
+            ResultCreate(int ordinal, bool status, pid_t pid);
 
+            virtual void Process(ProcessorResult *processor);
+
+            pid_t Pid() const;
+            void Pid(pid_t value);
+
+        protected:
+            virtual id_t Id() const;
             virtual void DoSerialize(std::ostream &stream) const;
             virtual void DoUnserialize(std::istream &stream);
 
-            virtual int GetCode() const;
-            virtual void Process(ProcessorResult *processor);
-
-            int Pid() const;
-            void Pid(int value);
-
-        protected:
-            int mPid;
+            pid_t mPid;
         };
     }
 }

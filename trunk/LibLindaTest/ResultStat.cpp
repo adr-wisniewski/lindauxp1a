@@ -9,7 +9,7 @@
 
 #include "ResultStat.h"
 #include "ProcessorResult.h"
-#include <boost/scoped_array.hpp>
+#include "Id.h"
 
 namespace Linda
 {
@@ -52,7 +52,10 @@ namespace Test
             i != e;
             ++i)
         {
-            stream << i->first.length() << i->first;
+            // serialize first
+            stream << i->first;
+
+            // serialize second
             i->second.Serialize(stream);
         }
     }
@@ -72,34 +75,28 @@ namespace Test
         while(size--)
         {
             // read length
-            int length;
-            stream >> length;
-
-            // read id
-            boost::scoped_array<char> buffer(new char[length]);
-            stream.get(buffer.get(), length);
-            std::string id(buffer.get(), length);
+            pid_t pid;
+            stream >> pid;
 
             // read query
             Query query;
             query.Unserialize(stream);
 
             // add element
-            mAwaitingReads.push_back(AwaitingRead(id,query));
+            mAwaitingReads.push_back(AwaitingRead(pid,query));
         }
     }
 
-    /*virtual*/ int ResultStat::GetCode() const
+    /*virtual*/ id_t ResultStat::Id() const
     {
-        return UnserializableResultStat::GetCode();
+        return ClassToId<ResultStat>::Id();
     }
 
     /*virtual*/ void ResultStat::Process(ProcessorResult *processor)
     {
         processor->Process(*this);
     }
-
-
+                
     const std::list<Tuple> ResultStat::Storage() const
     {
         return mStorage;
