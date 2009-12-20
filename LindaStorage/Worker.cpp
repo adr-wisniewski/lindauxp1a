@@ -31,7 +31,6 @@ Worker::Worker(Linda::PipeRequest requestPipe,
 
 Worker::~Worker()
 {
-    //zamkniecie potoku, usuniecie z oczekujacych krotek dotyczacych usuwajacego
     //zabicie procesu
 }
 
