@@ -9,6 +9,7 @@
 #define	_MESSAGERESULT_H
 
 #include <Message.h>
+#include <Serializable.h>
 #include <Pipe.h>
 
 namespace Linda
@@ -17,16 +18,13 @@ namespace Linda
     {
         class ProcessorResult;
 
-        class MessageResult : public Message<MessageResult, ProcessorResult>
+        class MessageResult : 
+            public Message<ProcessorResult>,
+            public Serializable<MessageResult>
         {
         public:
-            typedef Message<MessageResult, ProcessorResult> Base;
-
             MessageResult();
             MessageResult(int ordinal, bool status);
-
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
 
             int Ordinal() const;
             void Ordinal(int value);
@@ -35,6 +33,9 @@ namespace Linda
             void Status(bool value);
 
         protected:
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
+
             int mOrdinal;
             bool mStatus;
         };

@@ -11,9 +11,9 @@ namespace Test
     }
 
     MessageResult::MessageResult(int ordinal, bool status)
+    : mOrdinal(ordinal), mStatus(status)
     {
-        Ordinal(ordinal);
-        Status(status);
+
     }
 
     /*virtual*/ void MessageResult::DoSerialize(std::ostream &stream) const

@@ -14,20 +14,18 @@ namespace Linda
 {
     namespace Test
     {
-        class CommandRead;
-
-        typedef MessageUnserializable<CommandRead, MessageCommand, 5>
-            UnserializableCommandRead;
-
-
         class CommandRead :
             public CommandInput,
-            private UnserializableCommandRead
+            RegisterSerializable<CommandRead, MessageCommand>
         {
         public:
-            virtual int GetCode() const;
+            CommandRead();
+            CommandRead(int ordinal, pid_t pid, const Query &query);
+
             virtual void Process(ProcessorCommand *processor);
 
+        protected:
+            virtual id_t Id() const;
         };
     }
 }

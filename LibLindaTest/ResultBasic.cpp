@@ -7,6 +7,7 @@
 
 #include "ResultBasic.h"
 #include "ProcessorResult.h"
+#include "Id.h"
 
 namespace Linda
 {
@@ -22,14 +23,14 @@ namespace Test
     {
     }
 
-    /*virtual*/ int ResultBasic::GetCode() const
-    {
-        return UnserializableResultBasic::GetCode();
-    }
-
     /*virtual*/ void ResultBasic::Process(ProcessorResult *processor)
     {
         processor->Process(*this);
+    }
+
+    /*virtual*/ id_t ResultBasic::Id() const
+    {
+        return ClassToId<ResultBasic>::Id();
     }
 }
 }

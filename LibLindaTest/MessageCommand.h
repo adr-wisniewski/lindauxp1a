@@ -9,6 +9,7 @@
 #define	_MESSAGECOMMAND_H
 
 #include <Message.h>
+#include <Serializable.h>
 #include <Pipe.h>
 
 namespace Linda
@@ -17,13 +18,13 @@ namespace Linda
     {
         class ProcessorCommand;
 
-        class MessageCommand : public Message<MessageCommand, ProcessorCommand>
+        class MessageCommand : 
+            public Message<ProcessorCommand>,
+            public Serializable<MessageCommand>
         {
         public:
-            typedef Message<MessageCommand, ProcessorCommand> Base;
-
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            MessageCommand();
+            MessageCommand(int ordinal);
 
             int Ordinal() const;
             void Ordinal(int value);
@@ -31,6 +32,9 @@ namespace Linda
             virtual void Process(ProcessorCommand *processor) = 0;
 
         protected:
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
+
             int mOrdinal;
         };
 

@@ -1,26 +1,37 @@
 #include "CommandOutput.h"
 #include "ProcessorCommand.h"
+#include "Id.h"
 
 namespace Linda
 {
 namespace Test
 {
+    CommandOutput::CommandOutput()
+    {
+
+    }
+
+    CommandOutput::CommandOutput(int ordinal, pid_t pid, const Tuple &tuple)
+    : MessageWorkerCommand(ordinal,pid), mGivenTuple(tuple)
+    {
+
+    }
 
     /*virtual*/ void CommandOutput::DoSerialize(std::ostream &stream) const
     {
-        MessageCommand::DoSerialize(stream);
+        MessageWorkerCommand::DoSerialize(stream);
         mGivenTuple.Serialize(stream);
     }
 
     /*virtual*/ void CommandOutput::DoUnserialize(std::istream &stream)
     {
-        MessageCommand::DoUnserialize(stream);
+        MessageWorkerCommand::DoUnserialize(stream);
         mGivenTuple.Unserialize(stream);
     }
 
-    /*virtual*/ int CommandOutput::GetCode() const
+    /*virtual*/ id_t CommandOutput::Id() const
     {
-        return UnserializableCommandOutput::GetCode();
+        return ClassToId<CommandOutput>::Id();
     }
 
     /*virtual*/ void CommandOutput::Process(ProcessorCommand *processor)

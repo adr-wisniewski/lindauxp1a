@@ -5,23 +5,33 @@
  * Created on 15 grudzień 2009, 13:18
  */
 
-#include <string.h>
-
 #include "CommandKill.h"
 #include "ProcessorCommand.h"
+#include "Id.h"
 
 namespace Linda
 {
 namespace Test
 {
-    /*virtual*/ int CommandKill::GetCode() const
+    CommandKill::CommandKill()
     {
-        return UnserializableCommandKill::GetCode();
+
+    }
+
+    CommandKill::CommandKill(int ordinal, pid_t pid)
+    : MessageWorkerCommand(ordinal, pid)
+    {
+        
     }
 
     /*virtual*/ void CommandKill::Process(ProcessorCommand *processor)
     {
         processor->Process(*this);
+    }
+
+    /*virtual*/ id_t CommandKill::Id() const
+    {
+        return ClassToId<CommandKill>::Id();
     }
 }
 }

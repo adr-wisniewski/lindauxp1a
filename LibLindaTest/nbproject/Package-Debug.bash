@@ -11,8 +11,8 @@ CND_CONF=Debug
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${CND_PLATFORM}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblindatest.a
-OUTPUT_BASENAME=libliblindatest.a
+OUTPUT_PATH=${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblindatest.a
+OUTPUT_BASENAME=liblindatest.a
 PACKAGE_TOP_DIR=LibLindaTest/
 
 # Functions

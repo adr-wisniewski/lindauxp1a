@@ -10,9 +10,8 @@
 
 #include "MessageResult.h"
 
+#include <unistd.h>
 #include <list>
-
-#include <MessageUnserializable.h>
 #include <Tuple.h>
 #include <Query.h>
 
@@ -20,18 +19,12 @@ namespace Linda
 {
     namespace Test
     {
-
-        class ResultStat;
-
-        typedef MessageUnserializable<ResultStat, MessageResult, 2>
-            UnserializableResultStat;
-
         class ResultStat :
             public MessageResult,
-            private UnserializableResultStat
+            RegisterSerializable<ResultStat, MessageResult>
         {
         public:
-            typedef std::pair<std::string, Query> AwaitingRead;
+            typedef std::pair<pid_t, Query> AwaitingRead;
 
             ResultStat();
             ResultStat(
@@ -41,16 +34,16 @@ namespace Linda
                 std::list<AwaitingRead> awaitingReads
             );
 
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
-
-            virtual int GetCode() const;
             virtual void Process(ProcessorResult *processor);
             
             const std::list<Tuple> Storage() const;
             const std::list<AwaitingRead> AwaitingReads();
 
         protected:
+            virtual id_t Id() const;
+            virtual void DoSerialize(std::ostream &stream) const;
+            virtual void DoUnserialize(std::istream &stream);
+
             std::list<Tuple>        mStorage;
             std::list<AwaitingRead> mAwaitingReads;
         };

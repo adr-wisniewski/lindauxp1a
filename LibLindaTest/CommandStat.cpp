@@ -10,29 +10,31 @@
 
 #include "CommandStat.h"
 #include "ProcessorCommand.h"
+#include "Id.h"
 
 namespace Linda
 {
 namespace Test
 {
-    /*virtual*/ void CommandStat::DoSerialize(std::ostream &stream) const
+    CommandStat::CommandStat()
     {
-        MessageCommand::DoSerialize(stream);
+
     }
 
-    /*virtual*/ void CommandStat::DoUnserialize(std::istream &stream)
+    CommandStat::CommandStat(int ordinal)
+    : MessageCommand(ordinal)
     {
-        MessageCommand::DoUnserialize(stream);
-    }
 
-    /*virtual*/ int CommandStat::GetCode() const
-    {
-        return UnserializableCommandStat::GetCode();
     }
 
     /*virtual*/ void CommandStat::Process(ProcessorCommand *processor)
     {
         processor->Process(*this);
+    }
+
+    /*virtual*/ id_t CommandStat::Id() const
+    {
+        return ClassToId<CommandStat>::Id();
     }
 }
 }
