@@ -5,79 +5,30 @@
  * Created on 12 grudzień 2009, 22:06
  */
 
-#include <stdlib.h>
-#include <cstdio>
-#include <iostream>
-#include <string>
-#include <sys/types.h>
-#include <unistd.h>
+#include <exception>
+#include <boost/format.hpp>
 
-#include <Pipes.h>
+#include <Exception.h>
+#include <Util.h>
 
-using namespace std;
-using namespace Linda;
-using namespace Linda::Ex;
+#include "NodeTester.h"
 
 
-/*
- * 
- */
 int main(int argc, char** argv) {
 
-    // create pipes
-    PipeCommand commandPipe;
-    PipeResult  resultPipe;
-
-    // initialize storage
-    switch(fork())
+    try
     {
-        // error
-        case -1:
-            perror("Tester process");
-            return EXIT_FAILURE;
+        Linda::Test::NodeTester tester;
+        tester.Run();
 
-        // child
-        case 0:
-            commandPipe.CloseEnd(Pipe::WriteEnd);
-            resultPipe.CloseEnd(Pipe::ReadEnd);
-            execl('lindastorage', 
-                    'lindastorage',
-                    string(commandPipe.GetEnd(Pipe::ReadEnd)).c_str(),
-                    string(resultPipe.GetEnd(Pipe::WriteEnd)).c_str(),
-                    );
-            return EXIT_FAILURE;
-
-        // parent
-        default:
-            commandPipe.CloseEnd(Pipe::ReadEnd);
-            resultPipe.CloseEnd(Pipe::WriteEnd);
+        return EXIT_SUCCESS;
     }
-
-    // read input and process commands
-    string input;
-    Command *c;
-
-    while(!getline(cin, input).eof())
+    catch(std::exception &e)
     {
-        try
-        {
-            c = Command.FromString(input);
-        }
-        catch(Command::InvalidException &e)
-        {
+        Linda::Test::debug_print(boost::str(
+                boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
+        ));
 
-        }
-
-        // dispatch command
-        commandPipe.Write(*c);
-
-        // clean up
-        delete c;
+        return EXIT_FAILURE;
     }
-
-    // wait for storage process to finish
-    commandPipe.CloseEnd(Pipe::WriteEnd);
-
-    // hooray!
-    return EXIT_SUCCESS;
 }

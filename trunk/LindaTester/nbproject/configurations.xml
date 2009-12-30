@@ -6,6 +6,8 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>NodeTester.cpp</itemPath>
+    <itemPath>NodeTester.h</itemPath>
     <itemPath>main.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -19,8 +21,8 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../Linda</pElem>
-            <pElem>../LindaEx</pElem>
+            <pElem>../LibLinda</pElem>
+            <pElem>../LibLindaTest</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -38,18 +40,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../LibLinda"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../LibLinda"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/liblinda.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../LibLindaTest"
                             CT="3"
                             CN="Debug"
@@ -59,18 +49,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="dist/Debug/GNU-Linux-x86/liblindatest.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LibLindaTest"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../LibLindaTest"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="dist/Release/GNU-Linux-x86/liblindatest.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -89,12 +67,40 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../LibLinda</pElem>
+            <pElem>../LibLindaTest</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
         </fortranCompilerTool>
         <linkerTool>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LibLinda"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LibLinda"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/liblinda.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LibLindaTest"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../LibLindaTest"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="dist/Release/GNU-Linux-x86/liblindatest.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
