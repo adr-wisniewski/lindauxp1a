@@ -20,7 +20,7 @@ namespace Linda
         {
         public:
             CommandKill();
-            CommandKill(int ordinal, pid_t pid);
+            CommandKill(int ordinal, int workerId);
 
             virtual void Process(ProcessorCommand *processor);
 

@@ -25,14 +25,16 @@
     <itemPath>MessageResult.h</itemPath>
     <itemPath>MessageWorkerCommand.cpp</itemPath>
     <itemPath>MessageWorkerCommand.h</itemPath>
+    <itemPath>ParserCommand.cpp</itemPath>
+    <itemPath>ParserCommand.h</itemPath>
     <itemPath>ProcessorCommand.h</itemPath>
     <itemPath>ProcessorResult.h</itemPath>
     <itemPath>ResultBasic.cpp</itemPath>
     <itemPath>ResultBasic.h</itemPath>
-    <itemPath>ResultCreate.cpp</itemPath>
-    <itemPath>ResultCreate.h</itemPath>
     <itemPath>ResultStat.cpp</itemPath>
     <itemPath>ResultStat.h</itemPath>
+    <itemPath>Util.cpp</itemPath>
+    <itemPath>Util.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

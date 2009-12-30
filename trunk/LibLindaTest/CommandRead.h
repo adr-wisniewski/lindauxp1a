@@ -20,7 +20,7 @@ namespace Linda
         {
         public:
             CommandRead();
-            CommandRead(int ordinal, pid_t pid, const Query &query);
+            CommandRead(int ordinal, int workerId, const Query &query);
 
             virtual void Process(ProcessorCommand *processor);
 

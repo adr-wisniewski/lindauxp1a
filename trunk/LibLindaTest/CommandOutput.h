@@ -22,7 +22,7 @@ namespace Linda
         {
         public:
             CommandOutput();
-            CommandOutput(int ordinal, pid_t pid, const Tuple &tuple);
+            CommandOutput(int ordinal, int workerId, const Tuple &tuple);
 
             virtual void Process(ProcessorCommand *processor);
 

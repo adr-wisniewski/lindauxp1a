@@ -10,7 +10,6 @@
 
 #include "ResultBasic.h"
 #include "ResultStat.h"
-#include "ResultCreate.h"
 
 namespace Linda
 {
@@ -21,7 +20,6 @@ namespace Linda
         public:
             virtual void Process(ResultBasic &r)    = 0;
             virtual void Process(ResultStat &r)     = 0;
-            virtual void Process(ResultCreate &r)   = 0;
         };
     }
 }

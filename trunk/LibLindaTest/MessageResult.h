@@ -23,21 +23,33 @@ namespace Linda
             public Serializable<MessageResult>
         {
         public:
+
+            enum StatusCode
+            {
+                Status_Ok = 0,
+                Status_Fail,
+                Status_WorkerAlreadyExists,
+                Status_WorkerDoesntExists,
+
+                Status_MinCode = Status_Ok,
+                Status_MaxCode = Status_WorkerDoesntExists
+            };
+
             MessageResult();
-            MessageResult(int ordinal, bool status);
+            MessageResult(int ordinal, StatusCode status);
 
             int Ordinal() const;
             void Ordinal(int value);
 
-            bool Status() const;
-            void Status(bool value);
+            StatusCode Status() const;
+            void Status(StatusCode value);
 
         protected:
             virtual void DoSerialize(std::ostream &stream) const;
             virtual void DoUnserialize(std::istream &stream);
 
             int mOrdinal;
-            bool mStatus;
+            StatusCode mStatus;
         };
 
 

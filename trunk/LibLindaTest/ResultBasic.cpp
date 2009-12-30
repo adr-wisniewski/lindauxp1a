@@ -18,7 +18,7 @@ namespace Test
 
     }
 
-    ResultBasic::ResultBasic(int ordinal, bool status)
+    ResultBasic::ResultBasic(int ordinal, StatusCode status)
     : MessageResult(ordinal, status)
     {
     }

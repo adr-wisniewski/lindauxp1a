@@ -24,20 +24,21 @@ namespace Linda
             RegisterSerializable<ResultStat, MessageResult>
         {
         public:
-            typedef std::pair<pid_t, Query> AwaitingRead;
+            typedef std::pair<int, Query>   AwaitingRead;
+            typedef std::list<Tuple>        StorageList;
+            typedef std::list<AwaitingRead> ReadList;
 
             ResultStat();
             ResultStat(
                 int ordinal,
-                bool status,
-                std::list<Tuple> storage,
-                std::list<AwaitingRead> awaitingReads
+                StorageList &storage,
+                ReadList &awaitingReads
             );
 
             virtual void Process(ProcessorResult *processor);
             
-            const std::list<Tuple> Storage() const;
-            const std::list<AwaitingRead> AwaitingReads();
+            const StorageList& Storage() const;
+            const ReadList& AwaitingReads();
 
         protected:
             virtual id_t Id() const;
