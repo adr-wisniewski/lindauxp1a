@@ -31,7 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/WorkerNode.o \
+	${OBJECTDIR}/NodeWorker.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -48,28 +48,34 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/lindaworker
 
+dist/Debug/GNU-Linux-x86/lindaworker: ../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a
+
+dist/Debug/GNU-Linux-x86/lindaworker: ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
+
 dist/Debug/GNU-Linux-x86/lindaworker: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindaworker ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/WorkerNode.o: nbproject/Makefile-${CND_CONF}.mk WorkerNode.cpp 
+${OBJECTDIR}/NodeWorker.o: nbproject/Makefile-${CND_CONF}.mk NodeWorker.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Linda -I../LindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorkerNode.o WorkerNode.cpp
+	$(COMPILE.cc) -g -I../LibLinda -I../LibLindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/NodeWorker.o NodeWorker.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Linda -I../LindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../LibLinda -I../LibLindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -78,6 +84,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -14,13 +14,12 @@
 
 #include <Linda.h>
 
-class NodeWorker : private Linda::Test::ProcessorCommand
+class NodeWorker : public Linda::Test::ProcessorCommand
 {
 public:
     NodeWorker(int commandRead, int resultWrite, int requestWrite, int answerRead);
     void Run();
 
-private:
     virtual void Process(Linda::Test::CommandCreate &c);
     virtual void Process(Linda::Test::CommandKill &c);
     virtual void Process(Linda::Test::CommandStat &c);
@@ -28,10 +27,10 @@ private:
     virtual void Process(Linda::Test::CommandInput &c);
     virtual void Process(Linda::Test::CommandRead &c);
 
+private:
     Linda::Linda                mLinda;
     Linda::Test::PipeCommand    mPipeCommand;
     Linda::Test::PipeResult     mPipeResult;
-
 };
 
 #endif	/* _NODEWORKER_H */
