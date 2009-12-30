@@ -11,8 +11,8 @@ namespace Test
 
     }
 
-    CommandOutput::CommandOutput(int ordinal, pid_t pid, const Tuple &tuple)
-    : MessageWorkerCommand(ordinal,pid), mGivenTuple(tuple)
+    CommandOutput::CommandOutput(int ordinal, int workerId, const Tuple &tuple)
+    : MessageWorkerCommand(ordinal,workerId), mGivenTuple(tuple)
     {
 
     }
@@ -20,13 +20,13 @@ namespace Test
     /*virtual*/ void CommandOutput::DoSerialize(std::ostream &stream) const
     {
         MessageWorkerCommand::DoSerialize(stream);
-        mGivenTuple.Serialize(stream);
+        mGivenTuple.DoSerialize(stream);
     }
 
     /*virtual*/ void CommandOutput::DoUnserialize(std::istream &stream)
     {
         MessageWorkerCommand::DoUnserialize(stream);
-        mGivenTuple.Unserialize(stream);
+        mGivenTuple.DoUnserialize(stream);
     }
 
     /*virtual*/ id_t CommandOutput::Id() const

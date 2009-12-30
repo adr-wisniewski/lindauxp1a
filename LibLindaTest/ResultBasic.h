@@ -20,7 +20,7 @@ namespace Linda
         {
         public:
             ResultBasic();
-            ResultBasic(int ordinal, bool status);
+            ResultBasic(int ordinal, StatusCode status);
             
             virtual void Process(ProcessorResult *processor);
 

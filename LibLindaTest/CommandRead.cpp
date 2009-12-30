@@ -12,8 +12,8 @@ namespace Test
 
     }
 
-    CommandRead::CommandRead(int ordinal, pid_t pid, const Query &query)
-    : CommandInput(ordinal, pid, query)
+    CommandRead::CommandRead(int ordinal, int workerId, const Query &query)
+    : CommandInput(ordinal, workerId, query)
     {
 
     }

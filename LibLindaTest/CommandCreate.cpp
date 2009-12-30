@@ -11,8 +11,8 @@ namespace Test
 
     }
 
-    CommandCreate::CommandCreate(int ordinal)
-    : MessageCommand(ordinal)
+    CommandCreate::CommandCreate(int ordinal, int workerId)
+    : MessageWorkerCommand(ordinal,workerId)
     {
 
     }

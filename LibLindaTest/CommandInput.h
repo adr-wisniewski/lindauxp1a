@@ -22,7 +22,7 @@ namespace Linda
         {
         public:
             CommandInput();
-            CommandInput(int ordinal, pid_t pid, const Query &query);
+            CommandInput(int ordinal, int workerId, const Query &query);
 
             virtual void Process(ProcessorCommand *processor);
 

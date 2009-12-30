@@ -18,8 +18,8 @@ namespace Test
 
     }
 
-    CommandKill::CommandKill(int ordinal, pid_t pid)
-    : MessageWorkerCommand(ordinal, pid)
+    CommandKill::CommandKill(int ordinal, int workerId)
+    : MessageWorkerCommand(ordinal, workerId)
     {
         
     }

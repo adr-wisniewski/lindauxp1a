@@ -8,19 +8,19 @@
 #ifndef _COMMANDCREATE_H
 #define	_COMMANDCREATE_H
 
-#include "MessageCommand.h"
+#include "MessageWorkerCommand.h"
 
 namespace Linda
 {
     namespace Test
     {
         class CommandCreate :
-            public MessageCommand,
+            public MessageWorkerCommand,
             RegisterSerializable<CommandCreate, MessageCommand>
         {
         public:
             CommandCreate();
-            CommandCreate(int ordinal);
+            CommandCreate(int ordinal, int workerId);
 
             virtual void Process(ProcessorCommand *processor);
 

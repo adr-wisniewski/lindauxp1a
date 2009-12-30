@@ -22,11 +22,10 @@ namespace Test
 
     ResultStat::ResultStat(
         int ordinal,
-        bool status,
-        std::list<Tuple> storage,
-        std::list<AwaitingRead> awaitingReads
+        StorageList &storage,
+        ReadList &awaitingReads
     ) :
-        MessageResult(ordinal, status),
+        MessageResult(ordinal, Status_Ok),
         mStorage(storage),
         mAwaitingReads(awaitingReads)
     {
@@ -37,17 +36,17 @@ namespace Test
     {
         // serialize storage
         stream << mStorage.size();
-        for(std::list<Tuple>::const_iterator i = mStorage.begin(),
+        for(StorageList::const_iterator i = mStorage.begin(),
             e = mStorage.end();
             i != e;
             ++i)
         {
-            i->Serialize(stream);
+            i->DoSerialize(stream);
         }
 
         // serialize reads
         stream << mAwaitingReads.size();
-        for(std::list<AwaitingRead>::const_iterator i = mAwaitingReads.begin(),
+        for(ReadList::const_iterator i = mAwaitingReads.begin(),
             e = mAwaitingReads.end();
             i != e;
             ++i)
@@ -56,7 +55,7 @@ namespace Test
             stream << i->first;
 
             // serialize second
-            i->second.Serialize(stream);
+            i->second.DoSerialize(stream);
         }
     }
     /*virtual*/ void ResultStat::DoUnserialize(std::istream &stream)
@@ -67,23 +66,23 @@ namespace Test
         while(size--)
         {
             Tuple tuple;
-            tuple.Unserialize(stream);
+            tuple.DoUnserialize(stream);
             mStorage.push_back(tuple);
         }
 
         stream >> size;
         while(size--)
         {
-            // read length
-            pid_t pid;
-            stream >> pid;
+            // read workerNo
+            int worker;
+            stream >> worker;
 
             // read query
             Query query;
-            query.Unserialize(stream);
+            query.DoUnserialize(stream);
 
             // add element
-            mAwaitingReads.push_back(AwaitingRead(pid,query));
+            mAwaitingReads.push_back(AwaitingRead(worker,query));
         }
     }
 
@@ -97,12 +96,12 @@ namespace Test
         processor->Process(*this);
     }
                 
-    const std::list<Tuple> ResultStat::Storage() const
+    const ResultStat::StorageList& ResultStat::Storage() const
     {
         return mStorage;
     }
 
-    const std::list<ResultStat::AwaitingRead> ResultStat::AwaitingReads()
+    const ResultStat::ReadList& ResultStat::AwaitingReads()
     {
         return mAwaitingReads;
     }

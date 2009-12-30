@@ -16,8 +16,8 @@ namespace Test
 
     }
 
-    MessageWorkerCommand::MessageWorkerCommand(int ordinal, pid_t pid)
-    : MessageCommand(ordinal), mPid(pid)
+    MessageWorkerCommand::MessageWorkerCommand(int ordinal, int workerId)
+    : MessageCommand(ordinal), mWorkerId(workerId)
     {
 
     }
@@ -25,23 +25,23 @@ namespace Test
      /*virtual*/ void MessageWorkerCommand::DoSerialize(std::ostream &stream) const
     {
         MessageCommand::DoSerialize(stream);
-        stream << mPid;
+        stream << mWorkerId;
     }
 
     /*virtual*/ void MessageWorkerCommand::DoUnserialize(std::istream &stream)
     {
         MessageCommand::DoUnserialize(stream);
-        stream >> mPid;
+        stream >> mWorkerId;
     }
 
-    pid_t MessageWorkerCommand::Pid() const
+    int MessageWorkerCommand::WorkerId() const
     {
-        return mPid;
+        return mWorkerId;
     }
 
-    void MessageWorkerCommand::Pid(pid_t value)
+    void MessageWorkerCommand::WorkerId(pid_t value)
     {
-        mPid = value;
+        mWorkerId = value;
     }
 }
 }

@@ -1,5 +1,7 @@
 #include "MessageResult.h"
 #include "ProcessorResult.h"
+#include <Exception.h>
+#include <boost/format.hpp>
 
 namespace Linda
 {
@@ -10,7 +12,7 @@ namespace Test
 
     }
 
-    MessageResult::MessageResult(int ordinal, bool status)
+    MessageResult::MessageResult(int ordinal, StatusCode status)
     : mOrdinal(ordinal), mStatus(status)
     {
 
@@ -18,12 +20,20 @@ namespace Test
 
     /*virtual*/ void MessageResult::DoSerialize(std::ostream &stream) const
     {
-        stream << mOrdinal << mStatus;
+        stream << mOrdinal << static_cast<int>(mStatus);
     }
 
     /*virtual*/ void MessageResult::DoUnserialize(std::istream &stream)
     {
-        stream >> mOrdinal >> mStatus;
+        int status;
+
+        stream >> mOrdinal;
+        stream >> status;
+        
+        if(status < Status_MinCode || status > Status_MaxCode)
+            throw Exception(boost::format("MessageResult::DoUnserialize: Unknown status code %1%") % status);
+
+        mStatus = static_cast<StatusCode>(status);
     }
 
     int MessageResult::Ordinal() const
@@ -36,12 +46,12 @@ namespace Test
         mOrdinal = value;
     }
 
-    bool MessageResult::Status() const
+    MessageResult::StatusCode MessageResult::Status() const
     {
         return mStatus;
     }
 
-    void MessageResult::Status(bool value)
+    void MessageResult::Status(StatusCode value)
     {
         mStatus = value;
     }

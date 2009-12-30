@@ -19,16 +19,16 @@ namespace Linda
         {
         public:
             MessageWorkerCommand();
-            MessageWorkerCommand(int ordinal, pid_t pid);
+            MessageWorkerCommand(int ordinal, int workerId);
 
-            pid_t Pid() const;
-            void Pid(pid_t value);
+            int WorkerId() const;
+            void WorkerId(int value);
 
         protected:
             virtual void DoSerialize(std::ostream &stream) const;
             virtual void DoUnserialize(std::istream &stream);
 
-            pid_t mPid;
+            int mWorkerId;
         };
     }
 }

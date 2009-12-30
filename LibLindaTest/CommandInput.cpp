@@ -11,8 +11,8 @@ namespace Test
 
     }
 
-    CommandInput::CommandInput(int ordinal, pid_t pid, const Query &query)
-    : MessageWorkerCommand(ordinal, pid), mGivenQuery(query)
+    CommandInput::CommandInput(int ordinal, int workerId, const Query &query)
+    : MessageWorkerCommand(ordinal, workerId), mGivenQuery(query)
     {
 
     }
@@ -20,13 +20,13 @@ namespace Test
     /*virtual*/ void CommandInput::DoSerialize(std::ostream &stream) const
     {
         MessageWorkerCommand::DoSerialize(stream);
-        mGivenQuery.Serialize(stream);
+        mGivenQuery.DoSerialize(stream);
     }
 
     /*virtual*/ void CommandInput::DoUnserialize(std::istream &stream)
     {
         MessageWorkerCommand::DoUnserialize(stream);
-        mGivenQuery.Unserialize(stream);
+        mGivenQuery.DoUnserialize(stream);
     }
 
     /*virtual*/ id_t CommandInput::Id() const

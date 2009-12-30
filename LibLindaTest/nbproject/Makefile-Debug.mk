@@ -32,13 +32,14 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/MessageResult.o \
-	${OBJECTDIR}/CommandOutput.o \
 	${OBJECTDIR}/ResultStat.o \
+	${OBJECTDIR}/CommandOutput.o \
 	${OBJECTDIR}/CommandCreate.o \
+	${OBJECTDIR}/Util.o \
 	${OBJECTDIR}/MessageCommand.o \
 	${OBJECTDIR}/CommandRead.o \
 	${OBJECTDIR}/CommandStat.o \
-	${OBJECTDIR}/ResultCreate.o \
+	${OBJECTDIR}/ParserCommand.o \
 	${OBJECTDIR}/CommandInput.o \
 	${OBJECTDIR}/CommandKill.o \
 	${OBJECTDIR}/ResultBasic.o \
@@ -75,20 +76,25 @@ ${OBJECTDIR}/MessageResult.o: nbproject/Makefile-${CND_CONF}.mk MessageResult.cp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageResult.o MessageResult.cpp
 
-${OBJECTDIR}/CommandOutput.o: nbproject/Makefile-${CND_CONF}.mk CommandOutput.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandOutput.o CommandOutput.cpp
-
 ${OBJECTDIR}/ResultStat.o: nbproject/Makefile-${CND_CONF}.mk ResultStat.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultStat.o ResultStat.cpp
 
+${OBJECTDIR}/CommandOutput.o: nbproject/Makefile-${CND_CONF}.mk CommandOutput.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandOutput.o CommandOutput.cpp
+
 ${OBJECTDIR}/CommandCreate.o: nbproject/Makefile-${CND_CONF}.mk CommandCreate.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandCreate.o CommandCreate.cpp
+
+${OBJECTDIR}/Util.o: nbproject/Makefile-${CND_CONF}.mk Util.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/Util.o Util.cpp
 
 ${OBJECTDIR}/MessageCommand.o: nbproject/Makefile-${CND_CONF}.mk MessageCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -105,10 +111,10 @@ ${OBJECTDIR}/CommandStat.o: nbproject/Makefile-${CND_CONF}.mk CommandStat.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandStat.o CommandStat.cpp
 
-${OBJECTDIR}/ResultCreate.o: nbproject/Makefile-${CND_CONF}.mk ResultCreate.cpp 
+${OBJECTDIR}/ParserCommand.o: nbproject/Makefile-${CND_CONF}.mk ParserCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResultCreate.o ResultCreate.cpp
+	$(COMPILE.cc) -g -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParserCommand.o ParserCommand.cpp
 
 ${OBJECTDIR}/CommandInput.o: nbproject/Makefile-${CND_CONF}.mk CommandInput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
