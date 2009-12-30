@@ -12,6 +12,7 @@
 #include <istream>
 #include <ostream>
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace Linda
 {
@@ -43,7 +44,7 @@ namespace Linda
 
         // interface
         void Serialize(std::ostream &stream) const;
-        static TType* Unserialize(std::istream &stream);
+        static boost::shared_ptr<TType> Unserialize(std::istream &stream);
 
         // registering
         static bool RegisterCreator(id_t id, Creator creator);

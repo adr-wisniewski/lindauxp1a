@@ -29,8 +29,8 @@ namespace Linda
         const ValueList& Values() const;
 
         // serialization
-        void Serialize(std::ostream &stream) const;
-        void Unserialize(std::istream &stream);
+        void DoSerialize(std::ostream &stream) const;
+        void DoUnserialize(std::istream &stream);
 
     protected:
         ValueList mValues;

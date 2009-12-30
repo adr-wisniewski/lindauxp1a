@@ -15,6 +15,7 @@
     <itemPath>MessageRequest.h</itemPath>
     <itemPath>MessageResponse.cpp</itemPath>
     <itemPath>MessageResponse.h</itemPath>
+    <itemPath>Operation.h</itemPath>
     <itemPath>Pipe.h</itemPath>
     <itemPath>Pipe.impl.h</itemPath>
     <itemPath>PipeBase.cpp</itemPath>
