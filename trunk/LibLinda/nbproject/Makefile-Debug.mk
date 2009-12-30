@@ -32,12 +32,13 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/RequestOutput.o \
+	${OBJECTDIR}/Serializable.o \
 	${OBJECTDIR}/MessageResponse.o \
 	${OBJECTDIR}/ResponseOutput.o \
 	${OBJECTDIR}/RequestRead.o \
 	${OBJECTDIR}/PipeBase.o \
-	${OBJECTDIR}/Query.o \
 	${OBJECTDIR}/Exception.o \
+	${OBJECTDIR}/Query.o \
 	${OBJECTDIR}/Linda.o \
 	${OBJECTDIR}/Tuple.o \
 	${OBJECTDIR}/RequestInput.o \
@@ -61,18 +62,23 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libliblinda.a
+	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/liblinda.a
 
-dist/Debug/GNU-Linux-x86/libliblinda.a: ${OBJECTFILES}
+dist/Debug/GNU-Linux-x86/liblinda.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${RM} dist/Debug/GNU-Linux-x86/libliblinda.a
-	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libliblinda.a ${OBJECTFILES} 
-	$(RANLIB) dist/Debug/GNU-Linux-x86/libliblinda.a
+	${RM} dist/Debug/GNU-Linux-x86/liblinda.a
+	${AR} rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/liblinda.a ${OBJECTFILES} 
+	$(RANLIB) dist/Debug/GNU-Linux-x86/liblinda.a
 
 ${OBJECTDIR}/RequestOutput.o: nbproject/Makefile-${CND_CONF}.mk RequestOutput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestOutput.o RequestOutput.cpp
+
+${OBJECTDIR}/Serializable.o: nbproject/Makefile-${CND_CONF}.mk Serializable.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Serializable.o Serializable.cpp
 
 ${OBJECTDIR}/MessageResponse.o: nbproject/Makefile-${CND_CONF}.mk MessageResponse.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -94,15 +100,15 @@ ${OBJECTDIR}/PipeBase.o: nbproject/Makefile-${CND_CONF}.mk PipeBase.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/PipeBase.o PipeBase.cpp
 
-${OBJECTDIR}/Query.o: nbproject/Makefile-${CND_CONF}.mk Query.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Query.o Query.cpp
-
 ${OBJECTDIR}/Exception.o: nbproject/Makefile-${CND_CONF}.mk Exception.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Exception.o Exception.cpp
+
+${OBJECTDIR}/Query.o: nbproject/Makefile-${CND_CONF}.mk Query.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Query.o Query.cpp
 
 ${OBJECTDIR}/Linda.o: nbproject/Makefile-${CND_CONF}.mk Linda.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -130,7 +136,7 @@ ${OBJECTDIR}/ResponseInput.o: nbproject/Makefile-${CND_CONF}.mk ResponseInput.cp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/libliblinda.a
+	${RM} dist/Debug/GNU-Linux-x86/liblinda.a
 
 # Subprojects
 .clean-subprojects:

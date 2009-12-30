@@ -43,8 +43,8 @@ namespace Linda
     bool Linda::HandleResponseInput(Tuple &tuple)
     {
         // should be smart_ptr
-        MessageResponse* message = mPipeResponse.Read();
-        ResponseInput* response = dynamic_cast<ResponseInput*>(message);
+        boost::shared_ptr<MessageResponse> message = mPipeResponse.Read();
+        ResponseInput* response = dynamic_cast<ResponseInput*>(message.get());
 
         if(response != 0 )
         {
@@ -58,7 +58,6 @@ namespace Linda
         }
         else
         {
-            delete message;
             throw Exception("Linda::Linda::Read unexcepted message");
         }
     }
@@ -66,8 +65,8 @@ namespace Linda
     bool Linda::HandleResponseOutput()
     {
         // should be smart_ptr
-        MessageResponse* message = mPipeResponse.Read();
-        ResponseOutput* response = dynamic_cast<ResponseOutput*>(message);
+        boost::shared_ptr<MessageResponse> message = mPipeResponse.Read();
+        ResponseOutput* response = dynamic_cast<ResponseOutput*>(message.get());
 
         if(response != 0 )
         {
@@ -78,7 +77,6 @@ namespace Linda
         }
         else
         {
-            delete message;
             throw Exception("Linda::Linda::Read unexcepted message");
         }
     }

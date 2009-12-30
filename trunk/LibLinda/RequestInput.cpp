@@ -17,12 +17,12 @@ namespace Linda
 
     /*virtual*/ void RequestInput::DoSerialize(std::ostream &stream) const
     {
-        mGivenQuery.Serialize(stream);
+        mGivenQuery.DoSerialize(stream);
     }
 
     /*virtual*/ void RequestInput::DoUnserialize(std::istream &stream)
     {
-        mGivenQuery.Unserialize(stream);
+        mGivenQuery.DoUnserialize(stream);
     }
 
     /*virtual*/ id_t RequestInput::Id() const

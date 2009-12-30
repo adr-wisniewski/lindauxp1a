@@ -27,9 +27,4 @@ namespace Linda
         // finally!
         return true;
     }
-
-    QueryValue* new_clone( const QueryValue& q )
-    {
-        return q.clone();
-    }
 }

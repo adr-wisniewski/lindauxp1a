@@ -8,12 +8,19 @@
 #ifndef _TUPLE_IMPL_H
 #define	_TUPLE_IMPL_H
 
-#include <Exception.h>
 #include <boost/format.hpp>
+#include <sstream>
+
+#include "Exception.h"
+#include "Id.h"
 
 namespace Linda
 {
-    
+    template<class TType>
+    ConcreteTupleValue<TType>::ConcreteTupleValue()
+    {
+    }
+
     template<class TType>
     ConcreteTupleValue<TType>::ConcreteTupleValue(TType value)
     : mValue(value)
@@ -21,25 +28,13 @@ namespace Linda
     }
 
     template<class TType>
-    const TType ConcreteTupleValue<TType>::Value() const
+    TType ConcreteTupleValue<TType>::Value() const
     {
         return mValue;
     }
 
     template<class TType>
     void ConcreteTupleValue<TType>::Value(TType value)
-    {
-        mValue = value;
-    }
-
-    template<>
-    const std::string& ConcreteTupleValue<std::string>::Value() const
-    {
-        return mValue;
-    }
-
-    template<>
-    void ConcreteTupleValue<std::string>::Value(const std::string &value)
     {
         mValue = value;
     }
@@ -51,29 +46,35 @@ namespace Linda
         stream << mValue;
     }
 
-    template<>
-    /*virtual*/ void ConcreteTupleValue<std::string>::DoSerialize(std::ostream &stream) const
-    {
-        SerializeString(mValue, stream);
-    }
-
     template<class TType>
     /*virtual*/ void ConcreteTupleValue<TType>::DoUnserialize(std::istream &stream)
     {
         stream >> mValue;
     }
 
-    template<>
-    /*virtual*/ void ConcreteTupleValue<std::string>::DoUnserialize(std::istream &stream)
-    {
-        mValue = UnserializeString(stream);
-    }
-
     template<class TType>
-    virtual TupleValue* ConcreteTupleValue<TType>::clone() const
+    /*virtual*/ TupleValue* ConcreteTupleValue<TType>::clone() const
     {
         return new ConcreteTupleValue<TType>(mValue);
     }
+
+    template<class TType>
+    /*virtual*/ id_t ConcreteTupleValue<TType>::Id() const
+    {
+        return ClassToId<ConcreteTupleValue<TType> >::Id();
+    }
+
+    template<class TType>
+    /*virtual*/ std::string ConcreteTupleValue<TType>::ToString() const
+    {
+        std::ostringstream buffer;
+        buffer << GetTypeName() << ": " << mValue;
+
+        return buffer.str();
+    }
+   
+    template class ConcreteTupleValue<int>;
+    template class ConcreteTupleValue<float>;
 }
 
 #endif	/* _TUPLE_IMPL_H */

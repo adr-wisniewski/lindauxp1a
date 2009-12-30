@@ -26,7 +26,7 @@ namespace Linda
     }
 
     template<class TType>
-    /*static*/ TType* Serializable<TType>::Unserialize(std::istream &stream)
+    /*static*/ boost::shared_ptr<TType> Serializable<TType>::Unserialize(std::istream &stream)
     {
         // retrive id
         id_t id;
@@ -39,8 +39,8 @@ namespace Linda
             throw Exception(boost::format("Serializable::Create - unknown id: %1%") % id);
 
         // create object and unserialize
-        TType* result = (*i->second)();
-        static_cast<Serializable<TType>*>(result)->DoUnserialize(stream);
+        boost::shared_ptr<TType> result((*i->second)());
+        static_cast<Serializable<TType>*>(result.get())->DoUnserialize(stream);
 
         return result;
     }

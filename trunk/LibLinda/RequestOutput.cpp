@@ -17,12 +17,12 @@ namespace Linda
 
     /*virtual*/ void RequestOutput::DoSerialize(std::ostream &stream) const
     {
-        mGivenTuple.Serialize(stream);
+        mGivenTuple.DoSerialize(stream);
     }
 
     /*virtual*/ void RequestOutput::DoUnserialize(std::istream &stream)
     {
-        mGivenTuple.Unserialize(stream);
+        mGivenTuple.DoUnserialize(stream);
     }
 
     /*virtual*/ id_t RequestOutput::Id() const

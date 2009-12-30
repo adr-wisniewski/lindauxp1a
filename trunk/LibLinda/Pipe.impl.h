@@ -60,7 +60,7 @@ namespace Linda
     }
 
     template<class TProduct>
-    TProduct* Pipe<TProduct>::Read()
+    boost::shared_ptr<TProduct> Pipe<TProduct>::Read()
     {
         int size;
         char* buffer;
