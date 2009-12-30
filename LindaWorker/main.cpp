@@ -6,12 +6,11 @@
  */
 
 #include <exception>
-#include <cstdlib>
-#include <cstdio>
 #include <boost/format.hpp>
-#include <string>
 
 #include <Exception.h>
+#include <Util.h>
+
 #include "NodeWorker.h"
 
 /*
@@ -31,12 +30,9 @@ int main(int argc, char** argv) {
     }
     catch(std::exception &e)
     {
-        std::string message = boost::str(
+        Linda::Test::debug_print(boost::str(
                 boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
-        );
-
-        write(STDERR_FILENO, message.c_str(), message.length());
-        fflush(stderr);
+        ));
 
         return EXIT_FAILURE;
     }

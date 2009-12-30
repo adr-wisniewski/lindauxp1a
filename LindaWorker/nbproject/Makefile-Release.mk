@@ -31,7 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/WorkerNode.o \
+	${OBJECTDIR}/NodeWorker.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -48,20 +48,24 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=../LibLinda/dist/Release/GNU-Linux-x86/liblinda.a ../LibLindaTest/dist/Release/GNU-Linux-x86/liblindatest.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/lindaworker
 
+dist/Release/GNU-Linux-x86/lindaworker: ../LibLinda/dist/Release/GNU-Linux-x86/liblinda.a
+
+dist/Release/GNU-Linux-x86/lindaworker: ../LibLindaTest/dist/Release/GNU-Linux-x86/liblindatest.a
+
 dist/Release/GNU-Linux-x86/lindaworker: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindaworker ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
-${OBJECTDIR}/WorkerNode.o: nbproject/Makefile-${CND_CONF}.mk WorkerNode.cpp 
+${OBJECTDIR}/NodeWorker.o: nbproject/Makefile-${CND_CONF}.mk NodeWorker.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/WorkerNode.o WorkerNode.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/NodeWorker.o NodeWorker.cpp
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -70,6 +74,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -78,6 +84,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
