@@ -11,6 +11,7 @@
 #include <limits.h>
 #include <sstream>
 #include <boost/format.hpp>
+#include <boost/scoped_array.hpp>
 
 #include "Exception.h"
 
@@ -63,21 +64,19 @@ namespace Linda
     boost::shared_ptr<TProduct> Pipe<TProduct>::Read()
     {
         int size;
-        char* buffer;
-
+       
         // create buffer and read message contents
-        PipeBase::Read(reinterpret_cast<char*>(&size), sizeof(int));
+        if(!PipeBase::Read(reinterpret_cast<char*>(&size), sizeof(int)))
+            return boost::shared_ptr<TProduct>();
 
-        buffer = new char[size];
-        PipeBase::Read(buffer, size);
+        boost::scoped_array<char> buffer(new char[size]);
+        PipeBase::Read(buffer.get(), size);
 
         // move data into stream
-        std::stringstream stream(std::string(buffer, size), 
+        std::stringstream stream(std::string(buffer.get(), size),
                 std::stringstream::binary | std::stringstream::out);
 
         stream.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
-        
-        delete buffer;
 
         // unserialize object
         return Serializable<TProduct>::Unserialize(static_cast<std::istream&>(stream));
