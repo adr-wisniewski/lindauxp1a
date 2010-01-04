@@ -83,10 +83,11 @@ namespace Linda
         std::string mValue;
     };
 
+    /**
+     * Tuple class - doesn't add any functionality to TupleBase
+     */
     typedef TupleBase<TupleValue> Tuple;
 }
-
-#include "Tuple.impl.h"
 
 #endif	/* _TUPLE_H */
 

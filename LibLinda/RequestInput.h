@@ -13,6 +13,9 @@
 
 namespace Linda
 {
+    /**
+     * Linda Input request for given query
+     */
     class RequestInput : 
         public MessageRequest,
         RegisterSerializable<RequestInput, MessageRequest>

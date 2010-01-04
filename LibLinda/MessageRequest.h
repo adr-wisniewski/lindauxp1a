@@ -17,6 +17,9 @@ namespace Linda
 {
     class ProcessorRequest;
 
+    /**
+     * Base class for request messages
+     */
     class MessageRequest : 
         public Message<ProcessorRequest>,
         public Serializable<MessageRequest>

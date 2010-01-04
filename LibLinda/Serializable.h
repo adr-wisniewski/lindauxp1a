@@ -18,6 +18,9 @@ namespace Linda
 {
     typedef int id_t;
 
+    /**
+     * Template providing object creation method
+     */
     template<class TType, class TBase>
     struct Instantinator
     {
@@ -27,12 +30,18 @@ namespace Linda
         }
     };
 
+    /**
+     * Template providing Id for each seriallizable class
+     */
     template<class TType>
     struct ClassToId
     {
         static id_t Id();
     };
 
+    /**
+     * Interface for serializable objects
+     */
     template<class TType>
     class Serializable
     {

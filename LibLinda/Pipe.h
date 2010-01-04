@@ -14,6 +14,9 @@
 namespace Linda
 {
 
+    /**
+     * Pipe template can send and receive object of type TProduct through unix pipes
+     */
     template<class TProduct>
     class Pipe : public PipeBase
     {

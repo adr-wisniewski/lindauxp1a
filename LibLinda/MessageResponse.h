@@ -16,6 +16,9 @@ namespace Linda
 {
     class ProcessorResponse;
 
+    /**
+     *  Base class for response messages
+     */
     class MessageResponse :
         public Serializable<MessageResponse>,
         public Message<ProcessorResponse>

@@ -12,6 +12,9 @@
 
 namespace Linda
 {
+    /**
+     * Object wrapper around unix pipe
+     */
     class PipeBase
     {
     public:

@@ -24,7 +24,6 @@
     <itemPath>ProcessorResponse.h</itemPath>
     <itemPath>Query.cpp</itemPath>
     <itemPath>Query.h</itemPath>
-    <itemPath>Query.impl.h</itemPath>
     <itemPath>RequestInput.cpp</itemPath>
     <itemPath>RequestInput.h</itemPath>
     <itemPath>RequestOutput.cpp</itemPath>
@@ -40,7 +39,6 @@
     <itemPath>Serializable.impl.h</itemPath>
     <itemPath>Tuple.cpp</itemPath>
     <itemPath>Tuple.h</itemPath>
-    <itemPath>Tuple.impl.h</itemPath>
     <itemPath>TupleBase.h</itemPath>
     <itemPath>TupleBase.impl.h</itemPath>
   </logicalFolder>

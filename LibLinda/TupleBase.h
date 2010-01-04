@@ -17,6 +17,9 @@
 
 namespace Linda
 {
+    /**
+     * Generic tuple container - used by both Tuple and Query classes
+     */
     template<class Value>
     class TupleBase
     {

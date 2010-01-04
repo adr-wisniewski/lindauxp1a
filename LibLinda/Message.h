@@ -10,6 +10,9 @@
 
 namespace Linda
 {
+    /**
+     * Message interface
+     */
     template<class TProcessor>
     class Message
     {
