@@ -39,7 +39,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/MessageCommand.o \
 	${OBJECTDIR}/CommandRead.o \
 	${OBJECTDIR}/CommandStat.o \
-	${OBJECTDIR}/ParserCommand.o \
 	${OBJECTDIR}/CommandInput.o \
 	${OBJECTDIR}/CommandKill.o \
 	${OBJECTDIR}/ResultBasic.o \
@@ -110,11 +109,6 @@ ${OBJECTDIR}/CommandStat.o: nbproject/Makefile-${CND_CONF}.mk CommandStat.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/CommandStat.o CommandStat.cpp
-
-${OBJECTDIR}/ParserCommand.o: nbproject/Makefile-${CND_CONF}.mk ParserCommand.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../LibLinda -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParserCommand.o ParserCommand.cpp
 
 ${OBJECTDIR}/CommandInput.o: nbproject/Makefile-${CND_CONF}.mk CommandInput.cpp 
 	${MKDIR} -p ${OBJECTDIR}
