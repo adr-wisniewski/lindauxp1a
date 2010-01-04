@@ -13,7 +13,13 @@ StorageNode::StorageNode(int commandRead, int answerRead)
     commandPipe(commandRead, Pipe::EndClosed),
     resultPipe(answerRead, Pipe::EndClosed)
 {
+    struct sigaction new_a;
+    new_a.sa_sigaction = StorageNode::action;
+    sigemptyset (&new_a.sa_mask);
+    new_a.sa_flags = SA_NOCLDSTOP | SA_SIGINFO;
 
+    if(sigaction(SIGCHLD, &new_a, NULL) == -1 )
+        throw Linda::Exception("Error");
 }
 
 int StorageNode::Run()
@@ -122,7 +128,10 @@ void StorageNode::Process(Linda::RequestInput &r)
     std::list<Linda::Tuple>::iterator i, e;
     for(i = tuplesList.begin(), e = tuplesList.end(); i != e; ++i)
         if(r.GivenQuery().IsSatisfied(*i))
+        {
             status = true;
+            break;
+        }
     Worker* w = FindWorker(r.Id());
     if(status)
     {
@@ -153,6 +162,7 @@ void StorageNode::Remove(int id)
         if((*i).id == id)
             i = waitingRequest.erase(i);
         else ++i;
+
 }
 
 void StorageNode::RemoveWorker(int id)
@@ -174,4 +184,9 @@ Worker* StorageNode::FindWorker(int id)
     for(std::list<Worker*>::iterator i = workerList.begin(), e = workerList.end(); i != e; ++i)
         if((*i)->GetId() == id)
             return *i;
+}
+
+static void StorageNode::action(int signum, siginfo_t *info, void* context)
+{
+   RemoveWorker(info->si_pid);
 }
