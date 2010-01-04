@@ -15,7 +15,7 @@
 
 #include <MessageCommand.h>
 #include <MessageResult.h>
-#include <ParserCommand.h>
+#include "ParserCommand.h"
 
 namespace Linda
 {
