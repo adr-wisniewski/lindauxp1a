@@ -16,6 +16,7 @@ public:
     StorageNode(int commandRead, int answerRead);
     ~StorageNode();
     void Run();
+    static void action(int signum, siginfo_t *info, void* context);
 
 private:
     virtual void Process(Linda::Test::CreateCommand &c);

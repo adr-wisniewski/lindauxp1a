@@ -31,7 +31,8 @@ Worker::Worker(Linda::PipeRequest requestPipe,
 
 Worker::~Worker()
 {
-    //zabicie procesu
+    kill(id, SIGKILL);
+
 }
 
 int Worker::GetId()
