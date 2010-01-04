@@ -7,7 +7,7 @@
 
 #include "ResultBasic.h"
 #include "ProcessorResult.h"
-#include "Id.h"
+#include "IdTest.h"
 
 namespace Linda
 {

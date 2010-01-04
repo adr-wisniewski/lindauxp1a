@@ -18,15 +18,13 @@
     <itemPath>CommandRead.h</itemPath>
     <itemPath>CommandStat.cpp</itemPath>
     <itemPath>CommandStat.h</itemPath>
-    <itemPath>Id.h</itemPath>
+    <itemPath>IdTest.h</itemPath>
     <itemPath>MessageCommand.cpp</itemPath>
     <itemPath>MessageCommand.h</itemPath>
     <itemPath>MessageResult.cpp</itemPath>
     <itemPath>MessageResult.h</itemPath>
     <itemPath>MessageWorkerCommand.cpp</itemPath>
     <itemPath>MessageWorkerCommand.h</itemPath>
-    <itemPath>ParserCommand.cpp</itemPath>
-    <itemPath>ParserCommand.h</itemPath>
     <itemPath>ProcessorCommand.h</itemPath>
     <itemPath>ProcessorResult.h</itemPath>
     <itemPath>ResultBasic.cpp</itemPath>

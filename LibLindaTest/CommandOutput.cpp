@@ -1,6 +1,6 @@
 #include "CommandOutput.h"
 #include "ProcessorCommand.h"
-#include "Id.h"
+#include "IdTest.h"
 
 namespace Linda
 {
