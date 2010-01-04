@@ -17,71 +17,73 @@
 #include "PipeBase.h"
 #include "ResultBasic.h"
 
-NodeWorker::NodeWorker(int commandRead, int resultWrite, int requestWrite, int responseRead)
-    :
-    mLinda(responseRead, requestWrite),
-    mPipeCommand(commandRead, Linda::PipeBase::EndClosed),
-    mPipeResult(Linda::PipeBase::EndClosed, resultWrite)
+namespace Linda
 {
-    
-}
+namespace Test
+{
 
-void NodeWorker::Run()
-{  
-    // read and process commands
-    while(true)
+    NodeWorker::NodeWorker(int commandRead, int resultWrite, int requestWrite, int responseRead)
+        :
+        mLinda(responseRead, requestWrite),
+        mPipeCommand(commandRead, PipeBase::EndClosed),
+        mPipeResult(PipeBase::EndClosed, resultWrite)
     {
-        // should be boost::smart_ptr
-        Linda::Test::MessageCommand *command = mPipeCommand.Read();
 
-        // no more commands
-        if(command == 0)
-            break;
-
-        // process command
-        command->Process(this);
-
-        // free command
-        delete command; // should be boost::smart_ptr
     }
+
+    void NodeWorker::Run()
+    {
+        // read and process commands
+        while(true)
+        {
+            boost::shared_ptr<MessageCommand> command = mPipeCommand.Read();
+
+            // no more commands
+            if(command == boost::shared_ptr<MessageCommand>())
+                break;
+
+            // process command
+            command->Process(this);
+        }
+    }
+
+    void NodeWorker::Process(CommandCreate &c)
+    {
+        throw Exception("Invalid command 'Create'");
+    }
+
+    void NodeWorker::Process(CommandKill &c)
+    {
+        throw Exception("Invalid command 'Kill'");
+    }
+
+    void NodeWorker::Process(CommandStat &c)
+    {
+        throw Exception("Invalid command 'Stat'");
+    }
+
+    void NodeWorker::Process(CommandOutput &c)
+    {
+        bool status = mLinda.Output(c.GivenTuple());
+        mPipeResult.Write(ResultBasic(c.Ordinal(), status ? MessageResult::Status_Ok : MessageResult::Status_Fail));
+    }
+
+    void NodeWorker::Process(CommandInput &c)
+    {
+        Tuple tuple;
+
+        bool status = mLinda.Input(c.GivenQuery(), tuple);
+        mPipeResult.Write(ResultBasic(c.Ordinal(), status ? MessageResult::Status_Ok : MessageResult::Status_Fail));
+    }
+
+    void NodeWorker::Process(CommandRead &c)
+    {
+        Tuple tuple;
+
+        bool status = mLinda.Read(c.GivenQuery(), tuple);
+        mPipeResult.Write(ResultBasic(c.Ordinal(), status ? MessageResult::Status_Ok : MessageResult::Status_Fail));
+    }
+
 }
-
-void NodeWorker::Process(Linda::Test::CommandCreate &c)
-{
-    throw Linda::Exception("Invalid command 'Create'");
 }
-
-void NodeWorker::Process(Linda::Test::CommandKill &c)
-{
-    throw Linda::Exception("Invalid command 'Kill'");
-}
-
-void NodeWorker::Process(Linda::Test::CommandStat &c)
-{
-    throw Linda::Exception("Invalid command 'Stat'");
-}
-
-void NodeWorker::Process(Linda::Test::CommandOutput &c)
-{
-    bool status = mLinda.Output(c.GivenTuple());
-    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
-}
-
-void NodeWorker::Process(Linda::Test::CommandInput &c)
-{
-    Linda::Tuple tuple;
-
-    bool status = mLinda.Input(c.GivenQuery(), tuple);
-    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
-}
-
-void NodeWorker::Process(Linda::Test::CommandRead &c)
-{
-    Linda::Tuple tuple;
-
-    bool status = mLinda.Read(c.GivenQuery(), tuple);
-    mPipeResult.Write(Linda::Test::ResultBasic(c.Ordinal(), status));
-}
-
-
 

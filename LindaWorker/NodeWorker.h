@@ -14,24 +14,30 @@
 
 #include <Linda.h>
 
-class NodeWorker : public Linda::Test::ProcessorCommand
+namespace Linda
 {
-public:
-    NodeWorker(int commandRead, int resultWrite, int requestWrite, int answerRead);
-    void Run();
+    namespace Test
+    {
+        class NodeWorker : public ProcessorCommand
+        {
+        public:
+            NodeWorker(int commandRead, int resultWrite, int requestWrite, int responseRead);
+            void Run();
 
-    virtual void Process(Linda::Test::CommandCreate &c);
-    virtual void Process(Linda::Test::CommandKill &c);
-    virtual void Process(Linda::Test::CommandStat &c);
-    virtual void Process(Linda::Test::CommandOutput &c);
-    virtual void Process(Linda::Test::CommandInput &c);
-    virtual void Process(Linda::Test::CommandRead &c);
+            virtual void Process(CommandCreate &c);
+            virtual void Process(CommandKill &c);
+            virtual void Process(CommandStat &c);
+            virtual void Process(CommandOutput &c);
+            virtual void Process(CommandInput &c);
+            virtual void Process(CommandRead &c);
 
-private:
-    Linda::Linda                mLinda;
-    Linda::Test::PipeCommand    mPipeCommand;
-    Linda::Test::PipeResult     mPipeResult;
-};
+        private:
+            Linda          mLinda;
+            PipeCommand    mPipeCommand;
+            PipeResult     mPipeResult;
+        };
+    }
+}
 
 #endif	/* _NODEWORKER_H */
 
