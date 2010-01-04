@@ -17,6 +17,9 @@
 
 namespace Linda
 {
+    /**
+     * Intrface class for LibLinda Library
+     */
     class Linda {
     public:
         Linda(int responseDescriptor, int requestDescriptor);

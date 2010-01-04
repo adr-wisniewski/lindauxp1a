@@ -27,7 +27,6 @@ template<> struct ClassToId< classname >    \
     static id_t Id()    {   return id;   }  \
 }
 
-
 namespace Linda
 {
     ASSIGN_ID(RequestInput,     100);

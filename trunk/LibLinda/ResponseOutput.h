@@ -12,6 +12,9 @@
 
 namespace Linda
 {
+    /**
+     * Linda Output response
+     */
     class ResponseOutput : 
         public MessageResponse,
         RegisterSerializable<ResponseOutput, MessageResponse>

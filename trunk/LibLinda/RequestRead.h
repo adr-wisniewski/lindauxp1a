@@ -13,6 +13,9 @@
 
 namespace Linda
 {
+    /**
+     * Linda Read request for given query
+     */
     class RequestRead : 
         public RequestInput,
         RegisterSerializable<RequestRead, MessageRequest>

@@ -16,6 +16,11 @@
 
 namespace Linda
 {
+    /**
+     * Query value interface
+     *  provides IsSatisfied method, which checks if corresponding tuple value
+     *  matches the query
+     */
     class QueryValue : public Serializable<QueryValue>
     {
     public:
@@ -29,7 +34,10 @@ namespace Linda
         return q.clone();
     }
     
-    // interface implementation
+    /**
+     * QueryValue interface implementation
+     *  Implements all interface methods
+     */
     template<class TType, Operation TOperation>
     class ConcreteQueryValue : public QueryValue
     {
@@ -51,6 +59,9 @@ namespace Linda
         ConcreteTupleValue<TType> mValue;
     };
 
+    /**
+     * Partial specialization for std::string due to different serialization routine
+     */
     template<Operation TOperation>
     class ConcreteQueryValue<std::string, TOperation> : public QueryValue
     {
@@ -72,16 +83,16 @@ namespace Linda
         ConcreteTupleValue<std::string> mValue;
     };
 
-    // Query class
+    /**
+     * Query class is a tuple, which additionaly provides IsSatisfied method,
+     * which checks if given tuple meets given requirements
+     */
     class Query : public TupleBase<QueryValue>
     {
     public:
         bool IsSatisfied(const Tuple &tuple);
     };
 }
-
-#include "Query.impl.h"
-
 
 #endif	/* _QUERY_H */
 

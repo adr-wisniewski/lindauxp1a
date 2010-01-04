@@ -13,6 +13,9 @@
 
 namespace Linda
 {
+    /**
+     * Response message processor interface
+     */
     class ProcessorResponse
     {
     public:

@@ -14,6 +14,9 @@
 
 namespace Linda
 {
+    /**
+     * Linda Output request for given tuple
+     */
     class RequestOutput : 
         public MessageRequest,
         RegisterSerializable<RequestOutput, MessageRequest>

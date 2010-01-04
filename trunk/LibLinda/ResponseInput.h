@@ -13,6 +13,9 @@
 
 namespace Linda
 {
+    /**
+     * Linda Input response for all Input operations ( input and read )
+     */
     class ResponseInput : 
         public MessageResponse,
         RegisterSerializable<ResponseInput, MessageResponse>

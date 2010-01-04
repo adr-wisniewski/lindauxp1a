@@ -14,6 +14,9 @@
 namespace Linda
 {
 
+    /**
+     * Generic exception for LibLinda library
+     */
     class Exception : public std::runtime_error
     {
     public:

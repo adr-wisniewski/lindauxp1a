@@ -14,6 +14,9 @@
 
 namespace Linda
 {
+    /**
+     * Request message processor interface
+     */
     class ProcessorRequest
     {
     public:
