@@ -8,6 +8,8 @@
     </logicalFolder>
     <itemPath>NodeTester.cpp</itemPath>
     <itemPath>NodeTester.h</itemPath>
+    <itemPath>ParserCommand.cpp</itemPath>
+    <itemPath>ParserCommand.h</itemPath>
     <itemPath>main.cpp</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

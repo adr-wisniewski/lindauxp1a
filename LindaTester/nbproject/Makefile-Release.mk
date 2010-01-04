@@ -31,6 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/ParserCommand.o \
 	${OBJECTDIR}/NodeTester.o \
 	${OBJECTDIR}/main.o
 
@@ -61,6 +62,11 @@ dist/Release/GNU-Linux-x86/lindatester: ../LibLindaTest/dist/Release/GNU-Linux-x
 dist/Release/GNU-Linux-x86/lindatester: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindatester ${OBJECTFILES} ${LDLIBSOPTIONS} 
+
+${OBJECTDIR}/ParserCommand.o: nbproject/Makefile-${CND_CONF}.mk ParserCommand.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -I../LibLindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/ParserCommand.o ParserCommand.cpp
 
 ${OBJECTDIR}/NodeTester.o: nbproject/Makefile-${CND_CONF}.mk NodeTester.cpp 
 	${MKDIR} -p ${OBJECTDIR}
