@@ -36,7 +36,7 @@ namespace Test
         // read and process commands
         while(true)
         {
-            boost::shared_ptr<MessageCommand> command = mPipeCommand.Read();
+            boost::shared_ptr<MessageCommand> command(mPipeCommand.Read());
 
             // no more commands
             if(command == boost::shared_ptr<MessageCommand>())

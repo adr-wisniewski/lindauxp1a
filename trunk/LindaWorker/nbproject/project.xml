@@ -12,7 +12,7 @@
             <make-dep-projects>
                 <make-dep-project>../LibLinda</make-dep-project>
                 <make-dep-project>../LibLindaTest</make-dep-project>
-                <make-dep-project>../Linda</make-dep-project>
+                <make-dep-project>../LindaStorage</make-dep-project>
             </make-dep-projects>
         </data>
     </configuration>

@@ -26,43 +26,34 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LibLinda/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../LibLindaTest/dist/Debug/GNU-Linux-x86</pElem>
+          </linkerAddLib>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LibLinda"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LibLinda"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/liblinda.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LibLindaTest"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LibLindaTest"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/liblindatest.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
           </linkerLibItems>
+          <commandLine>-Wl,--whole-archive -llinda -llindatest -Wl,--no-whole-archive</commandLine>
         </linkerTool>
         <requiredProjects>
-          <makeArtifact PL="../Linda"
+          <makeArtifact PL="../LibLinda"
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
-                        WD="../Linda"
+                        BL="true"
+                        WD="../LibLinda"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/liblinda.a">
+          </makeArtifact>
+          <makeArtifact PL="../LindaStorage"
+                        CT="1"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LindaStorage"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/lindastorage">
           </makeArtifact>
         </requiredProjects>
       </compileType>
