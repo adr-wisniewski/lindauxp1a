@@ -13,20 +13,21 @@
 
 #include "NodeTester.h"
 
+#include <Id.h>
+#include <IdTest.h>
+
 
 int main(int argc, char** argv) {
 
     try
     {
         Linda::Test::NodeTester tester;
-        tester.Run();
-
-        return EXIT_SUCCESS;
+        return tester.Run() ? EXIT_SUCCESS : EXIT_FAILURE;
     }
     catch(std::exception &e)
     {
-        Linda::Test::debug_print(boost::str(
-                boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
+        Linda::debug_print(boost::str(
+                boost::format("Fatal exception in tester %1%: %2%\n") % getpid() % e.what()
         ));
 
         return EXIT_FAILURE;

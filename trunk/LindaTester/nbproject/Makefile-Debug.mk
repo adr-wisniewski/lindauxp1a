@@ -49,19 +49,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
+LDLIBSOPTIONS=-L../LibLinda/dist/Debug/GNU-Linux-x86 -L../LibLindaTest/dist/Debug/GNU-Linux-x86
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/lindatester
 
-dist/Debug/GNU-Linux-x86/lindatester: ../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a
-
-dist/Debug/GNU-Linux-x86/lindatester: ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
-
 dist/Debug/GNU-Linux-x86/lindatester: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindatester ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -Wl,--whole-archive -llinda -llindatest -Wl,--no-whole-archive -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindatester ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/ParserCommand.o: nbproject/Makefile-${CND_CONF}.mk ParserCommand.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -82,6 +78,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 .build-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug
 	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug
+	cd ../LindaWorker && ${MAKE}  -f Makefile CONF=Debug
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -92,6 +90,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 .clean-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../LindaWorker && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -82,6 +82,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 .build-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release
 	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Release
+	cd ../LindaWorker && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -92,6 +94,8 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 .clean-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release clean
 	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../LindaWorker && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

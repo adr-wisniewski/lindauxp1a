@@ -8,6 +8,8 @@
 #include "NodeTester.h"
 
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <string>
 #include <stdlib.h>
 #include <cstdio>
@@ -29,7 +31,7 @@ namespace Test
     {
     }
 
-    void NodeTester::Run()
+    bool NodeTester::Run()
     {
         // initialize storage node
         InitializeStorage();
@@ -55,7 +57,8 @@ namespace Test
                 FD_SET (result, &set);
 
             // pick descriptor
-            TEMP_FAILURE_RETRY(select(FD_SETSIZE, &set, NULL, NULL, NULL));
+            if(TEMP_FAILURE_RETRY(select(FD_SETSIZE, &set, NULL, NULL, NULL)) == -1)
+                throw Linda::Exception(errno, "NodeTester::Run select");
 
             // process stdin
             if(isStdinOpened && FD_ISSET(STDIN_FILENO, &set))
@@ -69,6 +72,8 @@ namespace Test
 
         // cleanup
         Finalize();
+
+        return mSuccess;
     }
 
     void NodeTester::InitializeStorage()
@@ -91,8 +96,8 @@ namespace Test
 
                 mPipeCommand.CloseEnd(PipeBase::EndWrite);
                 mPipeResult.CloseEnd(PipeBase::EndRead);
-                execl("lindastorage","lindastorage",command.c_str(),result.c_str(), (char*)0);
-                throw Linda::Exception(errno, "NodeTester::InitializeStorage execl");
+                execlp("lindastorage","lindastorage",command.c_str(),result.c_str(), (char*)0);
+                throw Linda::Exception(errno, "NodeTester::InitializeStorage execlp");
             }
 
             // parent
@@ -108,9 +113,12 @@ namespace Test
         std::string input;
 
         if(std::getline(std::cin, input).eof())
+        {
+            mPipeCommand.CloseEnd(PipeBase::EndWrite);
             return false;
+        }
 
-        input = Linda::Test::trim(input);
+        input = Linda::trim(input);
 
         // igonre empty commands
         if(input != "")
@@ -134,8 +142,15 @@ namespace Test
 
     bool NodeTester::ProcessResult()
     {
-        boost::shared_ptr<MessageResult> message = mPipeResult.Read();
+      
+        boost::shared_ptr<MessageResult> message(mPipeResult.Read());
+
+        if(message == boost::shared_ptr<MessageResult>())
+            return false;
+
         message->Process(this);
+
+        return true;
     }
 
     /*virtual*/ void NodeTester::Process(ResultBasic &r)
@@ -164,13 +179,17 @@ namespace Test
             case MessageResult::Status_WorkerDoesntExists:
                 message = "Worker doesn't exist";
                 break;
+
+            case MessageResult::Status_WorkerKilled:
+                message = "Worker was killed";
+                break;
         }
 
         OutputResult(r.Ordinal(), false, message.c_str());
     }
 
     /*virtual*/ void NodeTester::Process(ResultStat &r)
-    {
+    {       
         std::ostringstream buffer;
         const ResultStat::StorageList &storage = r.Storage();
         const ResultStat::ReadList &reads = r.AwaitingReads();
@@ -180,19 +199,22 @@ namespace Test
         buffer << "STORAGE\n";
         for(ResultStat::StorageList::const_iterator i = storage.begin(), e = storage.end(); i != e; ++i)
         {
-            buffer << "\t" << *i << "\n";
+            buffer << "\t" << (*i) << "\n";
         }
 
         buffer << "READS\n";
         for(ResultStat::ReadList::const_iterator i = reads.begin(), e = reads.end(); i != e; ++i)
         {
-            buffer << "\t" << i->first << "\t" << i->second << "\n";
+            buffer << "\t" << i->workerId << "\t" << (i->isRemoving ? "input" : "read") << "\t" << i->query << "\n";
         }
+
+        // print contents
+        Linda::debug_print(buffer.str());
     }
 
     void NodeTester::OutputResult(int ordinal, bool success, const char *message)
     {
-        Linda::Test::debug_print(boost::str(boost::format("%1%\t%2%\t%3%\n")
+        Linda::debug_print(boost::str(boost::format("%1%\t%2%\t%3%\n")
             % ordinal
             % (success ? "PASS" : "FAIL")
             % message
@@ -201,8 +223,19 @@ namespace Test
 
     void NodeTester::Finalize()
     {
+        int status;
+
         // wait for storage process to finish
-        // TODO: waiting for storage to end reading exit code
+        //Linda::debug_print(std::string("Shutting down tester: waiting for storage process to terminate\n"));
+        waitpid(mStoragePid, &status, 0);
+
+        if(!WIFEXITED(status) || WEXITSTATUS(status) != EXIT_SUCCESS)
+        {
+            // error happened
+            mSuccess = false;
+
+            //Linda::debug_print(std::string("FAIL\tStorage process exitted with error\n"));
+        }
     }
 
 }

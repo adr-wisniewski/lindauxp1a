@@ -25,7 +25,7 @@ namespace Linda
         {
         public:
             NodeTester();
-            void Run();
+            bool Run();
 
             virtual void Process(ResultBasic &r);
             virtual void Process(ResultStat &r);
