@@ -19,6 +19,7 @@ namespace Linda
         public MessageResponse,
         RegisterSerializable<ResponseOutput, MessageResponse>
     {
+    public:
         ResponseOutput();
         ResponseOutput(bool status);
 

@@ -24,6 +24,7 @@ namespace Linda
     class QueryValue : public Serializable<QueryValue>
     {
     public:
+        virtual ~QueryValue(){}
         virtual bool IsSatisfied(const TupleValue &value) const = 0;
         virtual QueryValue* clone() const = 0;
         virtual std::string ToString() const = 0;
@@ -39,11 +40,14 @@ namespace Linda
      *  Implements all interface methods
      */
     template<class TType, Operation TOperation>
-    class ConcreteQueryValue : public QueryValue
+    class ConcreteQueryValue : 
+        public QueryValue,
+        RegisterSerializable<ConcreteQueryValue<TType, TOperation>, QueryValue>
     {
     public:
         ConcreteQueryValue();
         ConcreteQueryValue(TType value);
+        virtual ~ConcreteQueryValue(){}
 
         virtual bool IsSatisfied(const TupleValue &value) const;
         
@@ -53,8 +57,8 @@ namespace Linda
     protected:
         // members
         virtual id_t Id() const;
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
         ConcreteTupleValue<TType> mValue;
     };
@@ -63,7 +67,9 @@ namespace Linda
      * Partial specialization for std::string due to different serialization routine
      */
     template<Operation TOperation>
-    class ConcreteQueryValue<std::string, TOperation> : public QueryValue
+    class ConcreteQueryValue<std::string, TOperation> : 
+        public QueryValue,
+        RegisterSerializable<ConcreteQueryValue<std::string, TOperation>, QueryValue>
     {
     public:
         ConcreteQueryValue();
@@ -77,8 +83,8 @@ namespace Linda
     protected:
         // members
         virtual id_t Id() const;
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
         ConcreteTupleValue<std::string> mValue;
     };
@@ -90,7 +96,8 @@ namespace Linda
     class Query : public TupleBase<QueryValue>
     {
     public:
-        bool IsSatisfied(const Tuple &tuple);
+        virtual ~Query(){}
+        bool IsSatisfied(const Tuple &tuple) const;
     };
 }
 

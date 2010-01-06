@@ -10,18 +10,22 @@ namespace Linda
 
     }
 
-    RequestInput::RequestInput(const Query &query)
-    : mGivenQuery(query)
+    RequestInput::RequestInput(pid_t pid, bool isRemoving, const Query &query)
+    : MessageRequest(pid), mIsRemoving(isRemoving), mGivenQuery(query)
     {
     }
 
-    /*virtual*/ void RequestInput::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void RequestInput::DoSerialize(Archive &stream) const
     {
+        MessageRequest::DoSerialize(stream);
+        stream << mIsRemoving;
         mGivenQuery.DoSerialize(stream);
     }
 
-    /*virtual*/ void RequestInput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void RequestInput::DoUnserialize(Archive &stream)
     {
+        MessageRequest::DoUnserialize(stream);
+        stream >> mIsRemoving;
         mGivenQuery.DoUnserialize(stream);
     }
 
@@ -43,6 +47,16 @@ namespace Linda
     void RequestInput::GivenQuery(const Query& value)
     {
         mGivenQuery = value;
+    }
+
+    bool RequestInput::IsRemoving() const
+    {
+        return mIsRemoving;
+    }
+
+    void RequestInput::IsRemoving(bool value)
+    {
+        mIsRemoving = value;
     }
 }
 

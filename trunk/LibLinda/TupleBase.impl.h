@@ -12,7 +12,19 @@
 
 namespace Linda
 {
+    template<class Value>
+    TupleBase<Value>::TupleBase()
+    {
+        
+    }
+
+    template<class Value>
+    TupleBase<Value>::TupleBase(const TupleBase<Value> &original)
+    : mValues(original.mValues)
+    {
   
+    }
+
     template<class Value>
     typename TupleBase<Value>::ValueList& TupleBase<Value>::Values()
     {
@@ -27,7 +39,7 @@ namespace Linda
 
     // serialization
     template<class Value>
-    void TupleBase<Value>::DoSerialize(std::ostream &stream) const
+    void TupleBase<Value>::DoSerialize(Archive &stream) const
     {
         // write size
         stream << mValues.size();
@@ -38,14 +50,14 @@ namespace Linda
     }
 
     template<class Value>
-    void TupleBase<Value>::DoUnserialize(std::istream &stream)
+    void TupleBase<Value>::DoUnserialize(Archive &stream)
     {
         // read size and create values
         size_t size;
         stream >> size;
 
         while( size-- > 0)
-            mValues.push_back(Serializable<Value>::Unserialize(stream).get());
+            mValues.push_back(Serializable<Value>::Unserialize(stream));
     }
 
     template<class Value>
@@ -66,7 +78,7 @@ namespace Linda
             first = false;
         }
 
-        stream << ")";
+        stream << " )";
     }
 }
 

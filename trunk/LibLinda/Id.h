@@ -30,7 +30,6 @@ template<> struct ClassToId< classname >    \
 namespace Linda
 {
     ASSIGN_ID(RequestInput,     100);
-    ASSIGN_ID(RequestRead,      101);
     ASSIGN_ID(RequestOutput,    102);
 
     ASSIGN_ID(ResponseInput,    110);
@@ -42,7 +41,7 @@ namespace Linda
     TPL_ASSIGN_ID(TPL(ConcreteTupleValue<std::string>),  302);
 
     template<class T, Operation TOperation> class ConcreteQueryValue;
-    TPL_ASSIGN_ID(TPL(ConcreteQueryValue<float,OperationEqual>),        400);
+    //TPL_ASSIGN_ID(TPL(ConcreteQueryValue<float,OperationEqual>),        400);
     TPL_ASSIGN_ID(TPL(ConcreteQueryValue<float,OperationNotEqual>),     401);
     TPL_ASSIGN_ID(TPL(ConcreteQueryValue<float,OperationLess>),         402);
     TPL_ASSIGN_ID(TPL(ConcreteQueryValue<float,OperationEqualLess>),    403);

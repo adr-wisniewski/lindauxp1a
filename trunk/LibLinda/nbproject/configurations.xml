@@ -6,12 +6,16 @@
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>Archive.cpp</itemPath>
+    <itemPath>Archive.h</itemPath>
+    <itemPath>AwaitingRead.h</itemPath>
     <itemPath>Exception.cpp</itemPath>
     <itemPath>Exception.h</itemPath>
     <itemPath>Id.h</itemPath>
     <itemPath>Linda.cpp</itemPath>
     <itemPath>Linda.h</itemPath>
     <itemPath>Message.h</itemPath>
+    <itemPath>MessageRequest.cpp</itemPath>
     <itemPath>MessageRequest.h</itemPath>
     <itemPath>MessageResponse.cpp</itemPath>
     <itemPath>MessageResponse.h</itemPath>
@@ -28,19 +32,18 @@
     <itemPath>RequestInput.h</itemPath>
     <itemPath>RequestOutput.cpp</itemPath>
     <itemPath>RequestOutput.h</itemPath>
-    <itemPath>RequestRead.cpp</itemPath>
-    <itemPath>RequestRead.h</itemPath>
     <itemPath>ResponseInput.cpp</itemPath>
     <itemPath>ResponseInput.h</itemPath>
     <itemPath>ResponseOutput.cpp</itemPath>
     <itemPath>ResponseOutput.h</itemPath>
-    <itemPath>Serializable.cpp</itemPath>
     <itemPath>Serializable.h</itemPath>
     <itemPath>Serializable.impl.h</itemPath>
     <itemPath>Tuple.cpp</itemPath>
     <itemPath>Tuple.h</itemPath>
     <itemPath>TupleBase.h</itemPath>
     <itemPath>TupleBase.impl.h</itemPath>
+    <itemPath>Util.cpp</itemPath>
+    <itemPath>Util.h</itemPath>
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>

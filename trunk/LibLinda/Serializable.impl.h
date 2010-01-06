@@ -9,14 +9,16 @@
 #define	_SERIALIZABLE_IMPL_H
 
 #include <cassert>
+#include <unistd.h>
 #include <boost/format.hpp>
 
 #include "Exception.h"
+#include "Util.h"
 
 namespace Linda
 {
     template<class TType>
-    void Serializable<TType>::Serialize(std::ostream &stream) const
+    void Serializable<TType>::Serialize(Archive &stream) const
     {
         // write id to stream
         stream << this->Id();
@@ -26,7 +28,7 @@ namespace Linda
     }
 
     template<class TType>
-    /*static*/ boost::shared_ptr<TType> Serializable<TType>::Unserialize(std::istream &stream)
+    /*static*/ std::auto_ptr<TType> Serializable<TType>::Unserialize(Archive &stream)
     {
         // retrive id
         id_t id;
@@ -39,7 +41,7 @@ namespace Linda
             throw Exception(boost::format("Serializable::Create - unknown id: %1%") % id);
 
         // create object and unserialize
-        boost::shared_ptr<TType> result((*i->second)());
+        std::auto_ptr<TType> result((*i->second)());
         static_cast<Serializable<TType>*>(result.get())->DoUnserialize(stream);
 
         return result;
@@ -48,8 +50,8 @@ namespace Linda
     template<class TType>
     /*static*/ bool Serializable<TType>::RegisterCreator(id_t id, Creator creator)
     {
-        // registration  should occir only once
-        assert(GetRegister().find() == GetRegister().end());
+        // registration  should occur only once
+        assert(GetRegister().find(id) == GetRegister().end());
 
         // register
         GetRegister()[id] = creator;

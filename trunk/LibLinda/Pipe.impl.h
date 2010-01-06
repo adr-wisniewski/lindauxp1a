@@ -8,12 +8,15 @@
 #ifndef _PIPE_IMPL_H
 #define	_PIPE_IMPL_H
 
-#include <limits.h>
 #include <sstream>
+#include <unistd.h>
 #include <boost/format.hpp>
 #include <boost/scoped_array.hpp>
 
 #include "Exception.h"
+#include "Util.h"
+#include "Archive.h"
+#include <signal.h>
 
 namespace Linda
 {
@@ -21,65 +24,65 @@ namespace Linda
     Pipe<TProduct>::Pipe()
         : PipeBase()
     {
-        // empty
+        signal(SIGPIPE, SIG_IGN);
     }
 
     template<class TProduct>
     Pipe<TProduct>::Pipe(int readDescriptor, int writeDescriptor)
         : PipeBase(readDescriptor, writeDescriptor)
     {
-        // empty
+        signal(SIGPIPE, SIG_IGN);
     }
 
     template<class TProduct>
     void Pipe<TProduct>::Write(const TProduct &p)
     {
-        int size;
+        try
+        {
+            Archive stream;
+            Archive wrapper;
 
-        // create buffer 
-        std::stringstream stream(std::stringstream::binary | std::stringstream::in);
-        stream.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
+            // serialize
+            p.Serialize(stream);
+            std::string data = stream.Get();
 
-        // allocate space for size header
-        stream << size;
+            // stamp with size  
+            wrapper << data;
 
-        // serialize
-        p.Serialize(static_cast<std::ostream&>(stream));
-
-        // check size
-        if(static_cast<int>(stream.tellg()) > PIPE_BUF)
-            throw Exception(boost::format("Message too big: %1%B") % size);
-
-        // stamp with size
-        size = static_cast<int>(stream.tellg()) - sizeof(int);
-        stream.seekg(0, std::ios::beg);
-        stream << size;
-
-        // get data and send it through pipe
-        std::string data = stream.str();
-        PipeBase::Write(data.c_str(), data.length());
+            // get data and send it through pipe
+            std::string packet = wrapper.Get();
+            PipeBase::Write(packet.c_str(), packet.length());
+        }
+        catch(std::stringstream::failure &e)
+        {
+            throw Exception(boost::format("Pipe<TProduct>::Write io exception: %1%") % e.what());
+        }
     }
 
     template<class TProduct>
-    boost::shared_ptr<TProduct> Pipe<TProduct>::Read()
+    std::auto_ptr<TProduct> Pipe<TProduct>::Read()
     {
-        int size;
-       
-        // create buffer and read message contents
-        if(!PipeBase::Read(reinterpret_cast<char*>(&size), sizeof(int)))
-            return boost::shared_ptr<TProduct>();
+        try
+        {
+            int size;
 
-        boost::scoped_array<char> buffer(new char[size]);
-        PipeBase::Read(buffer.get(), size);
+            // create buffer and read message contents
+            if(!PipeBase::Read(reinterpret_cast<char*>(&size), sizeof(int)))
+                return std::auto_ptr<TProduct>();
 
-        // move data into stream
-        std::stringstream stream(std::string(buffer.get(), size),
-                std::stringstream::binary | std::stringstream::out);
+            boost::scoped_array<char> buffer(new char[size]);
+            PipeBase::Read(buffer.get(), size);
 
-        stream.exceptions(std::ios::eofbit | std::ios::failbit | std::ios::badbit);
+            // move data into stream
+            Archive stream(std::string(buffer.get(), size));
 
-        // unserialize object
-        return Serializable<TProduct>::Unserialize(static_cast<std::istream&>(stream));
+            // unserialize object
+            return Serializable<TProduct>::Unserialize(stream);
+        }
+        catch(std::stringstream::failure &e)
+        {
+            throw Exception(boost::format("Pipe<TProduct>::Read io exception: %1%") % e.what());
+        }
     }
 
 }

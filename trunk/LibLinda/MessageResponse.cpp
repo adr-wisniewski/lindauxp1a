@@ -12,12 +12,16 @@ namespace Linda
         Status(status);
     }
 
-    /*virtual*/ void MessageResponse::DoSerialize(std::ostream &stream) const
+    /*virtual*/ MessageResponse::~MessageResponse()
+    {
+    }
+
+    /*virtual*/ void MessageResponse::DoSerialize(Archive &stream) const
     {
         stream << mStatus;
     }
 
-    /*virtual*/ void MessageResponse::DoUnserialize(std::istream &stream)
+    /*virtual*/ void MessageResponse::DoUnserialize(Archive &stream)
     {
         stream >> mStatus;
     }

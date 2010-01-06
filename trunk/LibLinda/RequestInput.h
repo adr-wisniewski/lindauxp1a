@@ -22,18 +22,22 @@ namespace Linda
     {
     public:
         RequestInput();
-        RequestInput(const Query &query);
+        RequestInput(pid_t pid, bool isRemoving, const Query &query);
 
         virtual void Process(ProcessorRequest *processor);
 
         const Query& GivenQuery() const;
         void GivenQuery(const Query& value);
 
+        bool IsRemoving() const;
+        void IsRemoving(bool value);
+
     protected:
         virtual id_t Id() const;
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
+        bool mIsRemoving;
         Query mGivenQuery;
     };
 }
