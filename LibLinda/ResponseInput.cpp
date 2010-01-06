@@ -14,13 +14,13 @@ namespace Linda
     {
     }
 
-    /*virtual*/ void ResponseInput::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ResponseInput::DoSerialize(Archive &stream) const
     {
         MessageResponse::DoSerialize(stream);
         mGivenTuple.DoSerialize(stream);
     }
 
-    /*virtual*/ void ResponseInput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ResponseInput::DoUnserialize(Archive &stream)
     {
         MessageResponse::DoUnserialize(stream);
         mGivenTuple.DoUnserialize(stream);

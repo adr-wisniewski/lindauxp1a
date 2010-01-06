@@ -9,7 +9,7 @@
 #define	_PIPE_H
 
 #include "PipeBase.h"
-#include <boost/shared_ptr.hpp>
+#include <memory>
 
 namespace Linda
 {
@@ -25,7 +25,7 @@ namespace Linda
         Pipe(int readDescriptor, int writeDescriptor);
 
         void Write(const TProduct &p);
-        boost::shared_ptr<TProduct> Read();
+        std::auto_ptr<TProduct> Read();
     };
 }
 

@@ -54,25 +54,25 @@ namespace Linda
 
     // serialization
     template<class TType>
-    /*virtual*/ void ConcreteTupleValue<TType>::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ConcreteTupleValue<TType>::DoSerialize(Archive &stream) const
     {
         stream << mValue;
     }
 
-    /*virtual*/ void ConcreteTupleValue<std::string>::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ConcreteTupleValue<std::string>::DoSerialize(Archive &stream) const
     {
-        SerializeString(mValue, stream);
+        stream << mValue;
     }
 
     template<class TType>
-    /*virtual*/ void ConcreteTupleValue<TType>::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ConcreteTupleValue<TType>::DoUnserialize(Archive &stream)
     {
         stream >> mValue;
     }
 
-    /*virtual*/ void ConcreteTupleValue<std::string>::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ConcreteTupleValue<std::string>::DoUnserialize(Archive &stream)
     {
-        mValue = UnserializeString(stream);
+        stream >> mValue;
     }
 
     template<class TType>

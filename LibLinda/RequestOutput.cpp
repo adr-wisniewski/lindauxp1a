@@ -10,18 +10,20 @@ namespace Linda
 
     }
 
-    RequestOutput::RequestOutput(const Tuple &tuple)
-    : mGivenTuple(tuple)
+    RequestOutput::RequestOutput(pid_t pid, const Tuple &tuple)
+    : MessageRequest(pid), mGivenTuple(tuple)
     {
     }
 
-    /*virtual*/ void RequestOutput::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void RequestOutput::DoSerialize(Archive &stream) const
     {
+        MessageRequest::DoSerialize(stream);
         mGivenTuple.DoSerialize(stream);
     }
 
-    /*virtual*/ void RequestOutput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void RequestOutput::DoUnserialize(Archive &stream)
     {
+        MessageRequest::DoUnserialize(stream);
         mGivenTuple.DoUnserialize(stream);
     }
 

@@ -26,13 +26,14 @@ namespace Linda
     public:
         MessageResponse();
         MessageResponse(bool status);
+        virtual ~MessageResponse();
 
         bool Status() const;
         void Status(bool value);
 
     protected:
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
         bool mStatus;
     };

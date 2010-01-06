@@ -12,6 +12,7 @@
 #include "Serializable.h"
 #include <boost/noncopyable.hpp>
 #include <string>
+#include <ostream>
 
 namespace Linda
 {
@@ -19,6 +20,7 @@ namespace Linda
     class TupleValue : public Serializable<TupleValue>, boost::noncopyable
     {
     public:
+        virtual ~TupleValue(){}
         virtual TupleValue* clone() const = 0;
         virtual std::string ToString() const = 0;
     };
@@ -37,6 +39,7 @@ namespace Linda
     public:
         ConcreteTupleValue();
         ConcreteTupleValue(TType value);
+        virtual ~ConcreteTupleValue(){}
 
         TType Value() const;
         void Value(TType value);
@@ -48,8 +51,8 @@ namespace Linda
 
     protected:
         virtual id_t Id() const;
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
         
         
@@ -77,8 +80,8 @@ namespace Linda
 
     protected:
         virtual id_t Id() const;
-        virtual void DoSerialize(std::ostream &stream) const;
-        virtual void DoUnserialize(std::istream &stream);
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
 
         std::string mValue;
     };

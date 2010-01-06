@@ -11,9 +11,8 @@
 
 #include <string>
 #include <list>
-#include <ostream>
-#include <istream>
 #include <boost/ptr_container/ptr_vector.hpp>
+#include "Archive.h"
 
 namespace Linda
 {
@@ -24,6 +23,9 @@ namespace Linda
     class TupleBase
     {
     public:
+        TupleBase();
+        TupleBase(const TupleBase &original);
+        virtual ~TupleBase(){}
 
         typedef boost::ptr_vector<Value> ValueList;
 
@@ -32,8 +34,8 @@ namespace Linda
         const ValueList& Values() const;
 
         // serialization
-        void DoSerialize(std::ostream &stream) const;
-        void DoUnserialize(std::istream &stream);
+        void DoSerialize(Archive &stream) const;
+        void DoUnserialize(Archive &stream);
 
     protected:
         ValueList mValues;

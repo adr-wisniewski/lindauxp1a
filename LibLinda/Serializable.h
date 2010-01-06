@@ -13,6 +13,9 @@
 #include <ostream>
 #include <string>
 #include <boost/shared_ptr.hpp>
+#include <memory>
+
+#include "Archive.h"
 
 namespace Linda
 {
@@ -52,8 +55,8 @@ namespace Linda
         typedef std::map<id_t, Creator> Register;
 
         // interface
-        void Serialize(std::ostream &stream) const;
-        static boost::shared_ptr<TType> Unserialize(std::istream &stream);
+        void Serialize(Archive &stream) const;
+        static std::auto_ptr<TType> Unserialize(Archive &stream);
 
         // registering
         static bool RegisterCreator(id_t id, Creator creator);
@@ -62,8 +65,8 @@ namespace Linda
 
         // virtuals
         virtual id_t Id() const = 0;
-        virtual void DoSerialize(std::ostream &stream) const = 0;
-        virtual void DoUnserialize(std::istream &stream) = 0;
+        virtual void DoSerialize(Archive &stream) const = 0;
+        virtual void DoUnserialize(Archive &stream) = 0;
 
     private:
         static Register& GetRegister();
@@ -75,11 +78,15 @@ namespace Linda
     template<class TMessage, class TBase>
     class RegisterSerializable
     {
+    public:
+        RegisterSerializable()
+        {
+            assert(IsRegistered);
+            IsRegistered; // instantinate
+        }
+
         static bool IsRegistered;
     };
-
-    void SerializeString(const std::string &s, std::ostream &stream);
-    std::string UnserializeString(std::istream &stream);
 }
 
 #include "Serializable.impl.h"

@@ -39,8 +39,8 @@ namespace Linda
             std::ostringstream buffer;
             buffer
                 << typeName
-                << operationSign
-                << " "
+                << ":"
+                << operationSign         
                 << value;
 
             return buffer.str();
@@ -63,9 +63,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, "=", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, "", value);
         }
     };
 
@@ -79,9 +79,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, "!=", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, "!", value);
         }
     };
 
@@ -95,9 +95,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, "<", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, "<", value);
         }
     };
 
@@ -111,9 +111,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, "<=", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, "<=", value);
         }
     };
 
@@ -127,9 +127,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, ">", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, ">", value);
         }
     };
 
@@ -143,9 +143,9 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
-            OperationTraitsBase::QueryToString<TType>(typeName, ">=", value);
+            return OperationTraitsBase::QueryToString<TType>(typeName, ">=", value);
         }
     };
 
@@ -159,10 +159,10 @@ namespace Linda
         }
 
         template<class TType>
-        static std::string QueryToString(const std::string typeName, TType value)
+        static std::string QueryToString(const std::string &typeName, TType value)
         {
             std::ostringstream buffer;
-            buffer << typeName << "=*";
+            buffer << typeName << ":*";
 
             return buffer.str();
         }

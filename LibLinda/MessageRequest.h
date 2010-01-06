@@ -24,7 +24,19 @@ namespace Linda
         public Message<ProcessorRequest>,
         public Serializable<MessageRequest>
     {
+    public:
+        MessageRequest();
+        MessageRequest(pid_t pid);
+        virtual ~MessageRequest();
 
+        pid_t Pid() const;
+        void Pid(pid_t value);
+
+    protected:
+        virtual void DoSerialize(Archive &stream) const;
+        virtual void DoUnserialize(Archive &stream);
+
+        pid_t mPid;
     };
 
     typedef Pipe<MessageRequest> PipeRequest;

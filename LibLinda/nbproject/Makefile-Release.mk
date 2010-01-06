@@ -32,14 +32,15 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/RequestOutput.o \
-	${OBJECTDIR}/Serializable.o \
 	${OBJECTDIR}/MessageResponse.o \
 	${OBJECTDIR}/ResponseOutput.o \
-	${OBJECTDIR}/RequestRead.o \
+	${OBJECTDIR}/Util.o \
+	${OBJECTDIR}/MessageRequest.o \
 	${OBJECTDIR}/PipeBase.o \
 	${OBJECTDIR}/Exception.o \
 	${OBJECTDIR}/Query.o \
 	${OBJECTDIR}/Linda.o \
+	${OBJECTDIR}/Archive.o \
 	${OBJECTDIR}/Tuple.o \
 	${OBJECTDIR}/RequestInput.o \
 	${OBJECTDIR}/ResponseInput.o
@@ -75,11 +76,6 @@ ${OBJECTDIR}/RequestOutput.o: nbproject/Makefile-${CND_CONF}.mk RequestOutput.cp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestOutput.o RequestOutput.cpp
 
-${OBJECTDIR}/Serializable.o: nbproject/Makefile-${CND_CONF}.mk Serializable.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Serializable.o Serializable.cpp
-
 ${OBJECTDIR}/MessageResponse.o: nbproject/Makefile-${CND_CONF}.mk MessageResponse.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
@@ -90,10 +86,15 @@ ${OBJECTDIR}/ResponseOutput.o: nbproject/Makefile-${CND_CONF}.mk ResponseOutput.
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/ResponseOutput.o ResponseOutput.cpp
 
-${OBJECTDIR}/RequestRead.o: nbproject/Makefile-${CND_CONF}.mk RequestRead.cpp 
+${OBJECTDIR}/Util.o: nbproject/Makefile-${CND_CONF}.mk Util.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/RequestRead.o RequestRead.cpp
+	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Util.o Util.cpp
+
+${OBJECTDIR}/MessageRequest.o: nbproject/Makefile-${CND_CONF}.mk MessageRequest.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/MessageRequest.o MessageRequest.cpp
 
 ${OBJECTDIR}/PipeBase.o: nbproject/Makefile-${CND_CONF}.mk PipeBase.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -114,6 +115,11 @@ ${OBJECTDIR}/Linda.o: nbproject/Makefile-${CND_CONF}.mk Linda.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Linda.o Linda.cpp
+
+${OBJECTDIR}/Archive.o: nbproject/Makefile-${CND_CONF}.mk Archive.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../BoostFiles -MMD -MP -MF $@.d -o ${OBJECTDIR}/Archive.o Archive.cpp
 
 ${OBJECTDIR}/Tuple.o: nbproject/Makefile-${CND_CONF}.mk Tuple.cpp 
 	${MKDIR} -p ${OBJECTDIR}

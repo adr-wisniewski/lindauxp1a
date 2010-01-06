@@ -1,10 +1,12 @@
 #include "Query.h"
 #include <sstream>
 #include "Id.h"
+#include "Util.h"
 
 namespace Linda
 {
-    /*virtual*/ bool Query::IsSatisfied(const Tuple &tuple)
+
+    /*virtual*/ bool Query::IsSatisfied(const Tuple &tuple) const
     {
         // get list of values
         const Tuple::ValueList &values = tuple.Values();
@@ -81,19 +83,19 @@ namespace Linda
     }
 
     template<class TType, Operation TOperation>
-    /*virtual*/ void ConcreteQueryValue<TType,TOperation>::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ConcreteQueryValue<TType,TOperation>::DoSerialize(Archive &stream) const
     {
         stream << mValue.Value();
     }
 
     template<Operation TOperation>
-    /*virtual*/ void ConcreteQueryValue<std::string,TOperation>::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ConcreteQueryValue<std::string,TOperation>::DoSerialize(Archive &stream) const
     {
-        SerializeString(mValue.Value(), stream);
+        stream << mValue.Value();
     }
 
     template<class TType, Operation TOperation>
-    /*virtual*/ void ConcreteQueryValue<TType,TOperation>::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ConcreteQueryValue<TType,TOperation>::DoUnserialize(Archive &stream)
     {
         TType result;
         stream >> result;
@@ -102,9 +104,12 @@ namespace Linda
     }
 
     template<Operation TOperation>
-    /*virtual*/ void ConcreteQueryValue<std::string,TOperation>::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ConcreteQueryValue<std::string,TOperation>::DoUnserialize(Archive &stream)
     {
-        mValue.Value(UnserializeString(stream));
+        std::string result;
+        stream >> result;
+
+        mValue.Value(result);
     }
 
     template<class TType, Operation TOperation>
@@ -112,8 +117,7 @@ namespace Linda
     {
         // must be same type
         const ConcreteTupleValue<TType> *val = dynamic_cast<const ConcreteTupleValue<TType>*>(&value);
-
-        return val != 0 && OperationTraits<TOperation>::OperatorSatisfied(mValue.Value(), val->Value());
+        return val != 0 && OperationTraits<TOperation>::OperatorSatisfied(val->Value(), mValue.Value());
     }
 
     template<Operation TOperation>
@@ -121,14 +125,13 @@ namespace Linda
     {
         // must be same type
         const ConcreteTupleValue<std::string> *val = dynamic_cast<const ConcreteTupleValue<std::string>*>(&value);
-
-        return val != 0 && OperationTraits<TOperation>::OperatorSatisfied(mValue.Value(), val->Value());
+        return val != 0 && OperationTraits<TOperation>::OperatorSatisfied(val->Value(), mValue.Value());
     }
 
     template<class TType, Operation TOperation>
     /*virtual*/ std::string ConcreteQueryValue<TType,TOperation>::ToString() const
     {
-        return OperationTraits<TOperation>::QueryToString(mValue.GetTypeName() ,mValue.Value());
+        return OperationTraits<TOperation>::QueryToString(mValue.GetTypeName(), mValue.Value());
     }
 
     template<Operation TOperation>
@@ -138,12 +141,13 @@ namespace Linda
     }
 
     // explicit instantination of template classes
-    template class ConcreteQueryValue<float,OperationEqual>;
+    //template class ConcreteQueryValue<float,OperationEqual>;
     template class ConcreteQueryValue<float,OperationNotEqual>;
     template class ConcreteQueryValue<float,OperationLess>;
     template class ConcreteQueryValue<float,OperationEqualLess>;
     template class ConcreteQueryValue<float,OperationGreater>;
     template class ConcreteQueryValue<float,OperationEqualGreater>;
+    template class ConcreteQueryValue<float,OperationAny>;
 
     template class ConcreteQueryValue<int,OperationEqual>;
     template class ConcreteQueryValue<int,OperationNotEqual>;

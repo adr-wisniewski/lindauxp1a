@@ -7,11 +7,11 @@
 
 #include "Linda.h"
 #include "Exception.h"
-#include "RequestRead.h"
 #include "RequestInput.h"
 #include "RequestOutput.h"
 #include "ResponseInput.h"
 #include "ResponseOutput.h"
+#include "Util.h"
 
 namespace Linda
 {
@@ -24,26 +24,26 @@ namespace Linda
 
     bool Linda::Read(const Query &query, Tuple &tuple)
     {
-        mPipeRequest.Write(RequestRead(query));
+        mPipeRequest.Write(RequestInput(getpid(), false, query));
         return HandleResponseInput(tuple);
     }
 
     bool Linda::Input(const Query &query, Tuple &tuple)
     {
-        mPipeRequest.Write(RequestInput(query));
+        mPipeRequest.Write(RequestInput(getpid(), true, query));
         return HandleResponseInput(tuple);
     }
 
     bool Linda::Output(const Tuple &tuple)
     {
-        mPipeRequest.Write(RequestOutput(tuple));
+        mPipeRequest.Write(RequestOutput(getpid(), tuple));
         return HandleResponseOutput();
     }
 
     bool Linda::HandleResponseInput(Tuple &tuple)
     {
         // should be smart_ptr
-        boost::shared_ptr<MessageResponse> message = mPipeResponse.Read();
+        boost::shared_ptr<MessageResponse> message(mPipeResponse.Read());
         ResponseInput* response = dynamic_cast<ResponseInput*>(message.get());
 
         if(response != 0 )
@@ -53,7 +53,6 @@ namespace Linda
             if(status)
                 tuple = response->GivenTuple();
 
-            delete response;
             return status;
         }
         else
@@ -65,15 +64,12 @@ namespace Linda
     bool Linda::HandleResponseOutput()
     {
         // should be smart_ptr
-        boost::shared_ptr<MessageResponse> message = mPipeResponse.Read();
+        boost::shared_ptr<MessageResponse> message(mPipeResponse.Read());
         ResponseOutput* response = dynamic_cast<ResponseOutput*>(message.get());
 
         if(response != 0 )
         {
-            bool status = response->Status();
-
-            delete response;
-            return status;
+            return response->Status();
         }
         else
         {
