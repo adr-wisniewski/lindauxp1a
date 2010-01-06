@@ -48,19 +48,15 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
+LDLIBSOPTIONS=-L../LibLinda/dist/Debug/GNU-Linux-x86 -L../LibLindaTest/dist/Debug/GNU-Linux-x86
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/lindaworker
 
-dist/Debug/GNU-Linux-x86/lindaworker: ../LibLinda/dist/Debug/GNU-Linux-x86/liblinda.a
-
-dist/Debug/GNU-Linux-x86/lindaworker: ../LibLindaTest/dist/Debug/GNU-Linux-x86/liblindatest.a
-
 dist/Debug/GNU-Linux-x86/lindaworker: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindaworker ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -Wl,--whole-archive -llinda -llindatest -Wl,--no-whole-archive -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindaworker ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/NodeWorker.o: nbproject/Makefile-${CND_CONF}.mk NodeWorker.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -75,7 +71,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Subprojects
 .build-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug
-	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -85,7 +81,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 # Subprojects
 .clean-subprojects:
 	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Debug clean
-	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../LindaStorage && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

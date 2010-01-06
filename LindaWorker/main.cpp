@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     }
     catch(std::exception &e)
     {
-        Linda::Test::debug_print(boost::str(
+        Linda::debug_print(boost::str(
                 boost::format("Fatal exception in worker %1%: %2%\n") % getpid() % e.what()
         ));
 
