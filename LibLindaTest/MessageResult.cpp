@@ -18,12 +18,16 @@ namespace Test
 
     }
 
-    /*virtual*/ void MessageResult::DoSerialize(std::ostream &stream) const
+    /*virtual*/ MessageResult::~MessageResult()
+    {
+    }
+
+    /*virtual*/ void MessageResult::DoSerialize(Archive &stream) const
     {
         stream << mOrdinal << static_cast<int>(mStatus);
     }
 
-    /*virtual*/ void MessageResult::DoUnserialize(std::istream &stream)
+    /*virtual*/ void MessageResult::DoUnserialize(Archive &stream)
     {
         int status;
 

@@ -17,13 +17,13 @@ namespace Test
 
     }
 
-    /*virtual*/ void CommandInput::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void CommandInput::DoSerialize(Archive &stream) const
     {
         MessageWorkerCommand::DoSerialize(stream);
         mGivenQuery.DoSerialize(stream);
     }
 
-    /*virtual*/ void CommandInput::DoUnserialize(std::istream &stream)
+    /*virtual*/ void CommandInput::DoUnserialize(Archive &stream)
     {
         MessageWorkerCommand::DoUnserialize(stream);
         mGivenQuery.DoUnserialize(stream);

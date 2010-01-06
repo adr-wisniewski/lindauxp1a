@@ -25,6 +25,7 @@ namespace Linda
         public:
             MessageCommand();
             MessageCommand(int ordinal);
+            virtual ~MessageCommand();
 
             int Ordinal() const;
             void Ordinal(int value);
@@ -32,8 +33,8 @@ namespace Linda
             virtual void Process(ProcessorCommand *processor) = 0;
 
         protected:
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(Archive &stream) const;
+            virtual void DoUnserialize(Archive &stream);
 
             int mOrdinal;
         };

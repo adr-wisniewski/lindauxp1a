@@ -10,6 +10,8 @@
 #include "ResultStat.h"
 #include "ProcessorResult.h"
 #include "IdTest.h"
+#include <Util.h>
+#include <unistd.h>
 
 namespace Linda
 {
@@ -29,11 +31,13 @@ namespace Test
         mStorage(storage),
         mAwaitingReads(awaitingReads)
     {
-
+        
     }
 
-    /*virtual*/ void ResultStat::DoSerialize(std::ostream &stream) const
+    /*virtual*/ void ResultStat::DoSerialize(Archive &stream) const
     {
+        MessageResult::DoSerialize(stream);
+
         // serialize storage
         stream << mStorage.size();
         for(StorageList::const_iterator i = mStorage.begin(),
@@ -43,7 +47,7 @@ namespace Test
         {
             i->DoSerialize(stream);
         }
-
+            
         // serialize reads
         stream << mAwaitingReads.size();
         for(ReadList::const_iterator i = mAwaitingReads.begin(),
@@ -51,17 +55,19 @@ namespace Test
             i != e;
             ++i)
         {
-            // serialize first
-            stream << i->first;
+            // serialize constant length elements
+            stream << i->workerId << i->isRemoving;
 
-            // serialize second
-            i->second.DoSerialize(stream);
+            // serialize query
+            i->query.DoSerialize(stream);
         }
     }
-    /*virtual*/ void ResultStat::DoUnserialize(std::istream &stream)
+    /*virtual*/ void ResultStat::DoUnserialize(Archive &stream)
     {
-        int size;
+        MessageResult::DoUnserialize(stream);
 
+        int size;
+        
         stream >> size;
         while(size--)
         {
@@ -69,20 +75,18 @@ namespace Test
             tuple.DoUnserialize(stream);
             mStorage.push_back(tuple);
         }
-
+        
         stream >> size;
         while(size--)
         {
-            // read workerNo
-            int worker;
-            stream >> worker;
+            AwaitingRead read;
 
-            // read query
-            Query query;
-            query.DoUnserialize(stream);
+            // unserialize
+            stream  >> read.workerId >> read.isRemoving;
+            read.query.DoUnserialize(stream);
 
             // add element
-            mAwaitingReads.push_back(AwaitingRead(worker,query));
+            mAwaitingReads.push_back(read);
         }
     }
 

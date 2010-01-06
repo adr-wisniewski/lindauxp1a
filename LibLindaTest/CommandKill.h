@@ -21,6 +21,7 @@ namespace Linda
         public:
             CommandKill();
             CommandKill(int ordinal, int workerId);
+            virtual ~CommandKill(){};
 
             virtual void Process(ProcessorCommand *processor);
 

@@ -20,13 +20,14 @@ namespace Linda
         public:
             MessageWorkerCommand();
             MessageWorkerCommand(int ordinal, int workerId);
+            virtual ~MessageWorkerCommand(){};
 
             int WorkerId() const;
             void WorkerId(int value);
 
         protected:
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(Archive &stream) const;
+            virtual void DoUnserialize(Archive &stream);
 
             int mWorkerId;
         };
