@@ -9,36 +9,73 @@
 #define	_STORAGENODE_H
 
 #include <list>
+#include <unistd.h>
+#include <boost/shared_ptr.hpp>
 
-class StorageNode: private Linda::Test::ProcessorCommand, private Linda::ProcessorRequest
+#include <ProcessorCommand.h>
+#include <ProcessorRequest.h>
+#include <MessageResult.h>
+#include <MessageResponse.h>
+#include <Query.h>
+#include <AwaitingRead.h>
+
+namespace Linda
 {
-public:
-    StorageNode(int commandRead, int answerRead);
-    ~StorageNode();
-    void Run();
-    static void action(int signum, siginfo_t *info, void* context);
+    namespace Test
+    {
+        class StorageNode : public ProcessorCommand, public ProcessorRequest
+        {
+        public:
+            StorageNode(int commandRead, int answerRead);
+            
+            bool Run();
+            
+            virtual void Process(CommandCreate &c);
+            virtual void Process(CommandKill &c);
+            virtual void Process(CommandStat &c);
+            virtual void Process(CommandOutput &c);
+            virtual void Process(CommandInput &c);
+            virtual void Process(CommandRead &c);
 
-private:
-    virtual void Process(Linda::Test::CreateCommand &c);
-    virtual void Process(Linda::Test::KillCommand &c);
-    virtual void Process(Linda::Test::StatCommand &c);
-    virtual void Process(Linda::Test::OutputCommand &c);
-    virtual void Process(Linda::Test::InputCommand &c);
-    virtual void Process(Linda::Test::ReadCommand &c);
-    virtual void Process(Linda::RequestRead &r);
-    virtual void Process(Linda::RequestInput &r);
-    virtual void Process(Linda::RequestOutput &r);
-    void Remove(int id);
-    void RemoveWorker(int id);
-    Worker* FindWorker(int id);
+            virtual void Process(RequestInput &r);
+            virtual void Process(RequestOutput &r);
+            
+        protected:
 
-    Linda::Test::PipeCommand commandPipe;
-    Linda::Test::PipeResult resultPipe;
-    Linda::PipeRequest requestPipe;
-    std::list<Worker*> workerList;
-    std::list<Linda::Tuple> tuplesList;
-    std::list<Waiting> waitingRequest;
-};
+            struct Worker
+            {
+                int             workerId;
+                pid_t           workerPid;
+                bool            active;
+                PipeCommand     commandPipe;
+                PipeResponse    responsePipe;
+            };
+
+            typedef std::list<boost::shared_ptr<Worker> >       WorkerList;
+            typedef std::list<Tuple>                            TupleList;
+            typedef std::list<AwaitingRead>                     ReadList;
+
+            WorkerList::iterator GetWorkerByWorkerId(int workerId);
+            WorkerList::iterator GetWorkerByWorkerPid(pid_t workerPid);
+            bool ProcessCommand();
+            bool ProcessRequest();
+            void RelayCommand(MessageWorkerCommand &c);
+
+            int mChildCount;
+            bool mStatus;
+
+            PipeCommand commandPipe;
+            PipeResult  resultPipe;
+            PipeRequest requestPipe;
+
+            WorkerList  workerList;
+            TupleList   tuplesList;
+            ReadList    waitingRequest;
+        };
+    }
+}
+
+// TODO obsluga sigpipe
 
 #endif	/* _STORAGENODE_H */
 

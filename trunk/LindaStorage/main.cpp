@@ -5,9 +5,18 @@
  * Created on 12 grudzień 2009, 22:07
  */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <exception>
+#include <boost/lexical_cast.hpp>
+#include <Exception.h>
+#include <Util.h>
 
+
+#include "StorageNode.h"
+
+#include <Id.h>
+#include <IdTest.h>
 /*
  * 
  */
@@ -15,17 +24,31 @@ int main(int argc, char** argv) {
 
     try
     {
-        if(argc != 3 || atoi(argv[1] == 0 || atoi(argv[2] == 0)))
-            throw SomeException("Invalid program arguments");
+        if(argc != 3)
+            throw Linda::Exception("Invalid program arguments");
 
-        StorageNode storage(atoi(argv[1]), atoi(argv[2]));
-        storage.Run();
+        int commandRead;
+        int resultWrite;
 
-        return (EXIT_SUCCESS);
+        try
+        {
+            commandRead     = boost::lexical_cast<int>(argv[1]);
+            resultWrite     = boost::lexical_cast<int>(argv[2]);
+        }
+        catch(boost::bad_lexical_cast)
+        {
+            throw Linda::Exception("Invalid program arguments");
+        }
+
+        Linda::Test::StorageNode storage(commandRead, resultWrite);
+        return storage.Run() ? EXIT_SUCCESS : EXIT_FAILURE;
     }
-    catch (std::Exception &e)
+    catch (std::exception &e)
     {
-        printerror("Fatal exception in storage: " + e.what());
+        Linda::debug_print(
+                boost::format("Fatal exception in storage %1%: %2%\n") % getpid() % e.what()
+        );
+        
         return EXIT_FAILURE;
     }
 }

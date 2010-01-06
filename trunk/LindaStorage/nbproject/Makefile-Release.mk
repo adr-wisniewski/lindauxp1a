@@ -13,8 +13,8 @@ CP=cp
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=
-CXX=
+CCC=g++
+CXX=g++
 FC=
 AS=as
 
@@ -31,6 +31,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/StorageNode.o \
 	${OBJECTDIR}/main.o
 
 # C Compiler Flags
@@ -47,31 +48,44 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=../LibLinda/dist/Release/GNU-Linux-x86/liblinda.a ../LibLindaTest/dist/Release/GNU-Linux-x86/liblindatest.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
 	${MAKE}  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/lindastorage
 
+dist/Release/GNU-Linux-x86/lindastorage: ../LibLinda/dist/Release/GNU-Linux-x86/liblinda.a
+
+dist/Release/GNU-Linux-x86/lindastorage: ../LibLindaTest/dist/Release/GNU-Linux-x86/liblindatest.a
+
 dist/Release/GNU-Linux-x86/lindastorage: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/lindastorage ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
+${OBJECTDIR}/StorageNode.o: nbproject/Makefile-${CND_CONF}.mk StorageNode.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I../LibLinda -I../LibLindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/StorageNode.o StorageNode.cpp
+
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -O2 -I../LibLinda -I../LibLindaTest -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release
 
 # Clean Targets
-.clean-conf:
+.clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
 	${RM} dist/Release/GNU-Linux-x86/lindastorage
 
 # Subprojects
 .clean-subprojects:
+	cd ../LibLinda && ${MAKE}  -f Makefile CONF=Release clean
+	cd ../LibLindaTest && ${MAKE}  -f Makefile CONF=Release clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -1,192 +1,364 @@
 #include "StorageNode.h"
-#include "Worker.h"
 
-#include <stdlib.h>
-#include <sys/types.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <string>
+#include <cerrno>
+#include <boost/lexical_cast.hpp>
 
-using namespace Linda;
-using namespace Linda::Test;
+#include <Exception.h>
+#include <ResultBasic.h>
+#include <ResultStat.h>
+#include <ResponseInput.h>
+#include <ResponseOutput.h>
+#include <Util.h>
 
-StorageNode::StorageNode(int commandRead, int answerRead)
-    :
-    commandPipe(commandRead, Pipe::EndClosed),
-    resultPipe(answerRead, Pipe::EndClosed)
+namespace Linda
 {
-    struct sigaction new_a;
-    new_a.sa_sigaction = StorageNode::action;
-    sigemptyset (&new_a.sa_mask);
-    new_a.sa_flags = SA_NOCLDSTOP | SA_SIGINFO;
+namespace Test
+{
 
-    if(sigaction(SIGCHLD, &new_a, NULL) == -1 )
-        throw Linda::Exception("Error");
+
+StorageNode::StorageNode(int commandRead, int resultWrite)
+    :
+    mChildCount(0),
+    mStatus(true),
+    commandPipe(commandRead, PipeBase::EndClosed),
+    resultPipe(PipeBase::EndClosed, resultWrite)
+{
+
 }
 
-int StorageNode::Run()
-{
-    fd_set rfd, afd;
-    FD_ZERO(&afd);
-    FD_SET(commandPipe.GetEnd(Pipe::ReadEnd), &afd);
-    FD_SET(requestPipe.GetEnd(Pipe::ReadEnd), &afd);
-    int max = commandPipe.GetEnd(Pipe::ReadEnd) > requestPipe.GetEnd(Pipe::ReadEnd) ? commandPipe.GetEnd(Pipe::ReadEnd), &afd) : requestPipe.GetEnd(Pipe::ReadEnd);
-    while(true)
-    {
-        bcopy((char*)&afd, (char*)&rfd, sizeof(afd));
-        if(select(max, &rfd, NULL, NULL, 0) < 0)
-        {
-            //throw Exception
-        }
-        if(FD_ISSET(requestPipe.GetEnd(Pipe::ReadEnd), &rfd))
-        {
 
+bool StorageNode::Run()
+{
+    int command = commandPipe.GetEnd(PipeBase::EndRead);
+    int request = requestPipe.GetEnd(PipeBase::EndRead);
+
+    // flags for each source;
+    bool isCommandOpened = true;
+
+    // read
+    do
+    {
+        // initialize
+        fd_set set;
+        FD_ZERO (&set);
+
+        struct timeval tv;
+        tv.tv_sec = 0;
+        tv.tv_usec = 200000;
+
+        if(isCommandOpened)
+            FD_SET(command, &set);
+
+        FD_SET(request, &set);
+
+        // pick descriptor
+        int selectValue = TEMP_FAILURE_RETRY(select(FD_SETSIZE, &set, NULL, NULL, &tv));
+
+        if( selectValue == -1)
+            throw Linda::Exception(errno, "StorageNode::Run select");
+
+        if( selectValue != 0 )
+        {
+            // process command
+            if(isCommandOpened && FD_ISSET(command, &set))
+            {
+                isCommandOpened = ProcessCommand();
+            }
+
+            // process request
+            if(FD_ISSET(request, &set))
+                ProcessRequest();
         }
         else
         {
-            Linda::Test::MessageCommand *command = commandPipe.Read();
-            /*
-            if(command == 0)
-            break;
-            */
-            command->Process(this);
-            delete command;
+            while(mChildCount > 0)
+            {
+                int status;
+                int ret = wait3(&status, WNOHANG, 0);
+
+                if(ret == -1)
+                    throw Linda::Exception(errno, "StorageNode::Run wait3");
+
+                if(ret == 0)
+                    break;
+                
+                --mChildCount;
+                Linda::debug_print(boost::str(
+                    boost::format("Storage: collected child - %1% left\n") % mChildCount
+                ));
+
+                if(!WIFEXITED(status) || WEXITSTATUS(status) != EXIT_SUCCESS)
+                    mStatus = false;
+            }
         }
     }
+    while(isCommandOpened || mChildCount > 0);
+
+    //Linda::debug_print(std::string("Storage: exitting...\n"));
+    return mStatus;
 }
 
-void StorageNode::Process(Linda::Test::CommandCreate &c)
+bool StorageNode::ProcessCommand()
 {
-    try
+    boost::shared_ptr<MessageCommand> command(commandPipe.Read());
+
+    if(command == boost::shared_ptr<MessageCommand>())
     {
-        Worker* worker = new Worker();
-        workerList.push_back(worker);
-        resultPipe.Write(c.Ordinal(), true, Linda::Test::ResultCreate(worker->GetId()));
+        //Linda::debug_print(std::string("Storage: closing command pipe\n"));
+        commandPipe.CloseEnd(PipeBase::EndRead);
+        return false;
     }
-    catch(Linda::Exception &e)
+
+    command->Process(this);
+    return true;
+}
+
+bool StorageNode::ProcessRequest()
+{
+    boost::shared_ptr<MessageRequest> request(requestPipe.Read());
+
+    if(request == boost::shared_ptr<MessageRequest>())
+        return false;
+
+    request->Process(this);
+    return true;
+}
+
+void StorageNode::Process(CommandCreate &c)
+{
+    // create new worker entry
+    boost::shared_ptr<Worker> worker(new Worker());
+    worker->active = true;
+    worker->workerId = c.WorkerId();
+
+    // check if id already exists
+    if(GetWorkerByWorkerId(worker->workerId) != workerList.end())
     {
-        resultPipe.Write(c.Ordinal(), false, Linda::Test::ResultCreate(worker->GetId()));
+        resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_WorkerAlreadyExists));
+        return;
     }
-    catch(Exception &e)
+
+    // create process
+    switch(worker->workerPid = fork())
     {
-        resultPipe.Write(c.Ordinal(), false, Linda::Test::ResultCreate(worker->GetId()));
-        return EXIT_FAILURE;
-    }
-    
-}
+        // error
+        case -1:
+            throw Exception(errno, "StorageNode::Process(CommandCreate) fork");
 
-void StorageNode::Process(Linda::Test::CommandKill &c)
-{
-    RemoveWorker(c.Id());
-    resultPipe.Write(Linda::Test::ResultKill(c.Ordinal(), true));
-}
-
-void StorageNode::Process(Linda::Test::CommandStat &c)
-{
-    resultPipe.Write(ResultStat(c.Ordinal(), true, tuplesList, waitingRequest));
-}
-
-void StorageNode::Process(Linda::Test::CommandOutput &c)
-{
-    Worker *w = FindWorker(c.Id());
-    w->GetPipeCommand().Write(c);
-}
-
-void StorageNode::Process(Linda::Test::CommandInput &c)
-{
-    Worker *w = FindWorker(c.Id());
-    w->GetPipeCommand().Write(c);
-}
-
-void StorageNode::Process(Linda::Test::CommandRead &c)
-{
-    Worker *w = FindWorker(c.Id());
-    w->GetPipeCommand().Write(c);
-}
-
-void StorageNode::Process(Linda::RequestOutput &r)
-{
-    bool status = false;
-    for(std::list<Waiting>::iterator i = waitingRequest.begin(), e = waitingRequest.end(); i != e;)
-    {
-        if((*i).query.IsSatisfied(r.GivenTuple()))
+        // child - close write end for created pipes
+        case 0:
         {
-            status = true;
-            Worker* w = FindWorker((*i).id);
-            w->GetPipeResponse().Write(Linda::ResponseOutput(true));
+            worker->commandPipe.CloseEnd(PipeBase::EndWrite);
+            worker->responsePipe.CloseEnd(PipeBase::EndWrite);
+
+            // execute worker program
+            std::string commandRead =
+                boost::lexical_cast<std::string>(worker->commandPipe.GetEnd(PipeBase::EndRead));
+
+            std::string resultWrite =
+                boost::lexical_cast<std::string>(resultPipe.GetEnd(PipeBase::EndWrite));
+
+            std::string requestWrite =
+                boost::lexical_cast<std::string>(requestPipe.GetEnd(PipeBase::EndWrite));
+
+            std::string responseRead =
+                boost::lexical_cast<std::string>(worker->responsePipe.GetEnd(PipeBase::EndRead));
+
+            execlp("lindaworker",
+                    "lindaworker",
+                    commandRead.c_str(),
+                    resultWrite.c_str(),
+                    requestWrite.c_str(),
+                    responseRead.c_str(),
+                    (char*)0);
+
+
+            // should not enter here
+            throw Exception(errno, "StorageNode::Process(CommandCreate) execlp");
+        }
+
+        // parent - close reading ends for ceated pipes
+        default:
+            ++mChildCount;
+            worker->commandPipe.CloseEnd(PipeBase::EndRead);
+            worker->responsePipe.CloseEnd(PipeBase::EndRead);
+    }
+
+    // add worker to list and send acknowledge
+    workerList.push_back(worker);
+    resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_Ok));
+}
+
+void StorageNode::Process(CommandKill &c)
+{
+    int workerId = c.WorkerId();
+    WorkerList::iterator worker = GetWorkerByWorkerId(workerId);
+
+    // didnt find
+    if(worker == workerList.end())
+    {
+        resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_WorkerDoesntExists));
+        return;
+    }
+    else if(!(*worker)->active)
+    {
+        resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_WorkerKilled));
+        return;
+    }
+
+    // deactivate worker and close his command pipe
+    (*worker)->active = false;
+    (*worker)->commandPipe.CloseEnd(PipeBase::EndWrite);
+
+    // send acknowledge
+    resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_Ok));
+    return;
+}
+
+void StorageNode::Process(CommandStat &c)
+{
+    resultPipe.Write(ResultStat(c.Ordinal(), tuplesList, waitingRequest));
+}
+
+void StorageNode::Process(CommandOutput &c)
+{
+    RelayCommand(c);
+}
+
+void StorageNode::Process(CommandInput &c)
+{
+    RelayCommand(c);
+}
+
+void StorageNode::Process(CommandRead &c)
+{
+    RelayCommand(c);
+}
+
+void StorageNode::Process(RequestOutput &r)
+{
+    // acknowledge request
+    WorkerList::iterator recipent = GetWorkerByWorkerPid(r.Pid());
+
+    if(recipent == workerList.end())
+        throw Exception(boost::format("Unknown request recipent %1%") % r.Pid());
+
+    (*recipent)->responsePipe.Write(ResponseOutput(true));
+
+    // check awaiting reads first
+    for(ReadList::iterator i = waitingRequest.begin(), e = waitingRequest.end(); i != e;)
+    {
+        AwaitingRead &read = *i;
+
+        if(read.query.IsSatisfied(r.GivenTuple()))
+        {
+            // send it to awaiting process
+            (*GetWorkerByWorkerId(read.workerId))->responsePipe.Write(ResponseInput(true,r.GivenTuple()));
+
+            bool exit = read.isRemoving;
+
+            // remove this entry
             i = waitingRequest.erase(i);
-            if((*i).input)
-                break;
+
+            // end if read was removing
+            if(exit)
+                return;
         }
-        else ++i;
+        else 
+        {
+            ++i;
+        }
     }
-    if(!status)
-        tuplesList.push_back(r.GivenTuple());
+
+    // tuple wasnt consumed
+    tuplesList.push_back(r.GivenTuple());
 }
 
-void StorageNode::Process(Linda::RequestInput &r)
+void StorageNode::Process(RequestInput &r)
 {
-    bool status = false;
-    std::list<Linda::Tuple>::iterator i, e;
-    for(i = tuplesList.begin(), e = tuplesList.end(); i != e; ++i)
-        if(r.GivenQuery().IsSatisfied(*i))
-        {
-            status = true;
-            break;
-        }
-    Worker* w = FindWorker(r.Id());
-    if(status)
+    // browse storage
+    for(TupleList::iterator i = tuplesList.begin(), e = tuplesList.end(); i != e; ++i)
     {
-        w->GetPipeResponse().Write(Linda::ResponseInput(true, (*i)));
-        tuplesList.erase(i);
-    }
-    else
-        waitingRequest.push_back(Waiting(w->GetId(), r.GivenQuery(), true));
-}
+        Tuple &tuple = *i;
 
-void StorageNode::Process(Linda::RequestRead &r)
-{
-    bool status = false;
-    std::list<Linda::Tuple>::iterator i, e;
-    for(i = tuplesList.begin(), e = tuplesList.end(); i != e; ++i)
-        if(r.GivenQuery().IsSatisfied(*i))
-            status = true;
-    Worker* w = FindWorker(r.Id());
-    if(status)
-        w->GetPipeResponse().Write(Linda::ResponseInput(true, (*i)));
-    else
-        waitingRequest.push_back(Waiting(w->GetId(), r.GivenQuery(), false));
-}
-
-void StorageNode::Remove(int id)
-{
-    for(std::list<Waiting>::iterator i = waitingRequest.begin(), e = waitingRequest.end(); i != e;)
-        if((*i).id == id)
-            i = waitingRequest.erase(i);
-        else ++i;
-
-}
-
-void StorageNode::RemoveWorker(int id)
-{
-    for(std::list<Worker*>::iterator i = workerList.begin(), e = workerList.end(); i != e; ++i)
-        if((*i)->GetId() == id)
+        // found match
+        if(r.GivenQuery().IsSatisfied(tuple))
         {
-            Worker* w = *i;
-            Remove(id);
-            workerList.erase(i);
-            delete w;
+            // return result
+            WorkerList::iterator recipent = GetWorkerByWorkerPid(r.Pid());
+
+            if(recipent == workerList.end())
+                throw Exception(boost::format("Unknown request recipent %1%") % r.Pid());
+
+            (*recipent)->responsePipe.Write(ResponseInput(true, tuple));
+
+            // if its removing read, remove tuple from storage
+            if(r.IsRemoving())
+                tuplesList.erase(i);
+
             return;
         }
-    throw Linda::Exception("Process not exist");
+    }
+
+    // curretly nothing matches - add to awaiting reads
+    WorkerList::iterator awaiting = GetWorkerByWorkerPid(r.Pid());
+
+    if(awaiting == workerList.end())
+        throw Exception(boost::format("Unknown request recipent %1%") % r.Pid());
+
+    AwaitingRead read;
+    read.isRemoving = r.IsRemoving();
+    read.workerId = (*awaiting)->workerId;
+    read.query = r.GivenQuery();
+
+    waitingRequest.push_back(read);
 }
 
-Worker* StorageNode::FindWorker(int id)
+StorageNode::WorkerList::iterator StorageNode::GetWorkerByWorkerId(int workerId)
 {
-    for(std::list<Worker*>::iterator i = workerList.begin(), e = workerList.end(); i != e; ++i)
-        if((*i)->GetId() == id)
-            return *i;
+    for(WorkerList::iterator i = workerList.begin(), e = workerList.end(); i != e; ++i)
+    {
+        if((*i)->workerId == workerId)
+            return i;
+    }
+            
+    return workerList.end();
 }
 
-static void StorageNode::action(int signum, siginfo_t *info, void* context)
+StorageNode::WorkerList::iterator StorageNode::GetWorkerByWorkerPid(pid_t workerPid)
 {
-   RemoveWorker(info->si_pid);
+    for(WorkerList::iterator i = workerList.begin(), e = workerList.end(); i != e; ++i)
+    {
+        if((*i)->workerPid == workerPid)
+            return i;
+    }
+
+    return workerList.end();
+}
+
+void StorageNode::RelayCommand(MessageWorkerCommand &c)
+{
+    int workerId = c.WorkerId();
+    WorkerList::iterator worker = GetWorkerByWorkerId(workerId);
+
+    // check if worker exists
+    if(worker == workerList.end())
+    {
+        resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_WorkerDoesntExists));
+    }
+    else if(!(*worker)->active)
+    {
+        resultPipe.Write(ResultBasic(c.Ordinal(), MessageResult::Status_WorkerKilled));
+    }
+    else
+    {
+        (*worker)->commandPipe.Write(c);
+    }
+}
+
+}
 }
