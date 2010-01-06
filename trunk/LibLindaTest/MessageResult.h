@@ -30,6 +30,7 @@ namespace Linda
                 Status_Fail,
                 Status_WorkerAlreadyExists,
                 Status_WorkerDoesntExists,
+                Status_WorkerKilled,
 
                 Status_MinCode = Status_Ok,
                 Status_MaxCode = Status_WorkerDoesntExists
@@ -37,6 +38,7 @@ namespace Linda
 
             MessageResult();
             MessageResult(int ordinal, StatusCode status);
+            virtual ~MessageResult();
 
             int Ordinal() const;
             void Ordinal(int value);
@@ -45,8 +47,8 @@ namespace Linda
             void Status(StatusCode value);
 
         protected:
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(Archive &stream) const;
+            virtual void DoUnserialize(Archive &stream);
 
             int mOrdinal;
             StatusCode mStatus;

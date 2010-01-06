@@ -21,6 +21,7 @@ namespace Linda
         public:
             CommandStat();
             CommandStat(int ordinal);
+            virtual ~CommandStat(){};
 
             virtual void Process(ProcessorCommand *processor);
 

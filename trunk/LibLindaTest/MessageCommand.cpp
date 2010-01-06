@@ -17,12 +17,16 @@ namespace Linda
 
         }
 
-        /*virtual*/ void MessageCommand::DoSerialize(std::ostream &stream) const
+        /*virtual*/ MessageCommand::~MessageCommand()
+        {
+        }
+
+        /*virtual*/ void MessageCommand::DoSerialize(Archive &stream) const
         {
             stream << mOrdinal;
         }
 
-        /*virtual*/ void MessageCommand::DoUnserialize(std::istream &stream)
+        /*virtual*/ void MessageCommand::DoUnserialize(Archive &stream)
         {
             stream >> mOrdinal;
         }

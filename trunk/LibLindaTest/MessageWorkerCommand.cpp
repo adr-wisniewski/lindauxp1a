@@ -22,13 +22,13 @@ namespace Test
 
     }
 
-     /*virtual*/ void MessageWorkerCommand::DoSerialize(std::ostream &stream) const
+     /*virtual*/ void MessageWorkerCommand::DoSerialize(Archive &stream) const
     {
         MessageCommand::DoSerialize(stream);
         stream << mWorkerId;
     }
 
-    /*virtual*/ void MessageWorkerCommand::DoUnserialize(std::istream &stream)
+    /*virtual*/ void MessageWorkerCommand::DoUnserialize(Archive &stream)
     {
         MessageCommand::DoUnserialize(stream);
         stream >> mWorkerId;

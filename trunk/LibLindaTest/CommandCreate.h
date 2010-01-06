@@ -21,6 +21,7 @@ namespace Linda
         public:
             CommandCreate();
             CommandCreate(int ordinal, int workerId);
+            virtual ~CommandCreate(){};
 
             virtual void Process(ProcessorCommand *processor);
 

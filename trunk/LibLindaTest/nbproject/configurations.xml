@@ -31,8 +31,6 @@
     <itemPath>ResultBasic.h</itemPath>
     <itemPath>ResultStat.cpp</itemPath>
     <itemPath>ResultStat.h</itemPath>
-    <itemPath>Util.cpp</itemPath>
-    <itemPath>Util.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>

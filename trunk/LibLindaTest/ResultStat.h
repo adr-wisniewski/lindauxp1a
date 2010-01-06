@@ -14,6 +14,7 @@
 #include <list>
 #include <Tuple.h>
 #include <Query.h>
+#include <AwaitingRead.h>
 
 namespace Linda
 {
@@ -24,7 +25,6 @@ namespace Linda
             RegisterSerializable<ResultStat, MessageResult>
         {
         public:
-            typedef std::pair<int, Query>   AwaitingRead;
             typedef std::list<Tuple>        StorageList;
             typedef std::list<AwaitingRead> ReadList;
 
@@ -42,11 +42,11 @@ namespace Linda
 
         protected:
             virtual id_t Id() const;
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(Archive &stream) const;
+            virtual void DoUnserialize(Archive &stream);
 
-            std::list<Tuple>        mStorage;
-            std::list<AwaitingRead> mAwaitingReads;
+            StorageList mStorage;
+            ReadList    mAwaitingReads;
         };
     }
 }

@@ -23,6 +23,7 @@ namespace Linda
         public:
             CommandInput();
             CommandInput(int ordinal, int workerId, const Query &query);
+            virtual ~CommandInput(){};
 
             virtual void Process(ProcessorCommand *processor);
 
@@ -31,8 +32,8 @@ namespace Linda
 
         protected:
             virtual id_t Id() const;
-            virtual void DoSerialize(std::ostream &stream) const;
-            virtual void DoUnserialize(std::istream &stream);
+            virtual void DoSerialize(Archive &stream) const;
+            virtual void DoUnserialize(Archive &stream);
 
             Query mGivenQuery;
         };
