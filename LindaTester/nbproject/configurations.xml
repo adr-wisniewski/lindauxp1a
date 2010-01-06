@@ -28,33 +28,56 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LibLinda/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../LibLindaTest/dist/Debug/GNU-Linux-x86</pElem>
+          </linkerAddLib>
           <linkerLibItems>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LibLinda"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LibLinda"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/liblinda.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LibLindaTest"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LibLindaTest"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="dist/Debug/GNU-Linux-x86/liblindatest.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
           </linkerLibItems>
+          <commandLine>-Wl,--whole-archive -llinda -llindatest -Wl,--no-whole-archive</commandLine>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../LibLinda"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LibLinda"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/liblinda.a">
+          </makeArtifact>
+          <makeArtifact PL="../LibLindaTest"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LibLindaTest"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/liblindatest.a">
+          </makeArtifact>
+          <makeArtifact PL="../LindaWorker"
+                        CT="1"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LindaWorker"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/lindaworker">
+          </makeArtifact>
+          <makeArtifact PL="../LindaStorage"
+                        CT="1"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LindaStorage"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/lindastorage">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="1">
@@ -105,6 +128,28 @@
             </linkerLibProjectItem>
           </linkerLibItems>
         </linkerTool>
+        <requiredProjects>
+          <makeArtifact PL="../LindaStorage"
+                        CT="1"
+                        CN="Release"
+                        AC="false"
+                        BL="true"
+                        WD="../LindaStorage"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/lindastorage">
+          </makeArtifact>
+          <makeArtifact PL="../LindaWorker"
+                        CT="1"
+                        CN="Release"
+                        AC="false"
+                        BL="true"
+                        WD="../LindaWorker"
+                        BC="${MAKE}  -f Makefile CONF=Release"
+                        CC="${MAKE}  -f Makefile CONF=Release clean"
+                        OP="dist/Release/GNU-Linux-x86/lindaworker">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
     </conf>
   </confs>
